@@ -25,6 +25,7 @@ test {
     finalizedBy jacocoTestReport
 }
 
+
 task coverage(type: JacocoReport) {
     sourceDirectories.from files(sourceSets.main.allSource.srcDirs)
     classDirectories.from files(sourceSets.main.output)
@@ -43,19 +44,23 @@ task coverage(type: JacocoReport) {
 dependencies {
     String jUnitVersion = '5.4.0'
     String javaFxVersion = '17.0.7'
+    def os = org.gradle.internal.os.OperatingSystem.current()
+    def arch = System.getProperty("os.arch")
+    def platform
+    if (os.isMacOsX()) {
+        platform = (arch.contains("aarch64") || arch.contains("arm")) ? "mac-aarch64" : "mac"
+    } else if (os.isLinux()) {
+        platform = "linux"
+    } else if (os.isWindows()) {
+        platform = "win"
+    } else {
+        throw new GradleException("Unsupported OS for JavaFX: " + os)
+    }
 
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-controls', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-fxml', version: javaFxVersion, classifier: 'linux'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
-    implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+    implementation "org.openjfx:javafx-base:${javaFxVersion}:${platform}"
+    implementation "org.openjfx:javafx-graphics:${javaFxVersion}:${platform}"
+    implementation "org.openjfx:javafx-controls:${javaFxVersion}:${platform}"
+    implementation "org.openjfx:javafx-fxml:${javaFxVersion}:${platform}"
 
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
@@ -70,3 +75,7 @@ shadowJar {
 }
 
 defaultTasks 'clean', 'test'
+
+run {
+    jvmArgs "-Dprism.order=sw"
+}
