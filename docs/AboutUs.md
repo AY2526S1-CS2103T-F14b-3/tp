@@ -9,41 +9,41 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
-### John Doe
+### Yu Tingan
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/llamawithhats.png" width="200px">
 
-[[homepage](http://www.comp.nus.edu.sg/~damithch)]
-[[github](https://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[homepage](https://llamawithhats.github.io/ip/)]
+[[github](https://github.com/llamawithhats)]
+[[portfolio](team/llamawithhats.md)]
 
-* Role: Project Advisor
+* Role: Developer
 
-### Jane Doe
+### Beh Shao Ren
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/ren0716.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/ren0716)]
+[[portfolio](team/ren0716.md)]
 
-* Role: Team Lead
+* Role: Developer
 * Responsibilities: UI
 
-### Johnny Doe
+### Hnin Sat Phyu Sin
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/hninsatphyusin.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/hninsatphyusin)] [[portfolio](team/hninsatphyusin.md)]
 
 * Role: Developer
 * Responsibilities: Data
 
-### Jean Doe
+### Timothy Tia Yi Zhi
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/timxthytia.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/timxthytia)]
+[[portfolio](team/timxthytia.md)]
 
 * Role: Developer
 * Responsibilities: Dev Ops + Threading

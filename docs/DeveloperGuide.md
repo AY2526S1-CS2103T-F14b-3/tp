@@ -500,16 +500,40 @@ Use case ends.
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4. The product supports only **one user per local data file**; concurrent multi-user access is not expected.
+5. All data is stored locally in a **human-readable text file** (e.g., JSON), allowing advanced users to edit it manually.
+6. No installer is required — the program can be run directly from a single **JAR file**.
+7. The system operates fully offline and has **no dependency on internet connectivity** or remote servers.
+8. Platform independence is required; the software must avoid OS-specific libraries so it runs consistently across Windows, macOS, and Linux.
+9. Deliverables must be lightweight: the JAR file ≤ **100 MB** and each PDF document ≤ **15 MB** to ensure easy portability and exam usability.
+10. Startup time should not exceed **2 seconds** on a modern laptop (e.g., Intel i5/Apple M1 with 8 GB RAM).
+11. User commands must execute within **1 second** under typical usage conditions (≤ 1000 students).
+12. In the event of a failed storage write, the application must **roll back changes** to prevent data corruption.
+13. Data integrity must be preserved across restarts; students and assignments saved before exit should remain consistent on relaunch.
+14. On invalid inputs or corrupted files, the program is expected to **fail gracefully** with clear, informative error messages (e.g., “Invalid command format! add: n/NAME p/PARENT_PHONE l/Secondary{1..4}”), without crashing.
+15. The user interface must remain usable on screens with at least **1024×768 resolution**, without scrolling needed for core features.
+16. Deliverables should exclude unnecessary third-party libraries or oversized media assets, ensuring files are not bloated.
+
 
 *{More to be added}*
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Student**: A core entity in TutorTrack representing an **individual learner**, with an academic level, parent contact, classes, and assignments.
+* **Assignment**: A **task linked to a student**, containing a title, description, subject, due date, and completion status.
+* **Class**: A **scheduled lesson** that groups students and assignments, associated with a subject and a time.
+* **Level**: The **academic year** of a student, limited to **Secondary 1 – 4**.
+* **PhoneNumber** : The parent’s **contact number** associated with a student, restricted to **Singapore format (+65XXXXXXXX)**.
+* **Subject**: The **academic subject** linked to a class or assignment (e.g. _Physics_, _English_).
+* **Duplicate student**: A student with the **same name and phone number** as an existing student.
+* **Filtered list**: A **subset of the student list** shown after running commands such as `find` or `class`.
+* **Command format**: The **syntax** a user must follow when entering commands (e.g., `add n/NAME p/PHONE_NUMBER l/LEVEL`).
+* **Valid command format error**: An **error message** displayed when the command syntax does not follow the required format (e.g., missing parameters).
+* **Storage file**: The file **`data/tutortrack.json`**, where TutorTrack **saves and loads all data**.
 
 --------------------------------------------------------------------------------------------------------------------
 
