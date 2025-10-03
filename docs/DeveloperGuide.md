@@ -262,27 +262,60 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
+* tuition centre tutors
+* teaching a wide range of subjects and student levels
+* manage students with volatile environment (may sign up or quit midway)
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Tutors often struggle to manage multiple students across different classes, especially when enrollment changes frequently. TutorTrack provides an integrated way to manage both classes and students by:
+
+* Linking each class to its list of enrolled students
+* Linking each student to their list of assignments
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| Priority | As a …​                           | I want to …​                                                 | So that I can…​                                                                                   |
+|----------|-----------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| `* * *`  | private tutor                     | add a student to my list                                     | I can keep track of who I am teaching.                                                            |
+| `* * *`  | private tutor                     | delete a student from my current list                        | I don’t have clutter from students I no longer teach.                                             |
+| `* * *`  | private tutor                     | add a class to a student                                     | I can keep track of which class a student belongs to. Class info includes subject and class time. |
+| `* * *`  | private tutor                     | delete a class to a student                                  | I can remove a class from a student if they quit/graduate.                                        |
+| `* * *`  | private tutor                     | see a list of all active students                            | I can review all my students at a glance.                                                         |
+| `* * *`  | private tutor                     | add an assignment to each student in a class                 | I can assign each student in a class an assignment                                                |
+| `* * *`  | private tutor                     | delete an assignment from each student in a class            | I can remove the homework or practice tasks a student has completed                               |
+| `* * *`  | private tutor                     | exit the app safely with data saved                          | I can resume work later without losing progress.                                                  |
+| `* * *`  | private tutor                     | find students by name                                        | I can get a student's information easily                                                          |
+| `* * * ` | organised private tutor           | filter students by class                                     | I can check students enrolled in a class                                                          |
+| `* *`    | private tutor                     | record notes for a tutoring session for a particular student | I can review what topics were covered and where the student struggled.                            |
+| `* *`    | private tutor                     | edit a student's name/subject/contact                        | I can edit a mistake I did/update any changes in student information                              |
+| `* *`    | private tutor                     | add a grade to a completed assignment                        | I can track the student’s performance across assignments.                                         |
+| `* *`    | private tutor                     | search for a student by partial name or subject              | I can quickly retrieve details even if I do not remember exact spellings.                         |
+| `* *`    | private tutor                     | mark an assignment as completed                              | I can differentiate between pending and finished work.                                            |
+| `* *`    | private tutor                     | undo my last action                                          | I can recover from mistakes quickly                                                               |
+| `* *`    | private tutor                     | tag students with labels                                     | I can group and filter them by specific keywords                                                  |
+| `* *`    | private tutor                     | add recurring sessions for a student                         | I can avoid re-entering the same lesson schedule every week                                       |
+| `* *`    | private tutor                     | secure my account with a password                            | I can keep personal info of my students private                                                   |
+| `* *`    | busy private tutor                | filter students by day                                       | I can check which student has active classes on a particular day                                  |
+| `* *`    | busy private tutor                | receive a warning before deleting a student or assignment    | I can prevent accidental loss of important information                                            |
+| `* *`    | beginner user of the app          | see the app populated with sample data                       | I can play around with the data and familiarise myself with the app's features                    |
+| `* *`    | beginner user of the app          | be shown where my commands went wrong                        | I can understand which commands to use properly                                                   |
+| `* *`    | beginner user of the app          | see a list of commands to use on the app                     | I can try out every command and get myself familiarised with the app                              |
+| `* *`    | organised private tutor           | delete/archive students without active class                 | I can reduce clutter                                                                              |
+| `* *`    | organised private tutor           | add due dates to assignments                                 | I can ensure my students submit their assignments on time                                         |
+| `* *`    | organised private tutor           | see the latest edits to my list                              | I can keep track of where I last left off                                                         |
+| `* *`    | organised private tutor           | filter by students who haven't paid for the previous month   | I can save time on tracking finances                                                              |
+| `* *`    | organised private tutor           | link multiple subjects to one student                        | I can manage students I teach in more than one subject.                                           |
+| `* *`    | expert user of the app            | create shortcuts for usual commands                          | I can save time                                                                                   |
+| `* *`    | expert user of the app            | export my student details to a CSV file                      | I can back up or share the data in a standard format                                              |
+| `* *`    | user ready to start using the app | clear all current data on the app                            | I can start anew with my own personal data                                                        |
+| `* `     | busy private tutor                | delete/archive a class                                       | I can remove the tagged class from all students                                                   |
+
 
 *{More to be added}*
 
