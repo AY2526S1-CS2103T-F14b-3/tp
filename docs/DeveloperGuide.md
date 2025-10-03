@@ -316,35 +316,185 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* *`    | user ready to start using the app | clear all current data on the app                            | I can start anew with my own personal data                                                        |
 | `* `     | busy private tutor                | delete/archive a class                                       | I can remove the tagged class from all students                                                   |
 
-
 *{More to be added}*
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+**Use case: Add a person**
 
-**Use case: Delete a person**
+**Primary Actor:** Private Tutor
+**Goal:** Add a new student to track lessons and assignments.
+
+**Preconditions**
+* TutorTrack is running
+* The tutor has the student’s name, phone number (SG format), and level.
+
+**Minimal Guarantees**
+* No partial/unknown student is created.
+
+**Success Guarantees**
+* New student appears in the student list with saved details.
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  Tutor initiates "add student" with information about \
+    * Name 
+    * Phone Number 
+    * Level
+2. System validates details and checks for duplicates.
+3. System creates the student and saves data.
+4. System shows a success message and highlights the new student.
+    
+Use case ends.
+
+**Extensions**
+
+* 1a. Missing or malformed details
+  * 1a1. System shows specific validation errors and requests corrections.
+  * 1a2. Tutor corrects input.
+
+    Use case resumes at step 2
+
+* 2a. Duplicate (same name + same phone)
+  * 2a1. System rejects and shows “student already exists”.
+    Use case ends.
+
+* 3a. Storage write fails
+  * 3a1. System rolls back creation and shows a failure message.
+    Use case ends.    
+
+**Use case: Delete a person**
+
+**Primary Actor:** Private Tutor
+**Goal:** Remove a student who is no longer being taught.
+
+**Preconditions**
+* At least one student is displayed (full or filtered list).
+
+**Minimal Guarantees**
+* No data corruption; list remains consistent.
+
+**Success Guarantees**
+* The target student is removed from the storage and the list.
+
+**MSS**
+1. Tutor deletes a student from the list based on the index.
+2. System validates the selected entry and requests confirmation.
+3. Tutor confirms.
+4. System removes the student and related records from storage.
+5. System shows a success message and updates the list.
+
+Use case ends.
+
+**Extensions**
+
+* 1a. Invalid selection (index out of bounds or no item)
+    * 1a1. System shows an error and keeps list unchanged. \
+    Use case ends.
+
+* 3a. Storage write fails 
+  * 3a1. System restores the student and shows a failure message. \
+  Use case ends.
+
+**Use case: Add Class to Student**
+
+**Primary Actor:** Private Tutor  
+**Goal:** Add a class (subject \+ time) for a specific student.
+
+**Preconditions:**
+* At least one student is displayed.
+* Subject and time are known.
+
+**Minimal Guarantees:**
+* No partial class is attached.
+
+**Success Guarantees:**
+* Student shows the new class in their class list; data is saved to storage.
+
+**MSS:**
+1. Tutor adds class to student.
+2. System validates format and requests confirmation.
+3. Tutor confirms.
+4. System adds the class to the student and saves data.
+5. System shows success and updates the student’s details.
+
+Use case ends.
+
+**Extensions:**  
+* 2a. Missing/invalid subject or time  
+  * 2a1. System shows an error and keeps the list unchanged.  
+  Use case resumes from step 1\.
+
+* 3a. Duplicate class (same class & time)  
+  * 3a1. System shows an error and keeps the list unchanged.  
+  Use case ends.
+
+* 4a. Storage write fails:  
+  * 4a1. System removes class from the student and shows a failure message.  
+  Use case ends.
+
+**Use Case: Delete Class from Student**
+
+**Primary Actor:** Private Tutor  
+**Goal:** Remove a class (subject \+ time) from a student.
+
+**Preconditions:**
+* The student exists and has at least one class.
+
+**Minimal Guarantees:**
+* No data corruption; other classes remain.
+
+**Success Guarantees:**
+* The specific class is removed and the change is saved.
+
+**MSS:**
+1. Tutor deletes class from student.
+2. System validates and requests confirmation.
+3. Tutor confirms.
+4. System removes the class and saves data.
+5. System shows success and updates the student’s details.
+
+Use case ends.
+
+**Extensions:**  
+* 2a. Missing/invalid class identification  
+  * 2a1. System shows an error and keeps the list unchanged.  
+  Use case resumes from step 1\.
+
+* 3a. Class not found   
+  * 3a1. System shows an error and keeps the list unchanged.  
+  Use case ends.
+
+* 4a. Storage write fails
+  * 4a1. System adds back class from the student and shows a failure message.  
+  Use case ends.
+
+**Use Case: View All Active Students**
+
+**Primary Actor:** Private Tutor
+**Goal:** See the complete list of currently stored students.
+
+**Preconditions**
+* TutorTrack is running.
+
+**Minimal Guarantees**
+* System shows the current list state (even if empty).
+
+**Success Guarantees**
+* All active students are displayed.
+
+**MSS**
+1. Tutor initiates “list students”.
+2. System retrieves and displays all students. 
 
     Use case ends.
 
 **Extensions**
+* 2a. No students exist 
+  * 2a1. System shows “no records” message. 
 
-* 2a. The list is empty.
+    Use Case Ends
 
-  Use case ends.
-
-* 3a. The given index is invalid.
-
-    * 3a1. AddressBook shows an error message.
-
-      Use case resumes at step 2.
 
 *{More to be added}*
 
