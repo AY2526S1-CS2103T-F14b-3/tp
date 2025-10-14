@@ -20,6 +20,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -95,8 +96,9 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Set<Assignment> updatedAssignments = editPersonDescriptor.getAssignments().orElse(personToEdit.getAssignments());
 
-        return new Person(updatedName, updatedPhone, updatedAddress, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedAddress, updatedTags, updatedAssignments);
     }
 
     @Override
@@ -132,6 +134,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Address address;
         private Set<Tag> tags;
+        private Set<Assignment> assignments;
 
         public EditPersonDescriptor() {}
 
@@ -144,6 +147,7 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setAddress(toCopy.address);
             setTags(toCopy.tags);
+            setAssignments(toCopy.assignments);
         }
 
         /**
@@ -186,12 +190,29 @@ public class EditCommand extends Command {
         }
 
         /**
+         * Sets {@code assignments} to this object's {@code assignments}.
+         * A defensive copy of {@code assignments} is used internally.
+         */
+        public void setAssignments(Set<Assignment> assignments) {
+            this.assignments = (assignments != null) ? new HashSet<>(assignments) : null;
+        }
+
+        /**
          * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
          * if modification is attempted.
          * Returns {@code Optional#empty()} if {@code tags} is null.
          */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
+        }
+
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code assignments} is null.
+         */
+        public Optional<Set<Assignment>> getAssignments() {
+            return (assignments != null) ? Optional.of(Collections.unmodifiableSet(assignments)) : Optional.empty();
         }
 
         @Override
@@ -209,7 +230,8 @@ public class EditCommand extends Command {
             return Objects.equals(name, otherEditPersonDescriptor.name)
                     && Objects.equals(phone, otherEditPersonDescriptor.phone)
                     && Objects.equals(address, otherEditPersonDescriptor.address)
-                    && Objects.equals(tags, otherEditPersonDescriptor.tags);
+                    && Objects.equals(tags, otherEditPersonDescriptor.tags)
+                    && Objects.equals(assignments, otherEditPersonDescriptor.assignments);
         }
 
         @Override
@@ -219,6 +241,7 @@ public class EditCommand extends Command {
                     .add("phone", phone)
                     .add("address", address)
                     .add("tags", tags)
+                    .add("assignments", assignments)
                     .toString();
         }
     }

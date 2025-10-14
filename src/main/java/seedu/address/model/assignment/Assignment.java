@@ -1,41 +1,62 @@
 package seedu.address.model.assignment;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 /**
- * Represents an assignment in TutorTrack.
- * Each {@code Assignment} has a name and a completion status.
- * Assignments are typically linked to a student or class and can be marked as done or undone.
+ * Represents a Tag in the address book.
+ * Guarantees: immutable; name is valid as declared in {@link #isValidAssignmentName(String)}
  */
 public class Assignment {
-    /** The name or title of the assignment. */
-    private String name;
 
-    /** Whether the assignment has been completed. */
-    private boolean isDone;
+    public static final String MESSAGE_CONSTRAINTS = "Assigment names should be alphanumeric";
+    public static final String VALIDATION_REGEX = "\\p{Alnum}+";
+
+    public final String assignmentName;
 
     /**
-     * Constructs an {@code Assignment} with the specified name.
-     * The assignment is initially marked as not done.
+     * Constructs a {@code Assignment}.
      *
-     * @param name The name or title of the assignment.
+     * @param assignmentName A valid assignment name.
      */
-    public Assignment(String name) {
-        this.name = name;
-        this.isDone = false;
+    public Assignment(String assignmentName) {
+        requireNonNull(assignmentName);
+        checkArgument(isValidAssignmentName(assignmentName), MESSAGE_CONSTRAINTS);
+        this.assignmentName = assignmentName;
     }
 
     /**
-     * Marks this assignment as done.
-     * Once marked done, {@code isDone} becomes {@code true}.
+     * Returns true if a given string is a valid assignment name.
      */
-    public void markDone() {
-        this.isDone = true;
+    public static boolean isValidAssignmentName(String test) {
+        return test.matches(VALIDATION_REGEX);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof Assignment)) {
+            return false;
+        }
+
+        Assignment otherAssignment = (Assignment) other;
+        return assignmentName.equals(otherAssignment.assignmentName);
+    }
+
+    @Override
+    public int hashCode() {
+        return assignmentName.hashCode();
     }
 
     /**
-     * Marks this assignment as not done.
-     * Once marked undone, {@code isDone} becomes {@code false}.
+     * Format state as text for viewing.
      */
-    public void markUndone() {
-        this.isDone = false;
+    public String toString() {
+        return '[' + assignmentName + ']';
     }
+
 }
