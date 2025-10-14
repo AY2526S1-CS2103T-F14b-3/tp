@@ -8,6 +8,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.assignment.Assignment;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -23,16 +24,18 @@ public class Person {
     // Data fields
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final Set<Assignment> assignments = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, address, tags);
+    public Person(Name name, Phone phone, Address address, Set<Tag> tags, Set<Assignment> assignments) {
+        requireAllNonNull(name, phone, address, tags, assignments);
         this.name = name;
         this.phone = phone;
         this.address = address;
         this.tags.addAll(tags);
+        this.assignments.addAll(assignments);
     }
 
     public Name getName() {
@@ -53,6 +56,10 @@ public class Person {
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
+    }
+
+    public Set<Assignment> getAssignments() {
+        return Collections.unmodifiableSet(this.assignments);
     }
 
     /**
@@ -87,13 +94,14 @@ public class Person {
         return name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags);
+                && tags.equals(otherPerson.tags)
+                && assignments.equals(otherPerson.assignments);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, address, tags);
+        return Objects.hash(name, phone, address, tags, assignments);
     }
 
     @Override
@@ -103,6 +111,7 @@ public class Person {
                 .add("phone", phone)
                 .add("address", address)
                 .add("tags", tags)
+                .add("assignments", assignments)
                 .toString();
     }
 
