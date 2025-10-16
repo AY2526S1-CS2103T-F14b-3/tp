@@ -102,5 +102,4 @@ public class PersonBuilder {
     public Person build() {
         return new Person(name, phone, level, classGroups, assignments);
     }
-
 }
