@@ -10,7 +10,7 @@ import seedu.address.model.person.StudentInClassGroupPredicate;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Keyword matching is case-insensitive.
  */
 public class FilterByClassGroupCommand extends Command {
 
@@ -20,6 +20,8 @@ public class FilterByClassGroupCommand extends Command {
             + "and displays them as a list with index numbers.\n"
             + "Parameters: " + PREFIX_CLASSGROUP + "CLASS_NAME "
             + "Example: " + COMMAND_WORD + " " + PREFIX_CLASSGROUP + "Math-1000";
+
+    public static final String MESSAGE_SUCCESS = "Listed %1$d student(s) in the specified class group(s)";
 
     private final StudentInClassGroupPredicate predicate;
 
@@ -32,7 +34,7 @@ public class FilterByClassGroupCommand extends Command {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
         return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+                String.format(MESSAGE_SUCCESS, model.getFilteredPersonList().size()));
     }
 
     @Override

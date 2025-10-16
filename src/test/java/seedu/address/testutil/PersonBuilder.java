@@ -73,6 +73,17 @@ public class PersonBuilder {
     }
 
     /**
+     * Sets the {@code Set<Assignment>} directly to the {@code Person} that we are building.
+     *
+     * @param assignments The set of assignments to assign to the person.
+     * @return This PersonBuilder instance for method chaining.
+     */
+    public PersonBuilder withAssignments(Set<Assignment> assignments) {
+        this.assignments = new HashSet<>(assignments);
+        return this;
+    }
+
+    /**
      * Sets the {@code Level} of the {@code Person} that we are building.
      */
     public PersonBuilder withLevel(String level) {
