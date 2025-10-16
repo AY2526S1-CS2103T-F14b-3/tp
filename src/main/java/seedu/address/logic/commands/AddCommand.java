@@ -31,7 +31,7 @@ public class AddCommand extends Command {
             + PREFIX_NAME + "John Doe "
             + PREFIX_PHONE + "98765432 "
             + PREFIX_LEVEL + "2 "
-            + PREFIX_CLASSGROUP + "Physics-1800"
+            + PREFIX_CLASSGROUP + "Physics-1800 "
             + PREFIX_ASSIGNMENT + "Topic 2 Science Project";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";

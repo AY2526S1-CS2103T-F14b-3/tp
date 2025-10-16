@@ -4,9 +4,9 @@
 # TutorTrack
 ![Ui](docs/images/Ui.png)
 
-**TutorTrack** is a desktop application designed to help secondary school tutors 
-manage and track their students, classes, and assignments efficiently. 
-It provides an intuitive CLI-focused interface for tutors to stay organized, 
+**TutorTrack** is a desktop application designed to help secondary school tutors
+manage and track their students, classes, and assignments efficiently.
+It provides an intuitive CLI-focused interface for tutors to stay organized,
 monitor student progress, and save time on administrative tasks.
 
 * This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
@@ -16,4 +16,3 @@ monitor student progress, and save time on administrative tasks.
 - **Manage Classes**: Create and manage classes, assign students to classes.
 - **Track Assignments**: Keep track of assignments given to students and their submission status.
 - **Search Functionality**: Quickly find students or classes using search commands.
-- **Data Persistence**: All data is saved locally, ensuring your information is secure and accessible
