@@ -117,7 +117,7 @@ public class UnmarkAssignmentCommand extends Command {
             // Log helpful debug info to aid troubleshooting
             logger.warning(() -> String.format(
                     "Person %s (index %d) does not have assignment '%s'. Person assignments: %s",
-                    person.getName(), targetIndex.getZeroBased(), assignment.getAssignmentName(),
+                    person.getName(), targetIndex.getZeroBased(), assignment.toString(),
                     assignmentsToString(assignments)));
             throw new CommandException(MESSAGE_INVALID_ASSIGNMENT_IN_PERSON);
         }
@@ -131,7 +131,7 @@ public class UnmarkAssignmentCommand extends Command {
         sb.append('[');
         Iterator<Assignment> it = assignments.iterator();
         while (it.hasNext()) {
-            sb.append(it.next().getAssignmentName());
+            sb.append(it.next().toString());
             if (it.hasNext()) {
                 sb.append(", ");
             }
@@ -156,8 +156,8 @@ public class UnmarkAssignmentCommand extends Command {
      */
     private Assignment findAndUnmarkAssignment(Set<Assignment> assignments) throws CommandException {
         Assignment match = assignments.stream()
-                .filter(a -> a.getAssignmentName().equals(assignment.getAssignmentName()))
-                .findFirst()
+                .filter(a -> a.equals(assignment))
+                .findAny()
                 .orElse(null);
 
         if (match == null) {

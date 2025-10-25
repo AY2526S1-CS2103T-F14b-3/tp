@@ -199,5 +199,4 @@ public class StringUtilTest {
         // Trailing whitespace
         assertTrue(StringUtil.toTitleCase("trailing space ").equals("Trailing Space "));
     }
-
 }

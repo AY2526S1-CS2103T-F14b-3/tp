@@ -33,19 +33,7 @@ public class UnmarkAssignmentCommandParser implements Parser<UnmarkAssignmentCom
         ArgumentMultimap argMultimap = tokenizeArguments(args);
 
         Index index = parseIndexFromPreamble(argMultimap);
-
-        // Check if class group is provided
-        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    UnmarkAssignmentCommand.MESSAGE_USAGE));
-        }
-
-        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
-        if (classGroupName.isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    UnmarkAssignmentCommand.MESSAGE_USAGE));
-        }
-
+        String classGroupName = parseClassGroupName(argMultimap);
         Assignment assignment = parseAssignmentValue(argMultimap, classGroupName);
 
         return new UnmarkAssignmentCommand(index, assignment);
@@ -86,5 +74,28 @@ public class UnmarkAssignmentCommandParser implements Parser<UnmarkAssignmentCom
         }
 
         return ParserUtil.parseAssignment(assignmentValue.get(), classGroupName);
+    }
+
+    /**
+     * Extracts, validates and parses the classGroupName from the tokenized arguments.
+     *
+     * @throws ParseException if the classGroupName is missing or invalid
+     */
+    private String parseClassGroupName(ArgumentMultimap argMultimap)
+            throws ParseException {
+
+        // Check if class group is provided
+        if (!argMultimap.getValue(PREFIX_CLASSGROUP).isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UnmarkAssignmentCommand.MESSAGE_USAGE));
+        }
+
+        String classGroupName = argMultimap.getValue(PREFIX_CLASSGROUP).get().trim().toLowerCase();
+        if (classGroupName.isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    UnmarkAssignmentCommand.MESSAGE_USAGE));
+        }
+
+        return classGroupName;
     }
 }

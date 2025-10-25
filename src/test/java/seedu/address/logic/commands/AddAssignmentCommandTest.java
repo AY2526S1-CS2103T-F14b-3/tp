@@ -93,7 +93,7 @@ public class AddAssignmentCommandTest {
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertCommandFailure(command, model, String.format(
-                AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, duplicate.getAssignmentName()));
+                AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, duplicate));
     }
 
     /**
@@ -460,7 +460,11 @@ public class AddAssignmentCommandTest {
         AddAssignmentCommand command = new AddAssignmentCommand(INDEX_SECOND_PERSON, descriptor);
 
         // Should fail with duplicate message containing both assignment names
+        String expectedDuplicates = Set.of(existing1, existing2).stream()
+                .map(Assignment::toString)
+                .sorted()
+                .collect(java.util.stream.Collectors.joining(", "));
         assertCommandFailure(command, model,
-                String.format(AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, "EXISTING1, EXISTING2"));
+                String.format(AddAssignmentCommand.MESSAGE_DUPLICATE_ASSIGNMENT, expectedDuplicates));
     }
 }

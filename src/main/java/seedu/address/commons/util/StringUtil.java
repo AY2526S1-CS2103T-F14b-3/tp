@@ -88,7 +88,7 @@ public class StringUtil {
 
     /**
      * Converts a lowercase string to title case (first letter of each word capitalized).
-     * Words are separated by spaces or hyphens.
+     * Words are separated by spaces, hyphens, or parentheses.
      *
      * @param input The string to convert to title case
      * @return The input string with the first letter of each word capitalized
@@ -102,7 +102,7 @@ public class StringUtil {
         boolean capitalizeNext = true;
 
         for (char c : input.toCharArray()) {
-            if (Character.isWhitespace(c) || c == '-') {
+            if (Character.isWhitespace(c) || c == '-' || c == '(' || c == ')' || c == '[' || c == ']') {
                 titleCase.append(c);
                 capitalizeNext = true;
             } else if (capitalizeNext) {

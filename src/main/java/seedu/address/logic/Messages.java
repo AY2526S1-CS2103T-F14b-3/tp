@@ -58,7 +58,7 @@ public class Messages {
             builder.append("; Assignments: ");
             // join Assignments with ", "
             String assignments = person.getAssignments().stream()
-                    .map(assignment -> StringUtil.toTitleCase(assignment.getAssignmentName()))
+                    .map(assignment -> StringUtil.toTitleCase(assignment.toString()))
                     .collect(Collectors.joining(", "));
             builder.append(assignments);
         }

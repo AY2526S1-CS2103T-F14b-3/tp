@@ -102,10 +102,10 @@ public class AssignAllCommand extends Command {
                 model.setPerson(person, editedPerson);
                 assignedCount++;
                 logger.fine(() -> String.format("Assigned '%s' to %s",
-                        assignment.getAssignmentName(), person.getName()));
+                        assignment, person.getName()));
             } else {
                 logger.fine(() -> String.format("%s already has assignment '%s'",
-                        person.getName(), assignment.getAssignmentName()));
+                        person.getName(), assignment));
             }
         }
 
@@ -113,7 +113,7 @@ public class AssignAllCommand extends Command {
         if (assignedCount == 0) {
             logger.warning(() -> String.format(
                     "All students in class '%s' already have assignment '%s'",
-                    classGroupName, assignment.getAssignmentName()));
+                    classGroupName, assignment));
             throw new CommandException(String.format(MESSAGE_ALREADY_ASSIGNED,
                     StringUtil.toTitleCase(classGroupName), StringUtil.toTitleCase(assignment.getAssignmentName())));
         }

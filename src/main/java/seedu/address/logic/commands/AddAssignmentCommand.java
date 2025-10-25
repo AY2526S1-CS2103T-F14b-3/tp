@@ -87,7 +87,7 @@ public class AddAssignmentCommand extends Command {
         Set<Assignment> duplicates = findDuplicateAssignments(personToEdit, addAssignmentDescriptor);
         if (!duplicates.isEmpty()) {
             String duplicateNames = duplicates.stream()
-                    .map(Assignment::getAssignmentName)
+                    .map(Assignment::toString)
                     .sorted()
                     .collect(Collectors.joining(", "));
             throw new CommandException(String.format(MESSAGE_DUPLICATE_ASSIGNMENT, duplicateNames));

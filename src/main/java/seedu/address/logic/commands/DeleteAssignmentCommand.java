@@ -131,7 +131,7 @@ public class DeleteAssignmentCommand extends Command {
 
         if (!nonExistent.isEmpty()) {
             String missingNames = nonExistent.stream()
-                    .map(Assignment::getAssignmentName)
+                    .map(Assignment::toString)
                     .sorted()
                     .collect(Collectors.joining(", "));
             throw new CommandException(String.format(MESSAGE_ASSIGNMENT_NOT_EXIST, missingNames));
