@@ -135,10 +135,6 @@ public class FilterByClassGroupCommandTest {
 
     /**
      * Tests execution of FilterByClassGroupCommand with multiple class groups.
-     * Verifies that filtering works when searching for students in multiple class groups.
-     */
-    /**
-     * Tests execution of FilterByClassGroupCommand with multiple class groups.
      * Verifies that filtering works when searching for students in multiple class groups (AND logic).
      */
     @Test
