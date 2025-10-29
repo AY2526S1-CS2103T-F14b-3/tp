@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,9 +51,9 @@ public class FilterByClassGroupCommandTest {
     @Test
     public void equals() {
         StudentInClassGroupPredicate firstPredicate =
-                new StudentInClassGroupPredicate(VALID_CLASSGROUP_MATH);
+                new StudentInClassGroupPredicate(Set.of(VALID_CLASSGROUP_MATH));
         StudentInClassGroupPredicate secondPredicate =
-                new StudentInClassGroupPredicate(VALID_CLASSGROUP_PHYSICS);
+                new StudentInClassGroupPredicate(Set.of(VALID_CLASSGROUP_PHYSICS));
 
         FilterByClassGroupCommand filterFirstCommand = new FilterByClassGroupCommand(firstPredicate);
         FilterByClassGroupCommand filterSecondCommand = new FilterByClassGroupCommand(secondPredicate);
@@ -81,7 +82,7 @@ public class FilterByClassGroupCommandTest {
     @Test
     public void execute_nonExistentClassGroup_noPersonFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(NON_EXISTENT_CLASSGROUP);
+        StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(Set.of(NON_EXISTENT_CLASSGROUP));
         FilterByClassGroupCommand command = new FilterByClassGroupCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -95,7 +96,7 @@ public class FilterByClassGroupCommandTest {
     @Test
     public void execute_caseInsensitiveClassGroup_personsFound() {
         StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(
-                VALID_CLASSGROUP_PHYSICS.toLowerCase());
+                Set.of(VALID_CLASSGROUP_PHYSICS.toLowerCase()));
         FilterByClassGroupCommand command = new FilterByClassGroupCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
 
@@ -111,7 +112,7 @@ public class FilterByClassGroupCommandTest {
      */
     @Test
     public void execute_exactCaseClassGroup_personsFound() {
-        StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(VALID_CLASSGROUP_MATH);
+        StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(Set.of(VALID_CLASSGROUP_MATH));
         FilterByClassGroupCommand command = new FilterByClassGroupCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW,
@@ -125,10 +126,76 @@ public class FilterByClassGroupCommandTest {
      */
     @Test
     public void toStringMethod() {
-        StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(VALID_CLASSGROUP_MATH);
+        StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(Set.of(VALID_CLASSGROUP_MATH));
         FilterByClassGroupCommand filterCommand = new FilterByClassGroupCommand(predicate);
         String expected = FilterByClassGroupCommand.class.getCanonicalName()
                 + "{" + PREDICATE_FIELD_NAME + "=" + predicate + "}";
         assertEquals(expected, filterCommand.toString());
+    }
+
+    /**
+     * Tests execution of FilterByClassGroupCommand with multiple class groups.
+     * Verifies that filtering works when searching for students in multiple class groups (AND logic).
+     */
+    @Test
+    public void execute_multipleClassGroups_personsFound() {
+        Set<String> classGroups = Set.of(VALID_CLASSGROUP_MATH, VALID_CLASSGROUP_PHYSICS);
+        StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(classGroups);
+        FilterByClassGroupCommand command = new FilterByClassGroupCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW,
+                expectedModel.getFilteredPersonList().size());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+    }
+
+    /**
+     * Tests execution of FilterByClassGroupCommand with mixed case multiple class groups.
+     * Verifies that filtering works case-insensitively with multiple class groups.
+     */
+    @Test
+    public void execute_multipleClassGroupsCaseInsensitive_personsFound() {
+        Set<String> classGroups = Set.of(
+            VALID_CLASSGROUP_MATH.toLowerCase(),
+            VALID_CLASSGROUP_PHYSICS.toUpperCase()
+        );
+        StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(classGroups);
+        FilterByClassGroupCommand command = new FilterByClassGroupCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW,
+                expectedModel.getFilteredPersonList().size());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        // Should match BOB who has both class groups, regardless of case
+        assertEquals(Arrays.asList(BOB), model.getFilteredPersonList());
+    }
+
+    /**
+     * Tests execution of FilterByClassGroupCommand with one valid and one non-existent class group.
+     * Verifies that no persons are found when using AND logic and one class doesn't exist.
+     */
+    @Test
+    public void execute_multipleClassGroupsWithNonExistent_noPersonFound() {
+        Set<String> classGroups = Set.of(VALID_CLASSGROUP_MATH, NON_EXISTENT_CLASSGROUP);
+        StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(classGroups);
+        FilterByClassGroupCommand command = new FilterByClassGroupCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+    }
+
+    /**
+     * Tests execution of FilterByClassGroupCommand with single class group.
+     * This replaces the duplicate test since Set.of() doesn't allow duplicates.
+     * Duplicate handling is tested in the parser tests instead.
+     */
+    @Test
+    public void execute_singleClassGroup_personsFound() {
+        Set<String> classGroups = Set.of(VALID_CLASSGROUP_MATH);
+        StudentInClassGroupPredicate predicate = new StudentInClassGroupPredicate(classGroups);
+        FilterByClassGroupCommand command = new FilterByClassGroupCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW,
+                expectedModel.getFilteredPersonList().size());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 }
