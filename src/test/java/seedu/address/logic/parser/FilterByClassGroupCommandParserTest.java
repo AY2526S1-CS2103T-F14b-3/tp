@@ -3,7 +3,9 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_MATH;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CLASSGROUP_PHYSICS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ASSIGNMENT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CLASSGROUP;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_LEVEL;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.model.classgroup.ClassGroup.MESSAGE_CONSTRAINTS;
@@ -29,6 +31,34 @@ public class FilterByClassGroupCommandParserTest {
     public void parse_missingClassGroupPrefix_throwsParseException() {
         // no prefix
         assertParseFailure(parser, VALID_CLASSGROUP_MATH,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByClassGroupCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parse_otherPrefixes_throwsParseException() {
+        // other prefixes present
+        assertParseFailure(parser,
+            " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " " + PREFIX_LEVEL + "JC1",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByClassGroupCommand.MESSAGE_USAGE));
+
+        // other prefix with class group
+        assertParseFailure(parser,
+            " " + PREFIX_ASSIGNMENT + "HW1 " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH,
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByClassGroupCommand.MESSAGE_USAGE));
+
+        // unknown prefix
+        assertParseFailure(parser,
+            " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " b/test",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByClassGroupCommand.MESSAGE_USAGE));
+
+        // invalid prefix format
+        assertParseFailure(parser,
+            " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " asdfas/",
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByClassGroupCommand.MESSAGE_USAGE));
+
+        // non-standard prefix format
+        assertParseFailure(parser,
+            " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " /test",
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterByClassGroupCommand.MESSAGE_USAGE));
     }
 
@@ -72,14 +102,13 @@ public class FilterByClassGroupCommandParserTest {
 
         // no leading and trailing whitespaces
         assertParseSuccess(parser,
-            " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " "
-            + PREFIX_CLASSGROUP + VALID_CLASSGROUP_PHYSICS,
+            " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + "," + VALID_CLASSGROUP_PHYSICS,
             expectedCommand);
 
-        // multiple whitespaces between class groups
+        // multiple whitespaces around comma
         assertParseSuccess(parser,
-            "  " + PREFIX_CLASSGROUP + "  " + VALID_CLASSGROUP_MATH + "  "
-            + PREFIX_CLASSGROUP + "  " + VALID_CLASSGROUP_PHYSICS + "  ",
+            "  " + PREFIX_CLASSGROUP + "  " + VALID_CLASSGROUP_MATH + " , "
+            + VALID_CLASSGROUP_PHYSICS + "  ",
             expectedCommand);
     }
 
@@ -90,8 +119,7 @@ public class FilterByClassGroupCommandParserTest {
             new StudentInClassGroupPredicate(Set.of(VALID_CLASSGROUP_MATH)));
 
         assertParseSuccess(parser,
-            " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + " "
-            + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH,
+            " " + PREFIX_CLASSGROUP + VALID_CLASSGROUP_MATH + "," + VALID_CLASSGROUP_MATH,
             expectedCommand);
     }
 }

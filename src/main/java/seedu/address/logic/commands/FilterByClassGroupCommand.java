@@ -18,8 +18,8 @@ public class FilterByClassGroupCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all students who are in ALL of the specified "
             + "classes and displays them as a list with index numbers.\n"
-            + "Parameters: " + PREFIX_CLASSGROUP + "CLASS [" + PREFIX_CLASSGROUP + "CLASS]...\n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_CLASSGROUP + "Math-1000 " + PREFIX_CLASSGROUP + "Physics-1800\n"
+            + "Parameters: " + PREFIX_CLASSGROUP + "CLASS1,CLASS2,...\n"
+            + "Example: " + COMMAND_WORD + " " + PREFIX_CLASSGROUP + "Math-1000,Physics-1800\n"
             + "(finds students who are in BOTH Math-1000 AND Physics-1800)";
 
     private static final String PREDICATE_FIELD_NAME = "predicate";
