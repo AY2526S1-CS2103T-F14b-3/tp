@@ -9,29 +9,30 @@ import seedu.address.commons.util.ToStringBuilder;
  * Keyword matching is case-insensitive.
  */
 public class StudentInClassGroupPredicate implements Predicate<Person> {
-    private final String classGroup;
+    private final java.util.Set<String> classGroups;
 
     /**
-     * Constructs a {@code StudentInClassGroupPredicate} with the specified class group keyword.
+     * Constructs a {@code StudentInClassGroupPredicate} with the specified class group keywords.
      *
-     * @param classGroup The class group keyword to match against.
+     * @param classGroups The set of class group keywords to match against.
      */
-    public StudentInClassGroupPredicate(String classGroup) {
-        this.classGroup = classGroup;
+    public StudentInClassGroupPredicate(java.util.Set<String> classGroups) {
+        this.classGroups = classGroups;
     }
 
     /**
-     * Tests whether the given person belongs to the class group specified by this predicate.
+     * Tests whether the given person belongs to any of the class groups specified by this predicate.
      * The comparison is case-insensitive.
      *
      * @param person The person to test.
-     * @return true if the person belongs to the specified class group, false otherwise.
+     * @return true if the person belongs to any of the specified class groups, false otherwise.
      */
     @Override
     public boolean test(Person person) {
-        return person.getClassGroups().stream()
-                .map(classGroup -> classGroup.getClassGroupName())
-                .anyMatch(name -> name.equalsIgnoreCase(this.classGroup));
+        return classGroups.stream()
+                .allMatch(groupToMatch -> person.getClassGroups().stream()
+                        .map(classGroup -> classGroup.getClassGroupName())
+                        .anyMatch(name -> name.equalsIgnoreCase(groupToMatch)));
     }
 
     /**
@@ -52,16 +53,16 @@ public class StudentInClassGroupPredicate implements Predicate<Person> {
         }
 
         StudentInClassGroupPredicate otherStudentInClassGroupPredicate = (StudentInClassGroupPredicate) other;
-        return classGroup.equals(otherStudentInClassGroupPredicate.classGroup);
+        return classGroups.equals(otherStudentInClassGroupPredicate.classGroups);
     }
 
     /**
      * Returns a string representation of this predicate.
      *
-     * @return A string containing the class group keyword.
+     * @return A string containing the class group keywords.
      */
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("classGroup", classGroup).toString();
+        return new ToStringBuilder(this).add("classGroups", classGroups).toString();
     }
 }

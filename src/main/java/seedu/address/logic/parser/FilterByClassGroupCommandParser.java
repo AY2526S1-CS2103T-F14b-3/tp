@@ -36,15 +36,15 @@ public class FilterByClassGroupCommandParser implements Parser<FilterByClassGrou
         Set<ClassGroup> classGroups = ParserUtil
             .parseClassGroups(argMultimap.getAllValues(PREFIX_CLASSGROUP));
 
-        if (classGroups.size() != 1) {
+        if (classGroups.isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                 FilterByClassGroupCommand.MESSAGE_USAGE));
         }
 
-        Iterator<ClassGroup> i = classGroups.iterator();
-        ClassGroup classGroup = i.next();
-        String classGroupName = classGroup.getClassGroupName();
-        return new FilterByClassGroupCommand(new StudentInClassGroupPredicate(classGroupName));
+        Set<String> classGroupNames = classGroups.stream()
+            .map(ClassGroup::getClassGroupName)
+            .collect(java.util.stream.Collectors.toSet());
+        return new FilterByClassGroupCommand(new StudentInClassGroupPredicate(classGroupNames));
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
