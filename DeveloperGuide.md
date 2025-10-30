@@ -957,6 +957,47 @@ testers are expected to do more *exploratory* testing.
 
 --------------------------------------------------------------------------------------------------------------------
 
+## **Appendix: Effort**
+
+A large portion of the team's development time was spent designing and implementing the `Assignment` model. The main difficulty was deciding how `Assignment` should relate to `ClassGroup`.
+
+After considering several alternatives (for example, making `Assignment` a standalone entity shared across classes, or making it owned entirely by `ClassGroup`), the team settled on an association relationship where each `Assignment` must be tagged to a `ClassGroup`. Concretely, an `Assignment` cannot exist in isolation in the system — it is always associated with a particular `ClassGroup`.
+
+Rationale and consequences:
+
+- Rationale: In our target context (tutees and their classes), assignments are almost always issued within the context of a class. Tagging an assignment to a class models this real-world workflow directly and avoids ambiguity when multiple classes use similar assignment names.
+- Implementation impact: Commands and storage were adjusted so that assignments are referenced together with their class (e.g., `ass1 (physics-1800)`), validation checks ensure a student belongs to the class before assigning/unassigning, and uniqueness/collision handling is scoped to a class.
+- Trade-offs: This creates a tighter coupling between `Assignment` and `ClassGroup`, and makes some commands slightly more verbose. It also required extra design and test effort to get the semantics right, especially around assign/unassign operations and persistence/migration of existing data.
+
+Two notable feature enhancements that consumed additional effort are described below.
+
+### Multi-range support for `mark` / `unmark`
+
+To improve productivity for tutors, we extended the `mark` and `unmark` commands to accept multiple indexes and index ranges in one command (for example: `mark 1-5 7 9-10 c/Math-2000 a/MathHW1`). This lets tutors mark or unmark many students in a single command instead of issuing repeated single-index commands (unlike AB3 which accepted only a single index per command).
+
+Design and implementation notes:
+
+- Parser: We updated the `MarkAssignmentCommandParser` / `UnmarkAssignmentCommandParser` to accept and normalize a sequence of tokens that represent either a single positive index or a `START-END` range. Ranges are expanded into individual indexes while preserving order and de-duplicating indexes where appropriate.
+- Validation: We perform strict validation on indexes and ranges (e.g., positive integers, `START <= END`, indexes within the current displayed list bounds) and surface clear error messages if the input is malformed.
+- Efficiency and correctness: The command implementation iterates the resolved list of target indexes and applies the per-student mark/unmark logic (including class membership checks and assignment existence checks). Where sensible, shared logic was reused from the single-index `mark`/`unmark` implementation to keep behaviour consistent and reduce duplicated code.
+- Recommended workflow: Because indexes refer to positions in the currently displayed list, we recommend using `filter c/CLASS` first to limit the list to a single class, then use an index range such as `1-10` to affect an entire class quickly. This both matches tutor workflows and avoids ambiguous index targets.
+- Testing: We added unit and integration tests for a range of cases: single indexes, multiple single indexes, single ranges, combinations of ranges and single indexes, overlapping ranges, out-of-bound indexes, and invalid formats.
+
+### `assignall` / `unassignall` commands
+
+We added `assignall` and `unassignall` to support class-level assignment management: `assignall c/CLASS a/ASSIGNMENT` assigns a particular assignment to every student in the specified class (skipping students who already have the assignment), and `unassignall` removes an assignment from every student in a class.
+
+Design and implementation notes:
+
+- Rationale: Tutors commonly assign work to an entire class rather than one student at a time. `assignall` and `unassignall` implement this real-world workflow directly and reduce repetitive operations for the user.
+- Code reuse: The commands reuse core validation and logic from the existing `assign`/`unassign` implementations (for example: class membership checks, duplicate assignment checks, and model updates). This reduced implementation effort and ensured consistent behaviour across the per-student and per-class APIs.
+- Edge cases: Commands intentionally skip students who already meet the target state (e.g., already have the assignment for `assignall`, or do not have the assignment for `unassignall`). When no student is affected, user-facing errors are produced to indicate that the operation made no changes.
+- Testing: We added tests to cover the normal path, the path where some students are affected and some are not, the path where no students in the class exist, and the path where none of the students needed updating (which should surface the appropriate error message).
+
+Overall, the decision to associate `Assignment` with `ClassGroup` and to add these command-level conveniences increased initial design and test effort, but produced a clearer user model and a more efficient workflow for tutors — which aligns better with our target users' mental model and daily use patterns.
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## **Appendix: Planned Enhancements**
 
 Team size: 5
