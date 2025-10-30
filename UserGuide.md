@@ -233,7 +233,7 @@ Marks the assignment of student(s) identified by the index number(s) used in the
 
 Format: `mark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 
-* Marks the assignment belonging to the specified class as completed for the student(s) at the specified `INDEX`(es) or `INDEX_RANGE`(s).
+* Marks the assignment belonging to the specified class as completed for the student(s) at the specified `INDEX`(es) and/or `INDEX_RANGE`(s).
 * The index(es) refers to the index number shown in the displayed student list.
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
@@ -253,7 +253,7 @@ Unmarks the assignment of student(s) identified by the index number(s) used in t
 
 Format: `unmark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 
-* Unmarks the assignment belonging to the specified class as not completed for the student(s) at the specified `INDEX`(es) or `INDEX_RANGE`(s).
+* Unmarks the assignment belonging to the specified class as not completed for the student(s) at the specified `INDEX`(es) and/or `INDEX_RANGE`(s).
 * The index(es) refers to the index number shown in the displayed student list.
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
@@ -318,12 +318,44 @@ Examples:
 * `filter c/Math-1000` displays all students enrolled in the Math-1000 class.
 * `filter c/Chemistry-1400` displays all students enrolled in the Chemistry-1400 class.
 
-
 ### Clearing all entries : `clear`
 
 Clears all entries from TutorTrack.
 
 Format: `clear`
+
+### Undoing previous command : `undo`
+
+Undoes the previous command that modified the data.
+
+Format: `undo`
+
+* Restores TutorTrack to the state before the last command that changed the data.
+* Only commands that modify data (e.g., `add`, `delete`, `edit`, `assign`, `mark`) can be undone.
+* Commands that do not modify data (e.g., `list`, `find`, `help`) cannot be undone.
+
+<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+If you accidentally deleted a student or made an unwanted change, use `undo` to quickly restore the previous state.
+</div>
+
+<div markdown="span" class="alert alert-warning">:warning: **Warning:**
+Undo/Redo only works for actions made in the **current session**. Once you leave or refresh, previous changes cannot be restored.
+</div>
+
+Examples:
+* `delete 1` followed by `undo` adds the deleted student back.
+
+### Redoing previously undone command : `redo`
+
+Redoes a command that was previously undone.
+
+Format: `redo`
+
+* Redo only works if no new commands have been issued after the undo.
+* After using `undo` multiple times, you can use `redo` multiple times to reapply those changes.
+
+Examples:
+* `delete 1` followed by `undo` followed by `redo` deletes the student again.
 
 ### Exiting the program : `exit`
 
@@ -343,6 +375,21 @@ TutorTrack data are saved automatically as a JSON file `[JAR file location]/data
 If your changes to the data file makes its format invalid, TutorTrack will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause TutorTrack to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Keyboard Shortcuts
+
+#### Navigating command history
+
+Navigate through 50 previously executed commands using keyboard shortcuts.
+
+* **Up Arrow Key (↑)**: Retrieves the previous command from history
+* **Down Arrow Key (↓)**: Retrieves the next command from history
+
+#### Other shortcuts
+
+* **F1**: Opens the help window
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -379,5 +426,7 @@ Action | Format, Examples
 **Delete Class** | `deleteclass INDEX c/CLASS [c/CLASS]...`<br> e.g., `deleteclass 1 c/Math-1000`
 **Filter** | `filter c/CLASS`<br> e.g., `filter c/Math-1000`
 **Clear** | `clear`
+**Undo** | `undo`
+**Redo** | `redo`
 **Help** | `help`
 **Exit** | `exit`
