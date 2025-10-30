@@ -1,0 +1,84 @@
+{
+  "baseUrl": "",
+  "titlePrefix": "TutorTrack",
+  "titleSuffix": "",
+  "favicon": "images/github-icon.png",
+  "style": {
+    "bootstrapTheme": "none"
+  },
+  "globalOverride": {
+    "header": "_markbind/navigation.md"
+  },
+  "siteNav": "_markbind/sideNav.md",
+  "pages": [
+    {
+      "src": "index.md",
+      "title": "TutorTrack",
+      "siteNav": "_markbind/sideNav.md"
+    },
+    {
+      "src": "UserGuide.md",
+      "title": "User Guide",
+      "siteNav": "_markbind/sideNav.md"
+    },
+    {
+      "src": "DeveloperGuide.md",
+      "title": "Developer Guide",
+      "siteNav": "_markbind/sideNav.md"
+    },
+    {
+      "src": "AboutUs.md",
+      "title": "About Us",
+      "siteNav": "_markbind/sideNav.md"
+    },
+    {
+      "src": "Configuration.md",
+      "title": "Configuration Guide"
+    },
+    {
+      "src": "Documentation.md",
+      "title": "Documentation Guide"
+    },
+    {
+      "src": "Testing.md",
+      "title": "Testing Guide"
+    },
+    {
+      "src": "Logging.md",
+      "title": "Logging Guide"
+    },
+    {
+      "src": "SettingUp.md",
+      "title": "Setting Up"
+    },
+    {
+      "src": "DevOps.md",
+      "title": "DevOps Guide"
+    },
+    {
+      "glob": "team/*.md"
+    }
+  ],
+  "ignore": [
+    "_site/*",
+    "*.log",
+    ".sass-cache/*",
+    "_includes/*",
+    "_layouts/*",
+    "_sass/*",
+    "_config.yml",
+    "Gemfile*",
+    "_data/*"
+  ],
+  "plugins": [
+    "filterTags"
+  ],
+  "pluginsContext": {
+    "filterTags": {
+      "tags": [
+        "preview"
+      ]
+    }
+  },
+  "headingIndexingLevel": 4
+}
