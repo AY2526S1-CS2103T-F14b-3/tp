@@ -25,6 +25,9 @@ Class JsonAdaptedAssignment
 Class JsonAdaptedAssignmentWrapper
 }
 
+package "CommandHistory Storage" #F4F6F6{
+Class "<<interface>>\nCommandHistoryStorage" as CommandHistoryStorage
+Class TxtCommandHistoryStorage
 }
 
 Class HiddenOutside #FFFFFF
@@ -33,6 +36,7 @@ HiddenOutside ..> Storage
 StorageManager .up.|> Storage
 StorageManager -up-> "1" UserPrefsStorage
 StorageManager -up-> "1" AddressBookStorage
+StorageManager -down-> "1" CommandHistoryStorage
 
 Storage -left-|> UserPrefsStorage
 Storage -right-|> AddressBookStorage
@@ -45,5 +49,5 @@ JsonAdaptedPerson --> "*" JsonAdaptedTag
 JsonAdaptedPerson --> "*" JsonAdaptedClassGroup
 JsonAdaptedPerson --> "*" JsonAdaptedAssignment
 JsonAdaptedAssignment ..> JsonAdaptedAssignmentWrapper : uses >
-
+TxtCommandHistoryStorage .up.|> CommandHistoryStorage
 @enduml
