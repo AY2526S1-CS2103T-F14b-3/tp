@@ -433,6 +433,31 @@ footer {
 /* Tighten vertical rhythm of items while keeping MarkBind indentation */
 #custom-sidebar .site-nav-default-list-item { padding-top: 0.25rem !important; padding-bottom: 0.2rem !important; }
 
+/* Reduce left padding for nested list items (sub-tabs) to a reasonable indent */
+#custom-sidebar .site-nav-list-item-0 > ul { padding-left: 1.5rem !important; }
+
+/* Additional rule to target MarkBind's default sidebar structure */
+.site-nav .site-nav-list-item-0 > ul { padding-left: 1.5rem !important; }
+.site-nav-dropdown-container { padding-left: 1.5rem !important; }
+.site-nav-dropdown-container.site-nav-list { padding-left: 1.5rem !important; }
+
+/* Force override with even more specific selectors */
+ul.site-nav-list.site-nav-dropdown-container { padding-left: 1.5rem !important; }
+li.site-nav-list-item-0 > ul.site-nav-dropdown-container { padding-left: 1rem !important; }
+
+/* More aggressive rules to override MarkBind defaults */
+ul.site-nav-dropdown-container { padding-left: 0.4rem !important; margin-left: 0 !important; }
+ul.site-nav-list.site-nav-dropdown-container { padding-left: 0.4rem !important; margin-left: 0 !important; }
+.site-nav-list li.site-nav-default-list-item { padding-left: 0 !important; margin-left: 0 !important; }
+li.site-nav-list-item-0 ul { padding-left: 0.4rem !important; }
+
+/* Also target the div wrapper inside the list items */
+.site-nav-dropdown-container .site-nav-default-list-item { padding-left: 0 !important; }
+.site-nav-dropdown-container div.site-nav-list-item-1 { padding-left: 0 !important; margin-left: 0 !important; }
+
+/* Scale down heading/item sizes inside the sidebar */
+.site-nav-list .site-nav-list-item-0 > ul { padding-left: 0.4rem !important; }
+
 /* Scale down heading/item sizes inside the sidebar */
 #custom-sidebar .site-nav-list-item-0 { font-size: 1rem !important; line-height: 1.2 !important; }
 #custom-sidebar .site-nav-list-item-1 { font-size: 0.92rem !important; line-height: 1.2 !important; }

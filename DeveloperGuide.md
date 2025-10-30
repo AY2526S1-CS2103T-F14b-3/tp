@@ -9,13 +9,11 @@
 <!-- MarkBind will generate the table of contents here -->
 </div>
 
---------------------------------------------------------------------------------------------------------------------
+----
 
-## **Acknowledgements**
+## Acknowledgements
 
 * Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
-
---------------------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -65,14 +63,12 @@ If you plan to use Intellij IDEA (highly recommended):
 
 --------------------------------------------------------------------------------------------------------------------
 
---------------------------------------------------------------------------------------------------------------------
+## Design
 
-## **Design**
+<box type="info" seamless>
 
-<div markdown="span" class="alert alert-primary">
-
-<span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong> The `.puml` files used to create diagrams are in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
-</div>
+**Tip:** The `.puml` files used to create diagrams are in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
+</box>
 
 ### Architecture
 
@@ -203,7 +199,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Implementation**
+## Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
@@ -307,7 +303,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Documentation, logging, testing, configuration, dev-ops**
+## Documentation, logging, testing, configuration, dev-ops
 
 ### Testing
 
@@ -439,7 +435,7 @@ Certain properties of the application can be controlled (e.g user preferences fi
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
+## Appendix: Requirements
 
 ### Product scope
 
