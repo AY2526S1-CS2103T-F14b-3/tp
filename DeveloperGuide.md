@@ -43,6 +43,7 @@ If you plan to use Intellij IDEA (highly recommended):
    If using IDEA, follow the guide [_[se-edu/guides] IDEA: Configuring the code style_](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to set up IDEA's coding style to match ours.
 
    <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+   
    Optionally, you can follow the guide [_[se-edu/guides] Using Checkstyle_](https://se-education.org/guides/tutorials/checkstyle.html) to find how to use the CheckStyle within IDEA e.g., to report problems _as_ you write code.
    </div>
 
@@ -80,7 +81,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2526S1-CS2103T-F14b-3/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2526S1-CS2103T-F14b-3/tp/blob/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -112,13 +113,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2526S1-CS2103T-F14b-3/tp/blob/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2526S1-CS2103T-F14b-3/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2526S1-CS2103T-F14b-3/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -129,7 +130,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2526S1-CS2103T-F14b-3/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -161,7 +162,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2526S1-CS2103T-F14b-3/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
@@ -173,18 +174,9 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<box type="info" seamless>
-
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
-
-</box>
-
-
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2526S1-CS2103T-F14b-3/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
@@ -821,22 +813,139 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Deleting a person
 
-1. Deleting a person while all persons are being shown
+### Adding a student
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+1. Adding a student while all persons are being shown
+
+    1. Test case: `add n/John Doe p/12345678 l/3`<br>
+       Expected: Student with specified name, phone number and level is added to the list. Details of the added contact shown in the status message. 
+
+    1. Test case: `add n/John Doe p/12345678`<br>
+       Expected: No student is added. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect delete commands to try: `add`, `add x`, `...` (where x is not a class, level or phone number)<br>
+       Expected: Similar to previous.
+
+### Deleting a student
+
+1. Deleting a student while all students are being shown
+
+   1. Prerequisites: List all students using the `list` command. Multiple students in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
    1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+      Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Editing a student
+
+1. Editing a student with all students being shown
+
+    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+    1. Test case: `find 1 n/NEW_NAME`<br>
+       Expected: First student's name is updated. Details of the edited contact shown in the status message.
+
+    1. Test case: `edit 0`<br>
+       Expected: No student is edited. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect edit commands to try: `edit`, `edit x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Adding a class
+
+1. Adding a class to a student
+
+    1. Prerequisites: List all students using the `list` command. Target student does not have the specified class.
+
+    1. Test case: `addclass 1 c/CLASS_NAME`<br>
+       Expected: Class `CLASS_NAME` is added to the first contact in the list. Details of the first contact shown in the status message.
+
+    1. Test case: `addclass 1`<br>
+       Expected: No class is added. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect edit commands to try: `addclass`, `addclass x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Deleting a class
+
+1. Deleting a class from a student
+
+    1. Prerequisites: List all students using the `list` command. Target student has the specified class.
+
+    1. Test case: `deleteclass 1 c/CLASS_NAME`<br>
+       Expected: Class `CLASS_NAME` is deleted from the first contact in the list. Details of the first contact shown in the status message.
+
+    1. Test case: `deleteclass 1`<br>
+       Expected: No class is added. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect edit commands to try: `deleteclass`, `deleteclass x`, `...` (where x is larger than the list size)<br>
+       Expected: Similar to previous.
+
+### Adding an assignment from a student
+
+1. Adding an assignment to a student
+
+    1. Prerequisites: List all students using the `list` command. Target student has the specified class and does not have the specified assignment in that class.
+
+    1. Test case: `assign 1 c/CLASS a/ASSIGNMENT`<br>
+       Expected: Assignment `ASSIGNMENT` is added to the first contact in the list. Details of the first contact shown in the status message.
+
+    1. Test case: `assign 1`<br>
+       Expected: No assignment is added. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect edit commands to try: `assign`, `assign 1 c/x a/y`, `...` (where x is a class that the first contact does not have)<br>
+       Expected: Similar to previous.
+
+### Deleting an assignment from a student
+
+1. Deleting an assignment from a student
+
+    1. Prerequisites: List all students using the `list` command. Target student has the specified class and specified assignment(s) in that class.
+
+    1. Test case: `unassign 1 c/CLASS a/ASSIGNMENT2`<br>
+       Expected: Assignment `ASSIGNMENT` is deleted from the first contact in the list. Details of the first contact shown in the status message.
+
+    1. Test case: `unassign 1`<br>
+       Expected: No assignment is deleted. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect edit commands to try: `unassign`, `unassign 1 c/x a/y`, `...` (where x is a class that the first contact does not have)<br>
+       Expected: Similar to previous.
+
+### Adding an assignment to an entire class
+
+1. Adding an assignment to all students in a class
+
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list have the specified class and does not have the specified assignment in that class.
+
+    1. Test case: `assignall c/CLASS a/ASSIGNMENT`<br>
+       Expected: Assignment `ASSIGNMENT` is added to all contacts in the list who have class `CLASS`. Success message shown with the number of students the assignment was added to.
+
+    1. Test case: `assignall `<br>
+       Expected: No assignment is added. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect edit commands to try: `assignall c/`, `assignall c/x a/y`, `...` (where all students in class x already have assignment y)<br>
+       Expected: Similar to previous.
+
+### Deleting an assignment from an entire class
+
+1. Deleting an assignment from all students in a class
+
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list have the specified class and specified assignment in that class.
+
+    1. Test case: `unassignall c/CLASS a/ASSIGNMENT`<br>
+       Expected: Assignment `ASSIGNMENT` is deleted from all contacts in the list who have class `CLASS`. Success message shown with the number of students the assignment was deleted from.
+
+    1. Test case: `unassignall `<br>
+       Expected: No assignment is deleted. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect edit commands to try: `unassignall c/`, `unassignall c/x a/y`, `...` (where all students in class x do not have assignment y)<br>
+       Expected: Similar to previous.
 
 ### Saving data
 

@@ -141,7 +141,9 @@ Edits an existing student in TutorTrack.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`
 
-* Edits the student at the specified `INDEX`. The index refers to the index number shown in the displayed student list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the student at the specified `INDEX`. 
+* The index refers to the index number shown in the displayed student list. 
+* The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * Classes and assignments cannot be edited via the `edit` command.
@@ -206,7 +208,7 @@ Assigns an assignment to all students in the specified class.
 Format: `assignall c/CLASS a/ASSIGNMENT`
 
 * Assigns the specified assignment to all students in the specified class.
-* Students who already have the specified assignment in the specified class will be skipped.
+* No changes are made to students who already have the specified assignment in the specified class.
 * If all students in the specified class already have the specified assignment, no changes will be made.
 
 Examples:
@@ -215,12 +217,12 @@ Examples:
 
 ### Deleting an assignment from all students in a class: `unassignall`
 
-Unassigns an assignment from all students in the specified class.
+Deletes an assignment from all students in the specified class.
 
 Format: `unassignall c/CLASS a/ASSIGNMENT`
 
-* Unassigns the specified assignment from all students in the specified class.
-* Only students who have the specified assignment in the specified class will be affected.
+* Deletes the specified assignment from all students in the specified class.
+* No changes are made to students who do not have the specified assignment in the specified class.
 * If no students in the specified class have the specified assignment, no changes will be made.
 
 Examples:
