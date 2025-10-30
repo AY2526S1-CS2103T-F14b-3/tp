@@ -9,12 +9,3 @@
     </a>
   </div>
 </div>
-
-<!-- Custom fixed sidebar (desktop) -->
-<div id="custom-sidebar">
-  <include src="sideNav.md"/>
-
-  <!-- Spacer to avoid overlap with sticky top bar -->
-  <div class="sidebar-spacer" aria-hidden="true"></div>
-
-</div>

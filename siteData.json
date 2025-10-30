@@ -70,6 +70,7 @@
       "title": "User Guide",
       "headings": {
         "user-guide": "User Guide",
+        "overview": "Overview",
         "quick-start": "Quick start",
         "features": "Features",
         "viewing-help-help": "Viewing help : help",
@@ -135,7 +136,6 @@
       "title": "About Us",
       "headings": {
         "about-us": "About Us",
-        "about-us-2": "About Us",
         "project-team": "Project team",
         "yu-tingan": "Yu Tingan",
         "beh-shao-ren": "Beh Shao Ren",

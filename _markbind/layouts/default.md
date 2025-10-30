@@ -3,12 +3,21 @@
   <!-- Add other global head assets here if needed -->
 </head-bottom>
 
-<header>
-  <md>
-    <include src="../navigation.md" />
-  </md>
-</header>
+<div id="page-container">
+  <header>
+    <md>
+      <include src="../navigation.md" />
+    </md>
+  </header>
 
-<div id="content">
-  {{ content }}
+  <!-- Custom fixed sidebar (desktop) -->
+  <div id="custom-sidebar">
+    <include src="../sideNav.md"/>
+    <!-- Spacer to avoid overlap with sticky top bar -->
+    <div class="sidebar-spacer" aria-hidden="true"></div>
+  </div>
+
+  <div id="content">
+    {{ content }}
+  </div>
 </div>
