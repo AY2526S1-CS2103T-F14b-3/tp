@@ -481,4 +481,56 @@ li.site-nav-list-item-0 ul { padding-left: 0.4rem !important; }
 /* Ensure root app remains unstyled container for header + content */
 #app { display: block !important; }
 
+/* Ensure header appears only once in printed/PDF output */
+:root {
+  --print-header-height: 80px; /* matches your current padding-top: 80px on #page-container */
+}
+
+@media print {
+  /* Treat header and custom sidebar as normal flow so they are not repeated */
+  header,
+  #custom-sidebar,
+  #page-container {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    z-index: auto !important;
+    width: auto !important;
+  }
+
+  /* Remove the extra page-top padding used for the fixed header on screen */
+  #page-container {
+    padding-top: 0 !important;
+    min-height: auto !important;
+  }
+
+  /* Ensure printed content is not hidden under the header on first page:
+     keep the header's height as spacing above the content if you want header visible.
+     If you want header completely removed from print, see the alternate block below. */
+  #content,
+  main,
+  .content {
+    /* If you want the header visible in the PDF (only once at top),
+       keep this padding equal to header height. If you want no header in print,
+       set this to 0 (or use the display:none block shown later). */
+    padding-top: var(--print-header-height) !important;
+    margin-top: 0 !important;
+  }
+
+  /* Prevent header children from splitting awkwardly across pages */
+  header * { break-inside: avoid; }
+
+  /* Reduce heavy visual elements that waste space (optional) */
+  header img.logo,
+  header .logo,
+  header .search,
+  header .screen-only {
+    /* show or hide these as you prefer; set to 'display:none !important' to hide */
+    display: inline-block;
+  }
+
+  /* If any script re-applies fixed positioning on print, ensure this wins */
+  @page { margin: 1in; } /* you can tune page margins if header gets cut off */
+}
 
