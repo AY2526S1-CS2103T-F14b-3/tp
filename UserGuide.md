@@ -4,9 +4,7 @@
 
 # User Guide
 
-## Overview
-
-TutorTrack is a **desktop app for managing contacts, optimized for use via the Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TutorTrack can help you efficiently track students, organise classes and assignments faster than traditional GUI apps.
+TutorTrack is a **desktop app** designed to help **Secondary School tutors** keep track of their **students, classes and assignments.** Unlike conventional contact management systems, TutorTrack is optimized for **rapid keyboard operation**, catering to tutors who favor typing-based workflows over mouse-driven ones.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -18,15 +16,15 @@ TutorTrack is a **desktop app for managing contacts, optimized for use via the C
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14b-3/tp/releases).
+2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14b-3/tp/releases).
 
-1. Copy the file to the folder you want to use as the _home folder_ for TutorTrack.
+3. Copy the file to the folder you want to use as the _home folder_ for TutorTrack.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tutortrack.jar` command to run the application.<br>
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tutortrack.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/Ui.png)
+   ![Ui](images/Ui_updated.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -127,19 +125,19 @@ Format: `delete INDEX`
 * The index **must be a positive integer** 1, 2, 3, …​
 
 Examples:
-* `list` followed by `delete 2` deletes the 2nd student in the address book.
+* `list` followed by `delete 2` deletes the 2nd student in the student list.
 * `find Betsy` followed by `delete 1` deletes the 1st student in the results of the `find` command.
 
 
 ### Listing all students : `list`
 
-Shows a list of all students in the address book.
+Shows a list of all students in TutorTrack.
 
 Format: `list`
 
 ### Editing a student : `edit`
 
-Edits an existing student in the address book.
+Edits an existing student in TutorTrack.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`
 
@@ -167,8 +165,8 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 
 Examples:
 * `find John` returns `john` and `John Doe`
-* `find alex john` returns `alex`, `john`<br>
-  ![result for 'find alex john'](images/findAlexJohnResult.png)
+* `find alex roy` returns `alex`, `roy`<br>
+  ![result for 'find alex roy'](images/findAlexRoyResult.png)
 
 ### Adding assignment(s) to a student: `assign`
 
@@ -183,7 +181,7 @@ Format: `assign INDEX c/CLASS a/ASSIGNMENT [a/ASSIGNMENT]...`
 * Duplicate assignments will not be added.
 
 Examples:
-* `list` followed by `assign 1 c/Math-2000 a/MathHW1 a/MathHW2` adds two assignments from class `Math-2000` to the 1st student in the address book.
+* `list` followed by `assign 1 c/Math-2000 a/MathHW1 a/MathHW2` adds two assignments from class `Math-2000` to the 1st student in the student list.
 * `find John` followed by `assign 2 c/History a/ProjectDraft` adds an assignment from class `History` to the 2nd student in the results of the `find` command.
 
 ### Deleting assignment(s) from a student: `unassign`
@@ -198,7 +196,7 @@ Format: `unassign INDEX c/CLASS a/ASSIGNMENT [a/ASSIGNMENT]...`
 * At least one assignment must be provided.
 
 Examples:
-* `list` followed by `unassign 1 c/Math-2000 a/MathHW1 a/MathHW2` deletes two assignments from class `Math-2000` from the 1st student in the address book.
+* `list` followed by `unassign 1 c/Math-2000 a/MathHW1 a/MathHW2` deletes two assignments from class `Math-2000` from the 1st student in the student list.
 * `find John` followed by `unassign 2 c/History a/ProjectDraft` deletes an assignment from class `History` from the 2nd student in the results of the `find` command.
 
 ### Adding an assignment to all students in a class: `assignall`
@@ -284,7 +282,7 @@ Format: `addclass INDEX c/CLASS [c/CLASS]...`
 * Duplicate classes will not be added.
 
 Examples:
-* `list` followed by `addclass 1 c/Math-1000 c/Physics-2000` adds two classes to the 1st student in the address book.
+* `list` followed by `addclass 1 c/Math-1000 c/Physics-2000` adds two classes to the 1st student in the student list.
 * `find John` followed by `addclass 2 c/Chemistry-1400` adds a class to the 2nd student in the results of the `find` command.
 
 ### Deleting class(es) from a student: `deleteclass`
@@ -302,7 +300,7 @@ Format: `deleteclass INDEX c/CLASS [c/CLASS]...`
 * Only classes that exist for the student can be deleted.
 
 Examples:
-* `list` followed by `deleteclass 1 c/Math-1000 c/Physics-2000` deletes two classes from the 1st student in the address book.
+* `list` followed by `deleteclass 1 c/Math-1000 c/Physics-2000` deletes two classes from the 1st student in the student list.
 * `find John` followed by `deleteclass 2 c/Chemistry-1400` deletes a class from the 2nd student in the results of the `find` command.
 
 ### Filtering students by class: `filter`
@@ -323,7 +321,7 @@ Examples:
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all entries from TutorTrack.
 
 Format: `clear`
 
