@@ -2,18 +2,6 @@
   title: "Testing Guide"
 </frontmatter>
 
-# Testing Guide
-
-<div id="toc">
-
-<!-- MarkBind will generate the table of contents here -->
-</div>
-
-<!-- * Table of Contents -->
-<page-nav-print />
-
-<!-- -------------------------------------------------------------------------------------------------------------------- -->
-
 ## Running tests
 
 There are two ways to run tests.

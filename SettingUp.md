@@ -2,18 +2,6 @@
   title: "Setting Up and Getting Started"
 </frontmatter>
 
-# Setting Up and Getting Started
-
-<div id="toc">
-
-<!-- MarkBind will generate the table of contents here -->
-</div>
-
-<!-- * Table of Contents -->
-<page-nav-print />
-
---------------------------------------------------------------------------------------------------------------------
-
 ## Setting up the project in your computer
 
 <div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>

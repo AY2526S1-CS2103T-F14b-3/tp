@@ -103,7 +103,9 @@
       "headings": {
         "developer-guide": "Developer Guide",
         "acknowledgements": "Acknowledgements",
-        "setting-up-getting-started": "Setting up, getting started",
+        "setting-up": "Setting Up",
+        "setting-up-the-project-in-your-computer": "Setting up the project in your computer",
+        "before-writing-code": "Before writing code",
         "design": "Design",
         "architecture": "Architecture",
         "ui-component": "UI component",
@@ -117,6 +119,16 @@
         "design-considerations": "Design considerations:",
         "proposed-data-archiving": "[Proposed] Data archiving",
         "documentation-logging-testing-configuration-dev-ops": "Documentation, logging, testing, configuration, dev-ops",
+        "testing": "Testing",
+        "running-tests": "Running tests",
+        "types-of-tests": "Types of tests",
+        "devops": "DevOps",
+        "build-automation": "Build automation",
+        "continuous-integration-ci": "Continuous integration (CI)",
+        "making-a-release": "Making a release",
+        "logging": "Logging",
+        "documentation": "Documentation",
+        "configuration": "Configuration",
         "appendix-requirements": "Appendix: Requirements",
         "product-scope": "Product scope",
         "user-stories": "User stories",
@@ -147,24 +159,19 @@
     {
       "src": "Configuration.md",
       "title": "Configuration Guide",
-      "headings": {
-        "configuration-guide": "Configuration Guide"
-      },
+      "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "Documentation.md",
       "title": "Documentation Guide",
-      "headings": {
-        "documentation-guide": "Documentation Guide"
-      },
+      "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "Testing.md",
       "title": "Testing Guide",
       "headings": {
-        "testing-guide": "Testing Guide",
         "running-tests": "Running tests",
         "types-of-tests": "Types of tests"
       },
@@ -173,17 +180,13 @@
     {
       "src": "Logging.md",
       "title": "Logging Guide",
-      "headings": {
-        "logging-guide": "Logging Guide",
-        "logging-guide-2": "Logging guide"
-      },
+      "headings": {},
       "headingKeywords": {}
     },
     {
       "src": "SettingUp.md",
       "title": "Setting Up",
       "headings": {
-        "setting-up-and-getting-started": "Setting Up and Getting Started",
         "setting-up-the-project-in-your-computer": "Setting up the project in your computer",
         "before-writing-code": "Before writing code"
       },
@@ -193,7 +196,6 @@
       "src": "DevOps.md",
       "title": "DevOps Guide",
       "headings": {
-        "devops-guide": "DevOps Guide",
         "build-automation": "Build automation",
         "continuous-integration-ci": "Continuous integration (CI)",
         "code-coverage": "Code coverage",

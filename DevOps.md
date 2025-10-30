@@ -2,18 +2,6 @@
   title: "DevOps Guide"
 </frontmatter>
 
-# DevOps Guide
-
-<div id="toc">
-
-<!-- MarkBind will generate the table of contents here -->
-</div>
-
-<!-- * Table of Contents -->
-<page-nav-print />
-
-<!-- -------------------------------------------------------------------------------------------------------------------- -->
-
 ## Build automation
 
 This project uses Gradle for **build automation and dependency management**. **You are recommended to read [this Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html)**.

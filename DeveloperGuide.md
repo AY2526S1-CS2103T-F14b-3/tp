@@ -17,9 +17,53 @@ _{ list here sources of all reused/adapted ideas, code, documentation, and third
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Setting up, getting started**
+--------------------------------------------------------------------------------------------------------------------
 
-Refer to the guide [_Setting up and getting started_](SettingUp.md).
+## Setting Up
+
+### Setting up the project in your computer
+
+<div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
+Follow the steps in the following guide precisely. Things will not work out if you deviate in some steps.
+</div>
+
+First, **fork** this repo, and **clone** the fork into your computer.
+
+If you plan to use Intellij IDEA (highly recommended):
+
+1. **Configure the JDK**: Follow the guide [_[se-edu/guides] IDEA: Configuring the JDK_](https://se-education.org/guides/tutorials/intellijJdk.html) to ensure Intellij is configured to use **JDK 17**.
+1. **Import the project as a Gradle project**: Follow the guide [_[se-edu/guides] IDEA: Importing a Gradle project_](https://se-education.org/guides/tutorials/intellijImportGradleProject.html) to import the project into IDEA.<br>
+   ⚠️ Note: Importing a Gradle project is slightly different from importing a normal Java project.
+1. **Verify the setup**:
+   1. Run the `seedu.address.Main` and try a few commands.
+   1. [Run the tests](Testing.md) to ensure they all pass.
+
+### Before writing code
+
+1. **Configure the coding style**
+
+   If using IDEA, follow the guide [_[se-edu/guides] IDEA: Configuring the code style_](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to set up IDEA's coding style to match ours.
+
+   <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+   Optionally, you can follow the guide [_[se-edu/guides] Using Checkstyle_](https://se-education.org/guides/tutorials/checkstyle.html) to find how to use the CheckStyle within IDEA e.g., to report problems _as_ you write code.
+   </div>
+
+1. **Set up CI**
+
+   This project comes with a GitHub Actions config files (in `.github/workflows` folder). When GitHub detects those files, it will run the CI for your project automatically at each push to the `master` branch or to any PR. No set up required.
+
+1. **Learn the design**
+
+   When you are ready to start coding, we recommend that you get some sense of the overall design by reading about [TutorTrack's architecture](DeveloperGuide.md#architecture).
+
+1. **Do the tutorials**
+   These tutorials will help you get acquainted with the codebase.
+
+   * [Tracing code](https://se-education.org/guides/tutorials/ab3TracingCode.html)
+   * [Adding a new command](https://se-education.org/guides/tutorials/ab3AddRemark.html)
+   * [Removing fields](https://se-education.org/guides/tutorials/ab3RemovingFields.html)
+
+--------------------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -265,11 +309,133 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ## **Documentation, logging, testing, configuration, dev-ops**
 
-* [Documentation guide](Documentation.md)
-* [Testing guide](Testing.md)
-* [Logging guide](Logging.md)
-* [Configuration guide](Configuration.md)
-* [DevOps guide](DevOps.md)
+### Testing
+
+#### Running tests
+
+There are two ways to run tests.
+
+* **Method 1: Using IntelliJ JUnit test runner**
+  * To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+  * To run a subset of tests, you can right-click on a test package,
+    test class, or a test and choose `Run 'ABC'`
+* **Method 2: Using Gradle**
+  * Open a console and run the command `gradlew clean test` (Mac/Linux: `./gradlew clean test`)
+
+<box type="info" seamless>
+
+**Link**: Read [this Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html) to learn more about using Gradle.
+</box>
+
+#### Types of tests
+
+This project has three types of tests:
+
+1. *Unit tests* targeting the lowest level methods/classes.<br>
+   e.g. `seedu.address.commons.StringUtilTest`
+1. *Integration tests* that are checking the integration of multiple code units (those code units are assumed to be working).<br>
+   e.g. `seedu.address.storage.StorageManagerTest`
+1. Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
+   e.g. `seedu.address.logic.LogicManagerTest`
+
+### DevOps
+
+#### Build automation
+
+This project uses Gradle for **build automation and dependency management**. **You are recommended to read [this Gradle Tutorial from the se-edu/guides](https://se-education.org/guides/tutorials/gradle.html)**.
+
+
+Given below are how to use Gradle for some important project tasks.
+
+
+* **`clean`**: Deletes the files created during the previous build tasks (e.g. files in the `build` folder).<br>
+  e.g. `./gradlew clean`
+
+* **`shadowJar`**: Uses the ShadowJar plugin to create a fat JAR file in the `build/lib` folder, *if the current file is outdated*.<br>
+  e.g. `./gradlew shadowJar`.
+
+* **`run`**: Builds and runs the application.<br>
+  **`runShadow`**: Builds the application as a fat JAR, and then runs it.
+
+* **`checkstyleMain`**: Runs the code style check for the main code base.<br>
+  **`checkstyleTest`**: Runs the code style check for the test code base.
+
+* **`test`**: Runs all tests.
+  * `./gradlew test` — Runs all tests
+  * `./gradlew clean test` — Cleans the project and runs tests
+
+#### Continuous integration (CI)
+
+This project uses GitHub Actions for CI. The project comes with the necessary GitHub Actions configurations files (in the `.github/workflows` folder). No further setting up required.
+
+##### Code coverage
+
+As part of CI, this project uses Codecov to generate coverage reports. When CI runs, it will generate code coverage data (based on the tests run by CI) and upload that data to the CodeCov website, which in turn can provide you more info about the coverage of your tests.
+
+However, because Codecov is known to run into intermittent problems (e.g., report upload fails) due to issues on the Codecov service side, the CI is configured to pass even if the Codecov task failed. Therefore, developers are advised to check the code coverage levels periodically and take corrective actions if the coverage level falls below desired levels.
+
+To enable Codecov for forks of this project, follow the steps given in [this se-edu guide](https://se-education.org/guides/tutorials/codecov.html).
+
+##### Repository-wide checks
+
+In addition to running Gradle checks, CI includes some repository-wide checks. Unlike the Gradle checks which only cover files used in the build process, these repository-wide checks cover all files in the repository. They check for repository rules which are hard to enforce on development machines such as line ending requirements.
+
+These checks are implemented as POSIX shell scripts, and thus can only be run on POSIX-compliant operating systems such as macOS and Linux. To run all checks locally on these operating systems, execute the following in the repository root directory:
+
+`./config/travis/run-checks.sh`
+
+Any warnings or errors will be printed out to the console.
+
+**If adding new checks:**
+
+* Checks are implemented as executable `check-*` scripts within the `.github` directory. The `run-checks.sh` script will automatically pick up and run files named as such. That is, you can add more such files if you need and the CI will do the rest.
+
+* Check scripts should print out errors in the format `SEVERITY:FILENAME:LINE: MESSAGE`
+  * SEVERITY is either ERROR or WARN.
+  * FILENAME is the path to the file relative to the current directory.
+  * LINE is the line of the file where the error occurred and MESSAGE is the message explaining the error.
+
+* Check scripts must exit with a non-zero exit code if any errors occur.
+
+#### Making a release
+
+Here are the steps to create a new release.
+
+1. Update the version number in [`MainApp.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java).
+1. Generate a fat JAR file using Gradle (i.e., `gradlew shadowJar`).
+1. Tag the repo with the version number. e.g. `v0.1`
+1. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/). Upload the JAR file you created.
+
+### Logging
+
+* We are using `java.util.logging` package for logging.
+* The `LogsCenter` class is used to manage the logging levels and logging destinations.
+*  The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level.
+*  Log messages are output through the console and to a `.log` file.
+*  The output logging level can be controlled using the `logLevel` setting in the configuration file (See the [Configuration guide](#configuration) section).
+* **When choosing a level for a log message**, follow the conventions given in [_[se-edu/guides] Java: Logging conventions_](https://se-education.org/guides/conventions/java/logging.html).
+
+### Documentation
+
+**Setting up and maintaining the project website:**
+
+* We use [**MarkBind**](https://markbind.org/) to manage documentation.
+* The `docs/` folder contains the source files for the documentation website.
+* To learn how to set it up and maintain the project website, follow the guide [[se-edu/guides] Working with Forked MarkBind sites](https://se-education.org/guides/tutorials/markbind-forked-sites.html).
+
+**Style guidance:**
+
+* Follow the [**_Google developer documentation style guide_**](https://developers.google.com/style).
+* Also relevant is the [_se-edu/guides **Markdown coding standard**_](https://se-education.org/guides/conventions/markdown.html).
+
+
+**Converting to PDF**
+
+* See the guide [_se-edu/guides **Saving web documents as PDF files**_](https://se-education.org/guides/tutorials/savingPdf.html).
+
+### Configuration
+
+Certain properties of the application can be controlled (e.g user preferences file location, logging level) through the configuration file (default: `config.json`).
 
 --------------------------------------------------------------------------------------------------------------------
 
