@@ -17,7 +17,7 @@ Class Person
 Class Level
 Class Name
 Class Phone
-Class ClassGroup
+Class Class
 Class Assignment
 
 Class I #FFFFFF
@@ -40,7 +40,7 @@ UniquePersonList --> "~* all" Person
 Person *--> Name
 Person *--> Phone
 Person *--> Level
-Person *--> "*" ClassGroup
+Person *--> "*" Class
 Person *--> "*" Assignment
 
 Person -[hidden]up--> I
@@ -48,8 +48,8 @@ UniquePersonList -[hidden]right-> I
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Level
-Level -[hidden]right-> ClassGroup
-ClassGroup -[hidden]right-> Assignment
+Level -[hidden]right-> Class
+Class -[hidden]right-> Assignment
 
 ModelManager --> "~* filtered" Person
 @enduml
