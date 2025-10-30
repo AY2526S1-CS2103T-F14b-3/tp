@@ -1,0 +1,426 @@
+/* Override MarkBind defaults */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.6 !important;
+  color: #24292e !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #fafbfc !important;
+  max-width: 100vw !important;
+  overflow-x: hidden !important; /* prevent horizontal scroll due to fixed sidebar/content */
+}
+
+/* Hide MarkBind's default top header (we use a custom one).
+   Keep site nav elements visible. */
+#app-header {
+  display: none !important;
+}
+
+/* Modern sleek navigation bar */
+.top-nav {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  padding: 1rem 2rem !important;
+  border-bottom: none !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  width: 100% !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.top-nav .brand {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  letter-spacing: -0.02em !important;
+  transition: all 0.3s ease !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
+.top-nav .brand:hover {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  transform: translateY(-1px) !important;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.top-nav .nav-links {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important; /* halved from 2rem */
+}
+
+.top-nav .nav-links a {
+  color: rgba(255, 255, 255, 0.9) !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  font-size: 0.95rem !important;
+  white-space: nowrap !important;
+  transition: all 0.3s ease !important;
+  padding: 0.5rem 1rem !important;
+  position: relative !important;
+  border-radius: 6px !important;
+}
+
+.top-nav .nav-links a:hover {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  transform: translateY(-1px) !important;
+}
+
+.top-nav .nav-links a:active {
+  transform: translateY(0) !important;
+}
+
+.top-nav .nav-links img {
+  vertical-align: middle !important;
+  margin: 0 !important;
+  display: inline-block !important;
+  filter: brightness(0) invert(1) !important;
+  opacity: 0.9 !important;
+  transition: all 0.3s ease !important;
+}
+
+.top-nav .nav-links a:hover img {
+  opacity: 1 !important;
+  transform: scale(1.15) rotate(5deg) !important;
+}
+
+/* Reduce space only before the GitHub icon (last link) to half of the default gap */
+.top-nav .nav-links a:last-child {
+  margin-left: -0.5rem !important; /* default gap now 1rem, halve it */
+  padding-left: 0.5rem !important; /* slightly tighter click target visual */
+}
+
+/* Mobile responsive navigation */
+@media (max-width: 768px) {
+  .top-nav {
+    padding: 0.875rem 1.5rem !important;
+  }
+
+  .top-nav .brand {
+    font-size: 1.3rem !important;
+  }
+
+  .top-nav .nav-links {
+    gap: 0.5rem !important; /* halved from 1rem */
+  }
+  .top-nav .nav-links a:last-child {
+    margin-left: -0.25rem !important; /* halve 0.5rem gap on tablets */
+    padding-left: 0.4rem !important;
+  }
+
+  .top-nav .nav-links a {
+    font-size: 0.85rem !important;
+    padding: 0.4rem 0.75rem !important;
+  }
+}
+
+@media (max-width: 580px) {
+  .top-nav {
+    padding: 1rem !important;
+  }
+
+  .top-nav .brand {
+    font-size: 1.2rem !important;
+  }
+
+  .top-nav .nav-links {
+    gap: 0.25rem !important; /* halved from 0.5rem */
+  }
+
+  .top-nav .nav-links a {
+    font-size: 0.8rem !important;
+    padding: 0.35rem 0.6rem !important;
+  }
+  .top-nav .nav-links a:last-child {
+    margin-left: -0.125rem !important; /* halve 0.25rem gap on small screens */
+    padding-left: 0.3rem !important;
+  }
+}
+
+/* Content area */
+#content,
+#content-wrapper,
+.content-wrapper,
+main {
+  padding: 1.5rem 2rem !important; /* reduce top padding to lessen white gap */
+  max-width: 1000px !important;
+  margin: 1rem auto !important; /* reduce top margin */
+  width: auto !important; /* avoid exceeding viewport width when sidebar is present */
+  background-color: #ffffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+@media (max-width: 768px) {
+  #content,
+  #content-wrapper,
+  .content-wrapper,
+  main {
+    padding: 1.25rem 1rem !important;
+  }
+}
+
+/* Typography */
+h1 {
+  font-size: 2.5rem !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  border-bottom: 1px solid #eaecef !important;
+  padding-bottom: 0.3rem !important;
+  color: #24292e !important;
+}
+
+h2 {
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  border-bottom: 1px solid #eaecef !important;
+  padding-bottom: 0.3rem !important;
+  color: #24292e !important;
+}
+
+h3 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  color: #24292e !important;
+}
+
+h4 {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  color: #24292e !important;
+}
+
+p {
+  margin-bottom: 1rem !important;
+  color: #24292e !important;
+}
+
+/* Images */
+img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Inline badges (CI Status, codecov) */
+img[alt*="CI Status"],
+img[alt*="codecov"],
+img[alt*="badge"] {
+  display: inline-block !important;
+  margin: 0.5rem 0.25rem !important;
+  vertical-align: middle !important;
+}
+
+/* Links */
+a {
+  color: #0366d6 !important;
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: underline !important;
+}
+
+/* Lists */
+ul, ol {
+  padding-left: 2rem !important;
+  margin: 1rem 0 !important;
+}
+
+li {
+  margin: 0.5rem 0 !important;
+  color: #24292e !important;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin: 1.5rem 0 !important;
+  display: table !important;
+  overflow-x: auto !important;
+}
+
+table th,
+table td {
+  border: 1px solid #dfe2e5 !important;
+  padding: 8px 13px !important;
+  text-align: left !important;
+}
+
+table th {
+  background-color: #f6f8fa !important;
+  font-weight: 600 !important;
+  color: #24292e !important;
+}
+
+table tr:nth-child(2n) {
+  background-color: #f6f8fa !important;
+}
+
+/* Code blocks */
+code {
+  background-color: rgba(27,31,35,0.05) !important;
+  padding: 0.2em 0.4em !important;
+  border-radius: 3px !important;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace !important;
+  font-size: 85% !important;
+  color: #24292e !important;
+}
+
+pre {
+  background-color: #f6f8fa !important;
+  padding: 16px !important;
+  overflow-x: auto !important;
+  border-radius: 6px !important;
+  margin: 1rem 0 !important;
+}
+
+pre code {
+  background-color: transparent !important;
+  padding: 0 !important;
+  font-size: 85% !important;
+  display: block !important;
+}
+
+/* Alert boxes */
+.alert {
+  padding: 0.75rem 1.25rem !important;
+  margin: 1rem 0 !important;
+  border: 1px solid transparent !important;
+  border-radius: 0.25rem !important;
+}
+
+.alert-info {
+  color: #004085 !important;
+  background-color: #cce5ff !important;
+  border-color: #b8daff !important;
+}
+
+.alert-primary {
+  color: #004085 !important;
+  background-color: #cce5ff !important;
+  border-color: #b8daff !important;
+}
+
+.alert-warning {
+  color: #856404 !important;
+  background-color: #fff3cd !important;
+  border-color: #ffeaa7 !important;
+}
+
+/* Callout icon + label tweaks */
+.alert .fas,
+.alert .bi {
+  margin-right: 0.35rem !important;
+}
+
+.alert strong:first-of-type {
+  font-weight: 700 !important;
+}
+
+/* Emphasize CAUTION label more (user request) */
+.alert.alert-warning strong:first-of-type {
+  font-weight: 800 !important;
+  font-size: 1.1em !important;
+}
+
+/* Blockquotes */
+blockquote {
+  padding: 0 1em !important;
+  color: #6a737d !important;
+  border-left: 0.25em solid #dfe2e5 !important;
+  margin: 1rem 0 !important;
+}
+
+/* Footer */
+footer {
+  background-color: #f6f8fa !important;
+  padding: 1.5rem !important;
+  margin-top: 3rem !important;
+  border-top: 1px solid #e1e4e8 !important;
+  text-align: center !important;
+  color: #586069 !important;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center !important;
+}
+
+.ml-auto {
+  margin-left: auto !important;
+}
+
+/* Sidebar: rely on MarkBind's default styles; no forced hiding here. */
+
+/* Custom fixed left sidebar for desktop */
+#custom-sidebar {
+  position: fixed !important;
+  top: 64px !important; /* approximate height of the top bar */
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 260px !important;
+  overflow-y: auto !important;
+  background-color: #ffffff !important;
+  border-right: 1px solid #eaecef !important;
+  padding: 0.5rem 0.75rem !important; /* add horizontal padding so items don't touch the edge */
+  z-index: 900 !important;
+  font-size: 0.85rem !important; /* slightly smaller to avoid scrollbar when expanded */
+}
+
+#custom-sidebar .site-nav-root { padding: 0.25rem 0 !important; }
+
+/* Remove global list spacing inside sidebar to avoid excessive gaps */
+#custom-sidebar ul,
+#custom-sidebar ol { padding-left: 0 !important; margin: 0 !important; }
+#custom-sidebar li { margin: 0 !important; }
+
+/* Tighten vertical rhythm of items while keeping MarkBind indentation */
+#custom-sidebar .site-nav-default-list-item { padding-top: 0.25rem !important; padding-bottom: 0.2rem !important; }
+
+/* Scale down heading/item sizes inside the sidebar */
+#custom-sidebar .site-nav-list-item-0 { font-size: 1rem !important; line-height: 1.2 !important; }
+#custom-sidebar .site-nav-list-item-1 { font-size: 0.92rem !important; line-height: 1.2 !important; }
+#custom-sidebar .site-nav-list-item-2 { font-size: 0.9rem !important; line-height: 1.2 !important; }
+#custom-sidebar .site-nav-list-item-3 { font-size: 0.88rem !important; line-height: 1.2 !important; }
+
+/* Offset the content to the right of the sidebar on larger screens */
+@media (min-width: 992px) {
+  #content {
+    margin-left: 280px !important; /* sidebar width + spacing */
+    width: calc(100% - 280px) !important; /* constrain content so page never exceeds viewport */
+    margin-right: auto !important;
+  }
+}
+
+/* Hide sidebar on small screens */
+@media (max-width: 991.98px) {
+  #custom-sidebar { display: none !important; }
+  #content { margin-left: auto !important; }
+}
+/* Ensure root app remains unstyled container for header + content */
+#app { display: block !important; }
+
+
