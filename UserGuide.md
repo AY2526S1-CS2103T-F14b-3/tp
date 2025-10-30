@@ -238,7 +238,8 @@ Format: `mark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
 For efficient marking of assignments for a specific class, use the [`filter`](#filtering-students-by-class-filter) command first to display only students in that class, then use `mark` with the filtered list.
 </div>
 
@@ -258,8 +259,9 @@ Format: `unmark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 * The index(es) **must be a positive integer** 1, 2, 3, …​
 * At least one index or index range must be provided.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
-Like [`mark`](#marking-an-assignment-as-completed-mark), use [`filter`](#filtering-students-by-class-filter) first for efficient unmarking by class.
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
+Like [`mark`]( #marking-an-assignment-as-completed-mark ), use [`filter`](#filtering-students-by-class-filter) first for efficient unmarking by class.
 </div>
 
 Examples:
@@ -334,11 +336,13 @@ Format: `undo`
 * Only commands that modify data (e.g., `add`, `delete`, `edit`, `assign`, `mark`) can be undone.
 * Commands that do not modify data (e.g., `list`, `find`, `help`) cannot be undone.
 
-<div markdown="span" class="alert alert-primary">:bulb: **Tip:**
+<div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
+
 If you accidentally deleted a student or made an unwanted change, use `undo` to quickly restore the previous state.
 </div>
 
-<div markdown="span" class="alert alert-warning">:warning: **Warning:**
+<div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
+
 Undo/Redo only works for actions made in the **current session**. Once you leave or refresh, previous changes cannot be restored.
 </div>
 
@@ -397,6 +401,21 @@ Navigate through 50 previously executed commands using keyboard shortcuts.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TutorTrack home folder.
+
+**Q**: Can I use TutorTrack on multiple computers?<br>
+**A**: Yes, but TutorTrack does not support real-time synchronization. You will need to manually transfer the `tutortrack.json` data file between computers to keep data consistent.
+
+**Q**: What if the data file becomes corrupted?<br>
+**A**: Restore from your backup. If no backup exists, the app will create a fresh `tutortrack.json` and you may lose previous data.
+
+**Q**: How do I back up my data?<br>
+**A**: Regularly copy `data/tutortrack.json` (and optionally `preferences.json`) to a secure location, such as an external hard drive or cloud storage service.
+
+**Q**: Can I edit `data/tutortrack.json` manually?<br>
+**A**: Yes, but only if you know the expected JSON structure. Always make a backup first; invalid edits may cause the app to discard data on next run.
+
+**Q**: Will data work across app versions?<br>
+**A**: Minor patch updates are generally compatible. For major version changes, check release notes for migration instructions before copying files.
 
 --------------------------------------------------------------------------------------------------------------------
 
