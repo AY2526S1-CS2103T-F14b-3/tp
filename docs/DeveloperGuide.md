@@ -43,7 +43,7 @@ If you plan to use Intellij IDEA (highly recommended):
    If using IDEA, follow the guide [_[se-edu/guides] IDEA: Configuring the code style_](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to set up IDEA's coding style to match ours.
 
    <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
-   
+
    Optionally, you can follow the guide [_[se-edu/guides] Using Checkstyle_](https://se-education.org/guides/tutorials/checkstyle.html) to find how to use the CheckStyle within IDEA e.g., to report problems _as_ you write code.
    </div>
 
@@ -819,7 +819,7 @@ testers are expected to do more *exploratory* testing.
 1. Adding a student while all persons are being shown
 
     1. Test case: `add n/John Doe p/12345678 l/3`<br>
-       Expected: Student with specified name, phone number and level is added to the list. Details of the added contact shown in the status message. 
+       Expected: Student with specified name, phone number and level is added to the list. Details of the added contact shown in the status message.
 
     1. Test case: `add n/John Doe p/12345678`<br>
        Expected: No student is added. Error details shown in the status message. Status bar remains the same.

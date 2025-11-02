@@ -122,7 +122,7 @@ Format: `delete INDEX`
 
 * Deletes the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd student in the student list.
@@ -141,9 +141,9 @@ Edits an existing student in TutorTrack.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`
 
-* Edits the student at the specified `INDEX`. 
-* The index refers to the index number shown in the displayed student list. 
-* The index **must be a positive integer** 1, 2, 3, …​
+* Edits the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
+* The index **must be a positive integer** 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * Classes and assignments cannot be edited via the `edit` command.
@@ -178,7 +178,7 @@ Format: `assign INDEX c/CLASS a/ASSIGNMENT [a/ASSIGNMENT]...`
 
 * Adds assignment(s) belonging to specified class to the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …
 * At least one assignment must be provided.
 * Duplicate assignments will not be added.
 
@@ -194,7 +194,7 @@ Format: `unassign INDEX c/CLASS a/ASSIGNMENT [a/ASSIGNMENT]...`
 
 * Deletes assignment(s) belonging to specified class from the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …
 * At least one assignment must be provided.
 
 Examples:
@@ -237,7 +237,7 @@ Format: `mark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 
 * Marks the assignment belonging to the specified class as completed for the student(s) at the specified `INDEX`(es) and/or `INDEX_RANGE`(s).
 * The index(es) refers to the index number shown in the displayed student list.
-* The index(es) **must be a positive integer** 1, 2, 3, …​
+* The index(es) **must be a positive integer** 1, 2, 3, …
 * At least one index or index range must be provided.
 
 <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
@@ -258,7 +258,7 @@ Format: `unmark [INDEX]... [INDEX_RANGE]...  c/CLASS a/ASSIGNMENT`
 
 * Unmarks the assignment belonging to the specified class as not completed for the student(s) at the specified `INDEX`(es) and/or `INDEX_RANGE`(s).
 * The index(es) refers to the index number shown in the displayed student list.
-* The index(es) **must be a positive integer** 1, 2, 3, …​
+* The index(es) **must be a positive integer** 1, 2, 3, …
 * At least one index or index range must be provided.
 
 <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
@@ -279,7 +279,7 @@ Format: `addclass INDEX c/CLASS [c/CLASS]...`
 
 * Adds class(es) to the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …
 * At least one class must be provided.
 * Class names must be alphanumeric and may contain spaces or hyphens.
 * Class names must start with an alphanumeric character (letter or digit).
@@ -297,7 +297,7 @@ Format: `deleteclass INDEX c/CLASS [c/CLASS]...`
 
 * Deletes class(es) from the student at the specified `INDEX`.
 * The index refers to the index number shown in the displayed student list.
-* The index **must be a positive integer** 1, 2, 3, …​
+* The index **must be a positive integer** 1, 2, 3, …
 * At least one class must be provided.
 * Class names must be alphanumeric and may contain spaces or hyphens.
 * Class names must start with an alphanumeric character (letter or digit).

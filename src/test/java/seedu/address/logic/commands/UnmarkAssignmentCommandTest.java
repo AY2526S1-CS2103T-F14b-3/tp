@@ -447,7 +447,7 @@ public class UnmarkAssignmentCommandTest {
                 .build();
 
         Model model = new ModelManager(new AddressBook(TypicalPersons.getTypicalAddressBook()), new UserPrefs());
-        
+
         // Setup first two persons with assignments and mark them
         for (int i = 0; i < 2; i++) {
             Person originalPerson = model.getFilteredPersonList().get(i);
@@ -480,24 +480,24 @@ public class UnmarkAssignmentCommandTest {
 
         try {
             CommandResult result = command.execute(model);
-            
+
             // Verify both persons are unmarked
             Person person1 = model.getFilteredPersonList().get(0);
             Person person2 = model.getFilteredPersonList().get(1);
-            
+
             boolean person1Unmarked = person1.getAssignments().stream()
                     .anyMatch(a -> a.equals(assignment) && !a.isMarked());
             boolean person2Unmarked = person2.getAssignments().stream()
                     .anyMatch(a -> a.equals(assignment) && !a.isMarked());
-            
+
             assertTrue(person1Unmarked, "Person 1 should be unmarked");
             assertTrue(person2Unmarked, "Person 2 should be unmarked");
-            
+
             // Verify success message contains both persons (each only once)
             String expectedMessage = String.format(
                     MESSAGE_UNMARK_PERSON_SUCCESS,
                     StringUtil.toTitleCase(assignment.getAssignmentName()),
-                    StringUtil.toTitleCase(person1.getName().fullName) + ", " 
+                    StringUtil.toTitleCase(person1.getName().fullName) + ", "
                             + StringUtil.toTitleCase(person2.getName().fullName));
             assertEquals(expectedMessage, result.getFeedbackToUser());
         } catch (CommandException ce) {
@@ -545,14 +545,14 @@ public class UnmarkAssignmentCommandTest {
 
         try {
             CommandResult result = command.execute(model);
-            
+
             // Verify person is unmarked
             Person updatedPerson = model.getFilteredPersonList().get(0);
             boolean isUnmarked = updatedPerson.getAssignments().stream()
                     .anyMatch(a -> a.equals(assignment) && !a.isMarked());
-            
+
             assertTrue(isUnmarked, "Person should be unmarked");
-            
+
             // Verify success message contains person name only once
             String expectedMessage = String.format(
                     MESSAGE_UNMARK_PERSON_SUCCESS,
