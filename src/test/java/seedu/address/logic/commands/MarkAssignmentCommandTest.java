@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_ASSIGNMENT_IN_PERSON;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.Messages.MESSAGE_MARK_PERSON_SUCCESS;
@@ -180,6 +181,117 @@ public class MarkAssignmentCommandTest {
         MarkAssignmentCommand command = new MarkAssignmentCommand(indices, commandAssignment);
 
         assertCommandFailure(command, model, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    /**
+     * Tests that duplicate indices are handled correctly - only marks each person once.
+     */
+    @Test
+    public void execute_duplicateIndices_marksEachPersonOnce() {
+        String classGroup = "default-class";
+        Assignment assignment = new AssignmentBuilder()
+                .withName("Physics-1800")
+                .withClassGroup(classGroup)
+                .build();
+
+        Model model = new ModelManager(new AddressBook(TypicalPersons.getTypicalAddressBook()), new UserPrefs());
+        
+        // Setup first two persons with assignments
+        for (int i = 0; i < 2; i++) {
+            Person originalPerson = model.getFilteredPersonList().get(i);
+            Person personWithAssignment = new PersonBuilder(originalPerson)
+                    .withClassGroups(classGroup)
+                    .withAssignments(classGroup, assignment.getAssignmentName())
+                    .build();
+            model.setPerson(originalPerson, personWithAssignment);
+        }
+
+        // Create command with duplicate indices (1, 1, 1, 2, 2, 2)
+        List<Index> targetIndices = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(1),
+                Index.fromOneBased(1),
+                Index.fromOneBased(2),
+                Index.fromOneBased(2),
+                Index.fromOneBased(2)
+        );
+        MarkAssignmentCommand command = new MarkAssignmentCommand(targetIndices, assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            
+            // Verify both persons are marked
+            Person person1 = model.getFilteredPersonList().get(0);
+            Person person2 = model.getFilteredPersonList().get(1);
+            
+            boolean person1Marked = person1.getAssignments().stream()
+                    .anyMatch(a -> a.equals(assignment) && a.isMarked());
+            boolean person2Marked = person2.getAssignments().stream()
+                    .anyMatch(a -> a.equals(assignment) && a.isMarked());
+            
+            assertTrue(person1Marked, "Person 1 should be marked");
+            assertTrue(person2Marked, "Person 2 should be marked");
+            
+            // Verify success message contains both persons (each only once)
+            String expectedMessage = String.format(
+                    MESSAGE_MARK_PERSON_SUCCESS,
+                    StringUtil.toTitleCase(assignment.getAssignmentName()),
+                    StringUtil.toTitleCase(person1.getName().fullName) + ", " 
+                            + StringUtil.toTitleCase(person2.getName().fullName));
+            assertEquals(expectedMessage, result.getFeedbackToUser());
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Tests that marking with duplicate indices of same person works correctly.
+     */
+    @Test
+    public void execute_multipleDuplicatesSamePerson_marksOnlyOnce() {
+        String classGroup = "default-class";
+        Assignment assignment = new AssignmentBuilder()
+                .withName("Math-2000")
+                .withClassGroup(classGroup)
+                .build();
+
+        Model model = new ModelManager(new AddressBook(TypicalPersons.getTypicalAddressBook()), new UserPrefs());
+        Person originalPerson = model.getFilteredPersonList().get(0);
+        Person personWithAssignment = new PersonBuilder(originalPerson)
+                .withClassGroups(classGroup)
+                .withAssignments(classGroup, assignment.getAssignmentName())
+                .build();
+        model.setPerson(originalPerson, personWithAssignment);
+
+        // Create command with many duplicate indices (1, 1, 1, 1, 1)
+        List<Index> targetIndices = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(1),
+                Index.fromOneBased(1),
+                Index.fromOneBased(1),
+                Index.fromOneBased(1)
+        );
+        MarkAssignmentCommand command = new MarkAssignmentCommand(targetIndices, assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            
+            // Verify person is marked
+            Person updatedPerson = model.getFilteredPersonList().get(0);
+            boolean isMarked = updatedPerson.getAssignments().stream()
+                    .anyMatch(a -> a.equals(assignment) && a.isMarked());
+            
+            assertTrue(isMarked, "Person should be marked");
+            
+            // Verify success message contains person name only once
+            String expectedMessage = String.format(
+                    MESSAGE_MARK_PERSON_SUCCESS,
+                    StringUtil.toTitleCase(assignment.getAssignmentName()),
+                    StringUtil.toTitleCase(updatedPerson.getName().fullName));
+            assertEquals(expectedMessage, result.getFeedbackToUser());
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
     }
 
     @Test

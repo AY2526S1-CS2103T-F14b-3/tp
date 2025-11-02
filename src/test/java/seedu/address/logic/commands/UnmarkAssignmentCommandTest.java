@@ -436,6 +436,135 @@ public class UnmarkAssignmentCommandTest {
     }
 
     /**
+     * Tests that duplicate indices are handled correctly - only unmarks each person once.
+     */
+    @Test
+    public void execute_duplicateIndices_unmarksEachPersonOnce() {
+        String classGroup = "default-class";
+        Assignment assignment = new AssignmentBuilder()
+                .withName("Physics-1800")
+                .withClassGroup(classGroup)
+                .build();
+
+        Model model = new ModelManager(new AddressBook(TypicalPersons.getTypicalAddressBook()), new UserPrefs());
+        
+        // Setup first two persons with assignments and mark them
+        for (int i = 0; i < 2; i++) {
+            Person originalPerson = model.getFilteredPersonList().get(i);
+            Person personWithAssignment = new PersonBuilder(originalPerson)
+                    .withClassGroups(classGroup)
+                    .withAssignments(classGroup, assignment.getAssignmentName())
+                    .build();
+            model.setPerson(originalPerson, personWithAssignment);
+        }
+
+        // Mark both assignments
+        try {
+            MarkAssignmentCommand markCommand = new MarkAssignmentCommand(
+                    Arrays.asList(Index.fromOneBased(1), Index.fromOneBased(2)), assignment);
+            markCommand.execute(model);
+        } catch (CommandException ce) {
+            throw new AssertionError("Setup marking failed.", ce);
+        }
+
+        // Create command with duplicate indices (1, 1, 1, 2, 2, 2)
+        List<Index> targetIndices = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(1),
+                Index.fromOneBased(1),
+                Index.fromOneBased(2),
+                Index.fromOneBased(2),
+                Index.fromOneBased(2)
+        );
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(targetIndices, assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            
+            // Verify both persons are unmarked
+            Person person1 = model.getFilteredPersonList().get(0);
+            Person person2 = model.getFilteredPersonList().get(1);
+            
+            boolean person1Unmarked = person1.getAssignments().stream()
+                    .anyMatch(a -> a.equals(assignment) && !a.isMarked());
+            boolean person2Unmarked = person2.getAssignments().stream()
+                    .anyMatch(a -> a.equals(assignment) && !a.isMarked());
+            
+            assertTrue(person1Unmarked, "Person 1 should be unmarked");
+            assertTrue(person2Unmarked, "Person 2 should be unmarked");
+            
+            // Verify success message contains both persons (each only once)
+            String expectedMessage = String.format(
+                    MESSAGE_UNMARK_PERSON_SUCCESS,
+                    StringUtil.toTitleCase(assignment.getAssignmentName()),
+                    StringUtil.toTitleCase(person1.getName().fullName) + ", " 
+                            + StringUtil.toTitleCase(person2.getName().fullName));
+            assertEquals(expectedMessage, result.getFeedbackToUser());
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
+     * Tests that unmarking with duplicate indices of same person works correctly.
+     */
+    @Test
+    public void execute_multipleDuplicatesSamePerson_unmarksOnlyOnce() {
+        String classGroup = "default-class";
+        Assignment assignment = new AssignmentBuilder()
+                .withName("Math-2000")
+                .withClassGroup(classGroup)
+                .build();
+
+        Model model = new ModelManager(new AddressBook(TypicalPersons.getTypicalAddressBook()), new UserPrefs());
+        Person originalPerson = model.getFilteredPersonList().get(0);
+        Person personWithAssignment = new PersonBuilder(originalPerson)
+                .withClassGroups(classGroup)
+                .withAssignments(classGroup, assignment.getAssignmentName())
+                .build();
+        model.setPerson(originalPerson, personWithAssignment);
+
+        // Mark the assignment first
+        try {
+            MarkAssignmentCommand markCommand = new MarkAssignmentCommand(
+                    Arrays.asList(Index.fromOneBased(1)), assignment);
+            markCommand.execute(model);
+        } catch (CommandException ce) {
+            throw new AssertionError("Setup marking failed.", ce);
+        }
+
+        // Create command with many duplicate indices (1, 1, 1, 1, 1)
+        List<Index> targetIndices = Arrays.asList(
+                Index.fromOneBased(1),
+                Index.fromOneBased(1),
+                Index.fromOneBased(1),
+                Index.fromOneBased(1),
+                Index.fromOneBased(1)
+        );
+        UnmarkAssignmentCommand command = new UnmarkAssignmentCommand(targetIndices, assignment);
+
+        try {
+            CommandResult result = command.execute(model);
+            
+            // Verify person is unmarked
+            Person updatedPerson = model.getFilteredPersonList().get(0);
+            boolean isUnmarked = updatedPerson.getAssignments().stream()
+                    .anyMatch(a -> a.equals(assignment) && !a.isMarked());
+            
+            assertTrue(isUnmarked, "Person should be unmarked");
+            
+            // Verify success message contains person name only once
+            String expectedMessage = String.format(
+                    MESSAGE_UNMARK_PERSON_SUCCESS,
+                    StringUtil.toTitleCase(assignment.getAssignmentName()),
+                    StringUtil.toTitleCase(updatedPerson.getName().fullName));
+            assertEquals(expectedMessage, result.getFeedbackToUser());
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
+    }
+
+    /**
      * Tests that the success message contains title-cased names.
      */
     @Test

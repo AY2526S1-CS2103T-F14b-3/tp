@@ -86,6 +86,42 @@ public class UnmarkAssignmentCommandParserTest {
         assertParseFailure(parser, userInput, expectedMessage);
     }
 
+    /**
+     * Tests that parsing with duplicate indices successfully deduplicates them.
+     */
+    @Test
+    public void parse_duplicateIndices_success() {
+        // Test duplicate single indices - should deduplicate to [1, 2]
+        String duplicateInput = "1 1 1 2 2 2 c/physics-1800 a/Physics-1800";
+        try {
+            UnmarkAssignmentCommand command = parser.parse(duplicateInput);
+            // Verify parsing succeeds - the important part is that it doesn't fail
+            // The actual deduplication is tested in the command execution tests
+            // Just verify the command was created successfully
+            assertEquals("unmark", command.getCommandWord());
+        } catch (ParseException pe) {
+            fail("Unexpected ParseException thrown for duplicate indices input: " + pe.getMessage());
+        }
+
+        // Test many duplicates of same index - should deduplicate to [1]
+        String manyDuplicatesInput = "1 1 1 1 1 1 1 c/physics-1800 a/Physics-1800";
+        try {
+            UnmarkAssignmentCommand command = parser.parse(manyDuplicatesInput);
+            assertEquals("unmark", command.getCommandWord());
+        } catch (ParseException pe) {
+            fail("Unexpected ParseException thrown for many duplicate indices input: " + pe.getMessage());
+        }
+
+        // Test duplicate ranges - should deduplicate overlapping indices
+        String duplicateRangeInput = "1-3 2-4 c/physics-1800 a/Physics-1800";
+        try {
+            UnmarkAssignmentCommand command = parser.parse(duplicateRangeInput);
+            assertEquals("unmark", command.getCommandWord());
+        } catch (ParseException pe) {
+            fail("Unexpected ParseException thrown for duplicate range input: " + pe.getMessage());
+        }
+    }
+
     @Test
     public void parse_invalidPrefix_throwsParseException() {
         String userInput = "1 c/physics-1800 a/Physics-1800 p/97658418";
