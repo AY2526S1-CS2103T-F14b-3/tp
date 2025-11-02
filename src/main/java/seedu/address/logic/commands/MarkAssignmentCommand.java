@@ -81,8 +81,8 @@ public class MarkAssignmentCommand extends Command {
 
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Person> markedPersons = new ArrayList<>();
-        List<Person> alreadyMarkedPersons = new ArrayList<>();
-        List<Person> peopleToMark = new ArrayList<>();
+        Set<Person> alreadyMarkedPersons = new java.util.LinkedHashSet<>();
+        Set<Person> peopleToMark = new java.util.LinkedHashSet<>();
 
         // First validate indices and collect people to mark
         for (Index targetIndex : targetIndices) {

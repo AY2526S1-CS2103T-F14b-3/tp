@@ -81,8 +81,8 @@ public class UnmarkAssignmentCommand extends Command {
 
         List<Person> lastShownList = model.getFilteredPersonList();
         List<Person> unmarkedPersons = new ArrayList<>();
-        List<Person> alreadyUnmarkedPersons = new ArrayList<>();
-        List<Person> peopleToUnmark = new ArrayList<>();
+        Set<Person> alreadyUnmarkedPersons = new java.util.LinkedHashSet<>();
+        Set<Person> peopleToUnmark = new java.util.LinkedHashSet<>();
 
         // First validate indices and collect people to unmark
         for (Index targetIndex : targetIndices) {
