@@ -71,7 +71,7 @@ TutorTrack is a **desktop app** designed to help **Secondary School tutors** kee
 * `NAME` parameter values allows only alphanumeric values, spaces, hyphens, periods, apostrophes and slashes.<br>
   e.g. `n/John Doe`, `n/Betsy O'Connor`, `n/Mary-Jane Smith Jr.` are all acceptable but `n/John@Doe`, `n/John#1` is not.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
+* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit`, `clear`, `undo` and `redo`) will be ignored.<br>
   e.g. if the command specifies `help 123`, it will be interpreted as `help`.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
@@ -388,7 +388,7 @@ Furthermore, certain edits can cause TutorTrack to behave in unexpected ways (e.
 
 #### Navigating command history
 
-Navigate through 50 previously executed commands using keyboard shortcuts.
+Navigate through 50 previously inputted commands using keyboard shortcuts.
 
 * **Up Arrow Key (↑)**: Retrieves the previous command from history
 * **Down Arrow Key (↓)**: Retrieves the next command from history
