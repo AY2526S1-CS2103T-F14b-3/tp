@@ -48,7 +48,7 @@ This user guide is intended for **Secondary School tutors** who wish to efficien
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   2. To verify your Java version, open a terminal and execute the command `java -version`. If Java is not installed or the version is below 17, please download and install the latest JDK from [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) or use a package manager like Homebrew.
+   - To verify your Java version, open a terminal and execute the command `java -version`. If Java is not installed or the version is below 17, please download and install the latest JDK from [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) or use a package manager like Homebrew.
 
     <div markdown="block" class="alert alert-warning">
    
