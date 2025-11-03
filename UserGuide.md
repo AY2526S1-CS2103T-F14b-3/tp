@@ -93,6 +93,8 @@ This user guide is intended for **Secondary School tutors** who wish to efficien
 ## Features
 Below are the available commands in TutorTrack. Use them to manage your students, classes and assignments effectively!
 
+<div style="font-size:80%">
+
 <box type="info" seamless>
 
 **Notes about the command format:**<br>
@@ -151,6 +153,8 @@ Below are the available commands in TutorTrack. Use them to manage your students
 * Classes:
   * Classes are considered duplicates if the student is already enrolled in a class with the same class name (case-insensitive).
 </box>
+
+</div>
 
 <a id="viewing-help-help"></a>
 ### Viewing help : `help`
