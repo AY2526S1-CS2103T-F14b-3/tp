@@ -43,7 +43,7 @@ If you plan to use Intellij IDEA (highly recommended):
    If using IDEA, follow the guide [_[se-edu/guides] IDEA: Configuring the code style_](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to set up IDEA's coding style to match ours.
 
    <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
-   
+
    Optionally, you can follow the guide [_[se-edu/guides] Using Checkstyle_](https://se-education.org/guides/tutorials/checkstyle.html) to find how to use the CheckStyle within IDEA e.g., to report problems _as_ you write code.
    </div>
 
@@ -459,7 +459,7 @@ Use case ends.
 **Extensions**
 
 * 1a. Malformed or incomplete input (missing required prefixes, non-empty preamble, duplicate prefixes, or invalid prefixes)
-  * 1a1. Tutor provides input that does not match the `add` format. 
+  * 1a1. Tutor provides input that does not match the `add` format.
   * 1a2. System rejects the input and shows an error message. \
   Use case ends.
 
@@ -469,7 +469,7 @@ Use case ends.
 
 * 3a. Storage write fails after model change
   * 3a1. System restores prior consistent state and shows a storage failure message. \
-  Use case ends. 
+  Use case ends.
 
 * 4a. Duplicate name only (same name, different phone)
   * 4a1. System shows a warning that a student with the same name already exists.\
@@ -506,17 +506,17 @@ Use case ends.
 
 * 1a. Malformed index (missing, non-integer, or wrong format)
     * 1a1. Tutor provides a malformed or missing index.
-    * 1a2. System rejects the input and shows an error message.  
+    * 1a2. System rejects the input and shows an error message.
       Use case ends.
 
 * 1b. No students displayed (empty filtered list)
     * 1b1. Tutor issues deletes a student while the filtered list is empty.
-    * 1b2. System rejects the input and shows an error message.  
+    * 1b2. System rejects the input and shows an error message.
       Use case ends.
 
 * 2a. Index out of range (no student at that index in the current filtered list)
     * 2a1. Tutor provides an index greater than the displayed list size.
-    * 2a2. System rejects the input and shows an error message.  
+    * 2a2. System rejects the input and shows an error message.
       Use case ends.
 
 * 3a. Storage write fails
@@ -815,22 +815,22 @@ Use case ends.
   * 2a1. System shows “Listed all students” message.
   Use case ends.
 
-    
+
 ### Non-Functional Requirements
 
-1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed. 
-2. The product supports only **one user per local data file**; concurrent multi-user access is not expected. 
-3. All data is stored locally in a **human-readable text file** (e.g., JSON), allowing advanced users to edit it manually. 
-4. No installer is required — the program can be run directly from a single **JAR file**. 
-5. The system operates fully offline and has **no dependency on internet connectivity** or remote servers. 
-6. Platform independence is required; the software must avoid OS-specific libraries so it runs consistently across Windows, macOS, and Linux. 
-7. Deliverables must be lightweight: the JAR file ≤ **100 MB** and each PDF document ≤ **15 MB** to ensure easy portability and exam usability. 
-8. Startup time should not exceed **2 seconds** on a modern laptop (e.g., Intel i5/Apple M1 with 8 GB RAM). 
-9. User commands must execute within **1 second** under typical usage conditions (≤ 1000 students). 
-10. In the event of a failed storage write, the application must **roll back changes** to prevent data corruption. 
-11. Data integrity must be preserved across restarts; students and assignments saved before exit should remain consistent on relaunch. 
-12. On invalid inputs or corrupted files, the program is expected to **fail gracefully** with clear, informative error messages (e.g., “Invalid command format! add: n/NAME p/PHONE l/LEVEL \[c/CLASS]...”), without crashing. 
-13. The user interface must remain usable on screens with at least **1024×768 resolution**, without scrolling needed for core features. 
+1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2. The product supports only **one user per local data file**; concurrent multi-user access is not expected.
+3. All data is stored locally in a **human-readable text file** (e.g., JSON), allowing advanced users to edit it manually.
+4. No installer is required — the program can be run directly from a single **JAR file**.
+5. The system operates fully offline and has **no dependency on internet connectivity** or remote servers.
+6. Platform independence is required; the software must avoid OS-specific libraries so it runs consistently across Windows, macOS, and Linux.
+7. Deliverables must be lightweight: the JAR file ≤ **100 MB** and each PDF document ≤ **15 MB** to ensure easy portability and exam usability.
+8. Startup time should not exceed **2 seconds** on a modern laptop (e.g., Intel i5/Apple M1 with 8 GB RAM).
+9. User commands must execute within **1 second** under typical usage conditions (≤ 1000 students).
+10. In the event of a failed storage write, the application must **roll back changes** to prevent data corruption.
+11. Data integrity must be preserved across restarts; students and assignments saved before exit should remain consistent on relaunch.
+12. On invalid inputs or corrupted files, the program is expected to **fail gracefully** with clear, informative error messages (e.g., “Invalid command format! add: n/NAME p/PHONE l/LEVEL \[c/CLASS]...”), without crashing.
+13. The user interface must remain usable on screens with at least **1024×768 resolution**, without scrolling needed for core features.
 14. Deliverables should exclude unnecessary third-party libraries or oversized media assets, ensuring files are not bloated.
 
 ### Glossary
@@ -847,9 +847,9 @@ Use case ends.
 * **Status message**: A **text message** displayed in the app’s status bar to inform the user about the result of their last action.
 * **Command format**: The **syntax** a user must follow when entering commands (e.g., `add n/NAME p/PHONE l/LEVEL`).
 * **Valid command format error**: An **error message** displayed when the command syntax does not follow the required format (e.g., missing parameters).
-* **Model**: holds the app data and exposes the API the rest of the app uses (e.g., filtered lists, commit/undo). Explains state ownership and responsibilities. 
-* **Logic**: parses user input and executes commands; mediates between UI and Model. Clarifies command flow and error handling. 
-* **UI**: presentation layer and user interaction (views, fxml, command box, result display). Useful to explain observable lists and bindings. 
+* **Model**: holds the app data and exposes the API the rest of the app uses (e.g., filtered lists, commit/undo). Explains state ownership and responsibilities.
+* **Logic**: parses user input and executes commands; mediates between UI and Model. Clarifies command flow and error handling.
+* **UI**: presentation layer and user interaction (views, fxml, command box, result display). Useful to explain observable lists and bindings.
 * **Storage**: persistence layer (read/write JSON, file paths, rollback on failure). Helps set expectations about durability and failure modes.
 * **Storage file**: The file **`data/tutortrack.json`**, where TutorTrack **saves and loads all data**.
 
@@ -887,7 +887,7 @@ testers are expected to do more *exploratory* testing.
 1. Adding a student while all students are being shown
 
     1. Test case: `add n/John Doe p/12345678 l/3`<br>
-       Expected: Student with specified name, phone number and level is added to the list. Details of the added student shown in the status message. 
+       Expected: Student with specified name, phone number and level is added to the list. Details of the added student shown in the status message.
 
     1. Test case: `add n/John Doe p/12345678`<br>
        Expected: No student is added. Error details shown in the status message. Status bar remains the same.
@@ -1072,14 +1072,14 @@ prefix with a space between them, e.g., `add n/John Doe a/hw1`, but allow invali
 prefixes when there is no space, e.g., `add n/John Doea/hw1`.
 We plan to allow such cases, but display an additional warning message to inform the user of a possible invalid prefix, if this was unintentional, to avoid confusion.
 3. **Extend `filter` to support additional fields and substring matching:**
-Currently, the `filter` command only supports filtering by class. 
+Currently, the `filter` command only supports filtering by class.
 We plan to extend `filter` so it accepts additional prefixes (`l/LEVEL`, `n/NAME`, `a/ASSIGNMENT`), performed by case-insensitive substring matching (e.g., `filter c/Math-100` matches `Math-1000`).
-4. **Improve `mark` / `unmark` error and partial-failure reporting to list affected students:** 
-Currently, `mark` / `unmark` returns a generic error when an assignment is not found for some targets (e.g., `Assignment 'hw1' of specified class not found for specified student(s)`) without displaying which students failed and why. 
+4. **Improve `mark` / `unmark` error and partial-failure reporting to list affected students:**
+Currently, `mark` / `unmark` returns a generic error when an assignment is not found for some targets (e.g., `Assignment 'hw1' of specified class not found for specified student(s)`) without displaying which students failed and why.
 We plan to change the success message to list per-student outcomes (success or explicit reason for skip/failure) in a format consistent with existing success messages.
 5. **Account for whitespace for duplicate checking of `Name`, `Assignment`, `ClassGroup`**:
 Currently, users can input similar names that include whitespaces (e.g., `addclass 1 c/Math2000` and `addclass 1 c/Math 2000`) for these fields.
 We plan to account for whitespace by still allowing these inputs, but giving a warning message:  `"Warning: A similar class c/Math 2000 already exists."`
-6. **Allow edits of `ClassGroup` and `Assignment` in `edit` command**: 
+6. **Allow edits of `ClassGroup` and `Assignment` in `edit` command**:
 Currently, editing a student’s `ClassGroup`s or `Assignment`s requires per-student `deleteclass` / `addclass`, or `unassign` / `assign` commands, respectively.
 We plan to enhance the existing `edit` command to allow renaming of `ClassGroup` or an `Assignment` (within a specific `ClassGroup`) across all students who have that class or assignment.

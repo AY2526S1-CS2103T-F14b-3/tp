@@ -51,7 +51,7 @@ This user guide is intended for **Secondary School tutors** who wish to efficien
    - To verify your Java version, open a terminal and execute the command `java -version`. If Java is not installed or the version is below 17, please download and install the latest JDK from [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) or use a package manager like Homebrew.
 
     <div markdown="block" class="alert alert-warning">
-   
+
    **For Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
     </div>
 
@@ -66,7 +66,7 @@ This user guide is intended for **Secondary School tutors** who wish to efficien
       - **Mac/Linux**: Open the Terminal app.
    2. Go to the folder where you saved the tutortrack.jar file:
       - Type `cd`(with a space after it), then drag and drop the folder into the window.
-      - Press **Enter**. 
+      - Press **Enter**.
    3. Run the app:
       - Type this command and press **Enter**: <br>
         `java -jar tutortrack.jar`
@@ -206,8 +206,8 @@ Edits an existing student in TutorTrack.
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`
 
-* Edits the student at the specified `INDEX`. 
-* The index refers to the index number shown in the displayed student list. 
+* Edits the student at the specified `INDEX`.
+* The index refers to the index number shown in the displayed student list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
@@ -431,7 +431,7 @@ If you accidentally deleted a student or made an unwanted change, use `undo` to 
 <div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
 
 Undo/Redo only works for:
-- Actions made in the **current session**. Once you leave or refresh, previous changes cannot be restored. 
+- Actions made in the **current session**. Once you leave or refresh, previous changes cannot be restored.
 - Commands that **modify data**. Commands like `list`, `find`, `filter`, `help` do not affect data and thus cannot be undone/redone.
 
 </div>
@@ -518,7 +518,7 @@ Navigate through 50 previously inputted commands using keyboard shortcuts.
 <box type="info" seamless>
 
 **How to find `preferences.json`:**<br>
-   
+
 **Windows**:<br>
 1. Go to the same folder where you keep your `tutortrack.jar` file. <br>
 2. Look for a file named `preferences.json` in that folder (it might be inside a subfolder named something like `data` or `.tutortrack`). <br>
