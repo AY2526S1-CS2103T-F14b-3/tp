@@ -181,7 +181,7 @@ The `Model` component,
 
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
-* saves command history data in text format, and can be used to initialise a CommandHistory Object in Model
+* saves command history data (up to 50 commands) in text format, and can be used to initialise a CommandHistory Object in Model
 * inherits from both `AddressBookStorage` `CommandHistoryStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
@@ -760,7 +760,7 @@ Use case ends.
 11. User commands must execute within **1 second** under typical usage conditions (≤ 1000 students).
 12. In the event of a failed storage write, the application must **roll back changes** to prevent data corruption.
 13. Data integrity must be preserved across restarts; students and assignments saved before exit should remain consistent on relaunch.
-14. On invalid inputs or corrupted files, the program is expected to **fail gracefully** with clear, informative error messages (e.g., “Invalid command format! add: n/NAME p/PARENT_PHONE l/Secondary{1..4}”), without crashing.
+14. On invalid inputs or corrupted files, the program is expected to **fail gracefully** with clear, informative error messages (e.g., “Invalid command format! add: n/NAME p/PHONE l/LEVEL \[c/CLASS]...”), without crashing.
 15. The user interface must remain usable on screens with at least **1024×768 resolution**, without scrolling needed for core features.
 16. Deliverables should exclude unnecessary third-party libraries or oversized media assets, ensuring files are not bloated.
 
@@ -1005,8 +1005,8 @@ Team size: 5
 1. **Make accepted phone number formats more flexible and accurate:**
 Currently, we accept phone numbers that contain only numbers
 and are at least 3 digits long.
-We plan to make phone numbers be at least 8 digits long (in Singapore context) and accept formats with
-spaces, dashes, or plus signs (e.g., "9123 4567", "912-34567", "+65 91234567").
+We plan to make phone numbers be at least 8 digits long and accept formats with
+spaces, dashes, plus signs or brackets (e.g., "9123 4567", "912-34567", "+65 91234567", "(1800)9100-0019").
 2. **Make error messages for assign & unassign more cohesive:**
 Currently, if we try to assign to a student an assignment belonging to a class
 they are not in, we get error message
