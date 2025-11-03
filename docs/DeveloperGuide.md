@@ -702,21 +702,20 @@ Use case ends.
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. The product supports only **one user per local data file**; concurrent multi-user access is not expected.
-5. All data is stored locally in a **human-readable text file** (e.g., JSON), allowing advanced users to edit it manually.
-6. No installer is required — the program can be run directly from a single **JAR file**.
-7. The system operates fully offline and has **no dependency on internet connectivity** or remote servers.
-8. Platform independence is required; the software must avoid OS-specific libraries so it runs consistently across Windows, macOS, and Linux.
-9. Deliverables must be lightweight: the JAR file ≤ **100 MB** and each PDF document ≤ **15 MB** to ensure easy portability and exam usability.
-10. Startup time should not exceed **2 seconds** on a modern laptop (e.g., Intel i5/Apple M1 with 8 GB RAM).
-11. User commands must execute within **1 second** under typical usage conditions (≤ 1000 students).
-12. In the event of a failed storage write, the application must **roll back changes** to prevent data corruption.
-13. Data integrity must be preserved across restarts; students and assignments saved before exit should remain consistent on relaunch.
-14. On invalid inputs or corrupted files, the program is expected to **fail gracefully** with clear, informative error messages (e.g., “Invalid command format! add: n/NAME p/PHONE l/LEVEL \[c/CLASS]...”), without crashing.
-15. The user interface must remain usable on screens with at least **1024×768 resolution**, without scrolling needed for core features.
-16. Deliverables should exclude unnecessary third-party libraries or oversized media assets, ensuring files are not bloated.
+2. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+3. The product supports only **one user per local data file**; concurrent multi-user access is not expected.
+4. All data is stored locally in a **human-readable text file** (e.g., JSON), allowing advanced users to edit it manually.
+5. No installer is required — the program can be run directly from a single **JAR file**.
+6. The system operates fully offline and has **no dependency on internet connectivity** or remote servers.
+7. Platform independence is required; the software must avoid OS-specific libraries so it runs consistently across Windows, macOS, and Linux. 
+8. Deliverables must be lightweight: the JAR file ≤ **100 MB** and each PDF document ≤ **15 MB** to ensure easy portability and exam usability. 
+9. Startup time should not exceed **2 seconds** on a modern laptop (e.g., Intel i5/Apple M1 with 8 GB RAM). 
+10. User commands must execute within **1 second** under typical usage conditions (≤ 1000 students). 
+11. In the event of a failed storage write, the application must **roll back changes** to prevent data corruption. 
+12. Data integrity must be preserved across restarts; students and assignments saved before exit should remain consistent on relaunch. 
+13. On invalid inputs or corrupted files, the program is expected to **fail gracefully** with clear, informative error messages (e.g., “Invalid command format! add: n/NAME p/PHONE l/LEVEL \[c/CLASS]...”), without crashing. 
+14. The user interface must remain usable on screens with at least **1024×768 resolution**, without scrolling needed for core features. 
+15. Deliverables should exclude unnecessary third-party libraries or oversized media assets, ensuring files are not bloated.
 
 
 *{More to be added}*
@@ -778,7 +777,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `add n/John Doe p/12345678`<br>
        Expected: No student is added. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `add`, `add x`, `...` (where x is not a class, level or phone number)<br>
+    1. Other incorrect add commands to try: `add`, `add x`, `...` (where x is not a class, level or phone number)<br>
        Expected: Similar to previous.
 
 ### Deleting a student
@@ -823,7 +822,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `addclass 1`<br>
        Expected: No class is added. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `addclass`, `addclass x`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect addclass commands to try: `addclass`, `addclass x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
 ### Deleting a class
@@ -838,7 +837,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `deleteclass 1`<br>
        Expected: No class is added. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `deleteclass`, `deleteclass x`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect deleteclass commands to try: `deleteclass`, `deleteclass x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
 ### Adding an assignment from a student
@@ -853,7 +852,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `assign 1`<br>
        Expected: No assignment is added. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `assign`, `assign 1 c/x a/y`, `...` (where x is a class that the first contact does not have)<br>
+    1. Other incorrect assign commands to try: `assign`, `assign 1 c/x a/y`, `...` (where x is a class that the first contact does not have)<br>
        Expected: Similar to previous.
 
 ### Deleting an assignment from a student
@@ -868,7 +867,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `unassign 1`<br>
        Expected: No assignment is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `unassign`, `unassign 1 c/x a/y`, `...` (where x is a class that the first contact does not have)<br>
+    1. Other incorrect unassign commands to try: `unassign`, `unassign 1 c/x a/y`, `...` (where x is a class that the first contact does not have)<br>
        Expected: Similar to previous.
 
 ### Adding an assignment to an entire class
@@ -883,7 +882,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `assignall `<br>
        Expected: No assignment is added. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `assignall c/`, `assignall c/x a/y`, `...` (where all students in class x already have assignment y)<br>
+    1. Other incorrect assignall commands to try: `assignall c/`, `assignall c/x a/y`, `...` (where all students in class x already have assignment y)<br>
        Expected: Similar to previous.
 
 ### Deleting an assignment from an entire class
@@ -898,7 +897,7 @@ testers are expected to do more *exploratory* testing.
     1. Test case: `unassignall `<br>
        Expected: No assignment is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `unassignall c/`, `unassignall c/x a/y`, `...` (where all students in class x do not have assignment y)<br>
+    1. Other incorrect unassignall commands to try: `unassignall c/`, `unassignall c/x a/y`, `...` (where all students in class x do not have assignment y)<br>
        Expected: Similar to previous.
 
 ### Saving data
