@@ -1,4 +1,5 @@
 @startuml
+top to bottom direction
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor STORAGE_COLOR
@@ -6,48 +7,51 @@ skinparam classBackgroundColor STORAGE_COLOR
 
 package Storage as StoragePackage {
 
-package "UserPrefs Storage" #F4F6F6{
-Class "<<interface>>\nUserPrefsStorage" as UserPrefsStorage
-Class JsonUserPrefsStorage
+    class StorageManager
+
+    package "UserPrefs Storage" #F4F6F6 {
+        interface UserPrefsStorage
+        class JsonUserPrefsStorage
+        JsonUserPrefsStorage -up-|> UserPrefsStorage
+    }
+
+    package "AddressBook Storage" #F4F6F6 {
+        interface AddressBookStorage
+        class JsonAddressBookStorage
+        class JsonSerializableAddressBook
+        class JsonAdaptedPerson
+        class JsonAdaptedTag
+        class JsonAdaptedClassGroup
+        class JsonAdaptedAssignment
+        class JsonAdaptedAssignmentWrapper
+
+        JsonAddressBookStorage -up-|> AddressBookStorage
+        JsonAddressBookStorage ..> JsonSerializableAddressBook
+        JsonSerializableAddressBook --> "*" JsonAdaptedPerson
+        JsonAdaptedPerson --> "*" JsonAdaptedTag
+        JsonAdaptedPerson --> "*" JsonAdaptedClassGroup
+        JsonAdaptedPerson --> "*" JsonAdaptedAssignment
+        JsonAdaptedAssignment ..> JsonAdaptedAssignmentWrapper : uses >
+    }
+
+    package "CommandHistory Storage" #F4F6F6 {
+        interface CommandHistoryStorage
+        class TxtCommandHistoryStorage
+        TxtCommandHistoryStorage -up-|> CommandHistoryStorage
+    }
+
+    interface Storage
+    Storage -left-|> UserPrefsStorage
+    Storage -right-|> AddressBookStorage
+    Storage -|> CommandHistoryStorage
+    StorageManager .up.|> Storage
+
+    StorageManager -down-> "1" UserPrefsStorage
+    StorageManager -down-> "1" AddressBookStorage
+    StorageManager -down-> "1" CommandHistoryStorage
+
+    class HiddenOutside #FFFFFF
+    HiddenOutside ..> Storage
 }
-
-Class "<<interface>>\nStorage" as Storage
-Class StorageManager
-
-package "AddressBook Storage" #F4F6F6{
-Class "<<interface>>\nAddressBookStorage" as AddressBookStorage
-Class JsonAddressBookStorage
-Class JsonSerializableAddressBook
-Class JsonAdaptedPerson
-Class JsonAdaptedTag
-Class JsonAdaptedClassGroup
-Class JsonAdaptedAssignment
-Class JsonAdaptedAssignmentWrapper
-}
-
-package "CommandHistory Storage" #F4F6F6{
-Class "<<interface>>\nCommandHistoryStorage" as CommandHistoryStorage
-Class TxtCommandHistoryStorage
-}
-
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Storage
-
-StorageManager .up.|> Storage
-StorageManager -up-> "1" UserPrefsStorage
-StorageManager -up-> "1" AddressBookStorage
-StorageManager -down-> "1" CommandHistoryStorage
-
-Storage -left-|> UserPrefsStorage
-Storage -right-|> AddressBookStorage
-
-JsonUserPrefsStorage .up.|> UserPrefsStorage
-JsonAddressBookStorage .up.|> AddressBookStorage
-JsonAddressBookStorage ..> JsonSerializableAddressBook
-JsonSerializableAddressBook --> "*" JsonAdaptedPerson
-JsonAdaptedPerson --> "*" JsonAdaptedTag
-JsonAdaptedPerson --> "*" JsonAdaptedClassGroup
-JsonAdaptedPerson --> "*" JsonAdaptedAssignment
-JsonAdaptedAssignment ..> JsonAdaptedAssignmentWrapper : uses >
-TxtCommandHistoryStorage .up.|> CommandHistoryStorage
 @enduml
+

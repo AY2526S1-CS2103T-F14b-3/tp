@@ -4,6 +4,7 @@ skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
 
+Package Model as ModelPackage <<Rectangle>>{
 ModelManager *-right-> "1" CommandHistory : records executed commands
 ModelManager -down-> "1" AddressBook : current
 ModelManager *-down-> "1" AddressBookVersionManager : records snapshots
@@ -17,4 +18,5 @@ Person *--> Phone
 Person *--> Level
 Person *--> Class
 Person *--> Assignment
+}
 @enduml
