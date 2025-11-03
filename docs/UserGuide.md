@@ -71,7 +71,7 @@ This user guide is intended for **Secondary School tutors** who wish to efficien
       - Type this command and press **Enter**: <br>
         `java -jar tutortrack.jar`
    4. A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
-   ![Ui](images/UiUpdated.png)
+   ![Ui](images/Ui.png)
 
 5. Type the command in the command box and press **Enter** to execute it. e.g. typing **`help`** and pressing **Enter** will open the help window.<br>
    Some example commands you can try:
