@@ -439,39 +439,45 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * The tutor has the student’s name, phone number, and level.
 
 **Minimal Guarantees**
-* No partial/unknown student is created.
+* No partial/unknown student is created; application state remains consistent.
 
 **Success Guarantees**
-* New student appears in the student list with saved details.
+* The new student is added to the model and persisted to storage
 
 **MSS**
-
-1.  Tutor initiates "add student" with information about:
+1. Tutor initiates `add` with the following student information:
    * Name
    * Phone Number
    * Level
    * Class (optional)
 2. System validates details and checks for duplicates.
-3. System creates the student and saves data.
-4. System shows a success message and highlights the new student.
+3. System adds the student and related records to storage.
+4. System shows a success message and updates the list.
 
 Use case ends.
 
 **Extensions**
 
-* 1a. Missing or malformed details
-  * 1a1. System shows specific validation errors and requests corrections.
-  * 1a2. Tutor corrects input.
+* 1a. Malformed or incomplete input (missing required prefixes, non-empty preamble, duplicate prefixes, or invalid prefixes)
+  * 1a1. Tutor provides input that does not match the `add` format. 
+  * 1a2. System rejects the input and shows an error message. \
+  Use case ends.
 
-    Use case resumes at step 2.
+* 2a. Duplicate student (same name and phone as an existing student)
+  * 2a1. System shows an error message indicating that a duplicate student already exists.\
+  Use case ends.
 
-* 2a. Duplicate (same name and phone)
-  * 2a1. System shows an error and keeps the list unchanged. \
-    Use case ends.
+* 3a. Storage write fails after model change
+  * 3a1. System restores prior consistent state and shows a storage failure message. \
+  Use case ends. 
 
-* 3a. Storage write fails
-  * 3a1. System rolls back creation and shows a failure message. \
-    Use case ends.
+* 4a. Duplicate name only (same name, different phone)
+  * 4a1. System shows a warning that a student with the same name already exists.\
+  Use case ends.
+
+* 4b. Duplicate phone only (same phone, different name)
+  * 4b1. System shows a warning that a student with the same phone already exists. \
+  Use case ends.
 
 **Use case: Delete a student**
 
@@ -479,16 +485,17 @@ Use case ends.
 **Goal:** Remove a student who is no longer being taught.
 
 **Preconditions**
-* At least one student is displayed (full or filtered list).
+* TutorTrack is running.
+* A filtered or full student list is displayed with stable indexes.
 
 **Minimal Guarantees**
-* No data corruption; list remains consistent.
+* No data corruption; application state remains consistent.
 
 **Success Guarantees**
 * The target student is removed from the storage and the list.
 
 **MSS**
-1. Tutor deletes a student from the list based on the index.
+1. Tutor initiates `delete` to a student in the list.
 2. System validates the selected entry.
 3. System removes the student and related records from storage.
 4. System shows a success message and updates the list.
@@ -497,12 +504,23 @@ Use case ends.
 
 **Extensions**
 
-* 1a. Invalid selection (invalid index or no item)
-  * 1a1. System shows an error and keeps list unchanged. \
-    Use case ends.
+* 1a. Malformed index (missing, non-integer, or wrong format)
+    * 1a1. Tutor provides a malformed or missing index.
+    * 1a2. System rejects the input and shows an error message.  
+      Use case ends.
 
-* 2a. Storage write fails
-  * 2a1. System restores the student and shows a failure message. \
+* 1b. No students displayed (empty filtered list)
+    * 1b1. Tutor issues deletes a student while the filtered list is empty.
+    * 1b2. System rejects the input and shows an error message.  
+      Use case ends.
+
+* 2a. INDEX out of range (no student at that index in the current filtered list)
+    * 2a1. Tutor provides an index greater than the displayed list size.
+    * 2a2. System rejects the input and shows an error message.  
+      Use case ends.
+
+* 3a. Storage write fails
+  * 3a1. System restores prior consistent state and shows a storage failure message. \
     Use case ends.
 
 **Use case: Add Class to Student**
@@ -520,7 +538,7 @@ Use case ends.
 * Student shows the new class in their class list; data is saved to storage.
 
 **MSS:**
-1. Tutor initiates “addclass” to student.
+1. Tutor initiates `addclass` to a student in a class.
 2. System validates details and checks for duplicate classes.
 3. System adds the class to the student and saves data.
 4. System shows success and updates the student’s details.
@@ -528,13 +546,6 @@ Use case ends.
 Use case ends.
 
 **Extensions:**
-
-* 1a. Missing/invalid class details
-  * 1a1. System shows specific validation errors and requests corrections.
-  * 1a2. Tutor corrects input.
-
-    Use case resumes at step 2.
-
 * 2a. Duplicate class (same class name)
   * 2a1. System shows an error and keeps the list unchanged. \
     Use case ends.
@@ -558,7 +569,7 @@ Use case ends.
 * The specific class is removed and the change is saved.
 
 **MSS:**
-1. Tutor initiates “deleteclass” from student.
+1. Tutor initiates `deleteclass` for a student.
 2. System validates the selected entry and checks whether the student has the specified class to delete.
 3. System removes the class and saves data.
 4. System shows success and updates the student’s details.
@@ -589,13 +600,13 @@ Use case ends.
 * The student exists and is enrolled in the specified class.
 
 **Minimal Guarantees**
-* Assignment is added to the student.
+* No data corruption; other assignments remain.
 
 **Success Guarantees**
 * Assignment appears in the student’s assignment list and data is saved.
 
 **MSS**
-1. Tutor initiates “assign” to student in class.
+1. Tutor initiates `assign` to a student in a class.
 2. System validates details and checks for duplicate assignments.
 3. System adds the assignment to the student and saves data.
 4. System shows success and updates the student’s details.
@@ -632,7 +643,7 @@ Use case ends.
 * The specific assignment is removed and the change is saved.
 
 **MSS**
-1. Tutor initiates “unassign” from student.
+1. Tutor initiates `unssign` for a student in a class.
 2. System validates the selected entry and checks whether the student has the specified assignment to delete.
 3. System removes the assignment and saves data.
 4. System shows success and updates the student’s details.
@@ -669,20 +680,18 @@ Use case ends.
 * All active students are displayed.
 
 **MSS**
-1. Tutor initiates “list students”.
+1. Tutor initiates `list` to view all students in TutorTrack.
 2. System retrieves and displays all students.
 
    Use case ends.
 
 **Extensions**
 * 2a. No students exist
-  * 2a1. System shows “no records” message.
+  * 2a1. System shows “Listed all students” message.
 
     Use case ends.
 
-
-*{More to be added}*
-
+    
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed. 
