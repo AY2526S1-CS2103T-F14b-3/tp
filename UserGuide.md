@@ -6,8 +6,42 @@
 
 TutorTrack is a **desktop app** designed to help **Secondary School tutors** keep track of their **students, classes and assignments.** Unlike conventional contact management systems, TutorTrack is optimized for **rapid keyboard operation**, catering to tutors who favor typing-based workflows over mouse-driven ones.
 
-<!-- * Table of Contents -->
-<page-nav-print />
+## Target User
+This user guide is intended for **Secondary School tutors** who wish to efficiently manage their student information, class enrollments, and assignment tracking using TutorTrack.<br>
+
+**Assumptions about our target user:**
+* Singaporean Secondary School tutors or tutors familiar with the Singapore Secondary School system.
+* Manages a moderate number of students (~20-100 students) and classes (~5 classes).
+* Familiar with basic computer operations and comfortable using desktop applications.
+* Prefers keyboard commands for quick navigation and operation.
+
+### Table of Contents
+
+1. [Quick start](#quick-start)
+2. [Features](#features)
+   - [Viewing help](#viewing-help-help)
+   - [Adding a student](#adding-a-student-add)
+   - [Deleting a student](#deleting-a-student-delete)
+   - [Listing all students](#listing-all-students-list)
+   - [Editing a student](#editing-a-student-edit)
+   - [Locating students by name](#locating-students-by-name-find)
+   - [Filtering students by class](#filtering-students-by-class-filter)
+   - [Adding assignment(s) to a student](#adding-assignments-to-a-student)
+   - [Deleting assignment(s) from a student](#deleting-assignments-from-a-student-unassign)
+   - [Adding an assignment to all students in a class](#adding-an-assignment-to-all-students-in-a-class-assignall)
+   - [Deleting an assignment from all students in a class](#deleting-an-assignment-from-all-students-in-a-class-unassignall)
+   - [Marking an assignment as completed](#marking-an-assignment-as-completed-mark)
+   - [Unmarking an assignment as not completed](#unmarking-an-assignment-as-not-completed-unmark)
+   - [Adding class(es) to a student](#adding-classes-to-a-student-addclass)
+   - [Deleting class(es) from a student](#deleting-classes-from-a-student-deleteclass)
+   - [Clearing all entries](#clearing-all-entries-clear)
+   - [Undoing previous command](#undoing-previous-command-undo)
+   - [Redoing previously undone command](#redoing-previously-undone-command-redo)
+   - [Exiting the program](#exiting-the-program-exit)
+3. [Keyboard Shortcuts](#keyboard-shortcuts)
+4. [FAQ](#faq)
+5. [Known issues](#known-issues)
+6. [Command summary](#command-summary)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -17,9 +51,8 @@ TutorTrack is a **desktop app** designed to help **Secondary School tutors** kee
    2. To verify your Java version, open a terminal and execute the command `java -version`. If Java is not installed or the version is below 17, please download and install the latest JDK from [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) or use a package manager like Homebrew.
 
     <div markdown="block" class="alert alert-warning">
-
-    **:exclamation: Duplicate Checks:**<br>
-       **For Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+   
+   **For Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
     </div>
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14b-3/tp/releases). Find it by scrolling down to the **Assets** section of the latest release.<br>
@@ -58,6 +91,7 @@ TutorTrack is a **desktop app** designed to help **Secondary School tutors** kee
 --------------------------------------------------------------------------------------------------------------------
 
 ## Features
+Below are the available commands in TutorTrack. Use them to manage your students, classes and assignments effectively!
 
 <box type="info" seamless>
 
@@ -182,8 +216,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [l/LEVEL]`
 Examples:
 *  `edit 2 p/91234567` Edits the phone number of the 2nd student to be `91234567`.
 *  `edit 1 n/Alex Yeo l/2` Edits the name of the 1st student to be `Alex Yeo` and the level to `2`. <br>
-![before result for 'edit 1 n/Alex Yeo l/2'](images/editBeforeResult.png)<br>
-![after result for 'edit 1 n/Alex Yeo l/2'](images/editAfterResult.png)
+    * Before editing:<br> ![before result for 'edit 1 n/Alex Yeo l/2'](images/editBeforeResult.png)<br>
+    * After editing:<br> ![after result for 'edit 1 n/Alex Yeo l/2'](images/editAfterResult.png)
 
 ### Locating students by name: `find`
 
@@ -214,14 +248,15 @@ Format: `filter c/CLASS`
 * Only one class can be specified at a time.
 * Only students with an exact match to the class name will be shown.
 
-Examples:
-* `filter c/Math-1000` displays all students enrolled in the Math-1000 class.
-* `filter c/Chemistry-1400` followed by `filter c/Math-1000` displays all students enrolled in both Chemistry-1400 and Math-1000 class.
-
 <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
 
 After a `filter` command, filtered list will remain for further operations (i.e. stacking commands on top of `filter` command is allowed). To get back to the full student list, use the [`list`](#listing-all-students--list) command.
 </div>
+
+Examples:
+* `filter c/Math-1000` displays all students enrolled in the Math-1000 class.
+* `filter c/Chem-1400` followed by `filter c/Math-2000` displays all students enrolled in both Chem-1400 and Math-2000 class.
+![result for 'filter c/Chem-1400' then 'filter c/Math-2000'](images/filterResult.png)
 
 <a id="adding-assignments-to-a-student"></a>
 ### Adding assignment(s) to a student: `assign`
@@ -395,7 +430,10 @@ If you accidentally deleted a student or made an unwanted change, use `undo` to 
 
 <div markdown="span" class="alert alert-warning"><span class="fas fa-exclamation-triangle" aria-hidden="true"></span> <strong>Caution:</strong>
 
-Undo/Redo only works for actions made in the **current session**. Once you leave or refresh, previous changes cannot be restored.
+Undo/Redo only works for:
+- Actions made in the **current session**. Once you leave or refresh, previous changes cannot be restored. 
+- Commands that **modify data**. Commands like `list`, `find`, `filter`, `help` do not affect data and thus cannot be undone/redone.
+
 </div>
 
 Examples:

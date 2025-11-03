@@ -433,7 +433,7 @@ Certain properties of the application can be controlled (e.g user preferences fi
 
 **Target user profile**:
 
-* tuition centre tutors
+* secondary school tutors
 * teaching a wide range of subjects and student levels
 * manage students with volatile environment (may sign up or quit midway)
 * prefer desktop apps over other types
