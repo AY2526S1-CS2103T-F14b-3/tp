@@ -725,7 +725,7 @@ Use case ends.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Student**: A core entity in TutorTrack representing an **individual learner**, with a name, academic level, phone number, classes, and assignments.
 * **Assignment**: A **task linked to a student**, containing a name and completion status.
-* **Class**: A **scheduled lesson** that groups students and assignments.
+* **Class Group**: A **scheduled lesson** that groups students and assignments.
 * **Level**: The **academic year** of a student, limited to **Secondary 1 – 5**.
 * **Phone Number** : The student’s **contact number**, restricted to **at least 3 digits**.
 * **Duplicate student**: A student with the **same name and phone number** as an existing student.
@@ -734,6 +734,10 @@ Use case ends.
 * **Status message**: A **text message** displayed in the app’s status bar to inform the user about the result of their last action.
 * **Command format**: The **syntax** a user must follow when entering commands (e.g., `add n/NAME p/PHONE l/LEVEL`).
 * **Valid command format error**: An **error message** displayed when the command syntax does not follow the required format (e.g., missing parameters).
+* **Model**: holds the app data and exposes the API the rest of the app uses (e.g., filtered lists, commit/undo). Explains state ownership and responsibilities. 
+* **Logic**: parses user input and executes commands; mediates between UI and Model. Clarifies command flow and error handling. 
+* **UI**: presentation layer and user interaction (views, fxml, command box, result display). Useful to explain observable lists and bindings. 
+* **Storage**: persistence layer (read/write JSON, file paths, rollback on failure). Helps set expectations about durability and failure modes.
 * **Storage file**: The file **`data/tutortrack.json`**, where TutorTrack **saves and loads all data**.
 
 --------------------------------------------------------------------------------------------------------------------
