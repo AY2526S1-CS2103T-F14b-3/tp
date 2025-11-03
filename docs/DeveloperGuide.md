@@ -514,7 +514,7 @@ Use case ends.
     * 1b2. System rejects the input and shows an error message.  
       Use case ends.
 
-* 2a. INDEX out of range (no student at that index in the current filtered list)
+* 2a. Index out of range (no student at that index in the current filtered list)
     * 2a1. Tutor provides an index greater than the displayed list size.
     * 2a2. System rejects the input and shows an error message.  
       Use case ends.
@@ -522,6 +522,49 @@ Use case ends.
 * 3a. Storage write fails
   * 3a1. System restores prior consistent state and shows a storage failure message. \
     Use case ends.
+
+
+
+**Use Case: Edit Student**
+
+**Primary Actor:** Secondary School Tutor \
+**Goal:** Edit an existing student's details (name, phone, level).
+
+**Preconditions**
+* The target student is displayed and the provided index identifies a valid student.
+
+**Minimal Guarantees**
+* No partial edits; application state remains consistent.
+
+**Success Guarantees**
+* The student's details are updated in the model and persisted to storage.
+
+**MSS**
+1. Tutor initiates `edit` with an index and one or more editable fields (e.g., `n/`, `p/`, `l/`).
+2. System validates the index and parses supplied fields.
+3. System creates the edited student and checks for exact duplicate students in the address book.
+4. System checks for duplicate name-only or phone-only and proceeds with edit.
+5. System updates the model, persists changes, and shows a success message.
+
+Use case ends.
+
+**Extensions**
+* 1a. Missing or invalid index / no editable fields provided
+    * 1a1. System shows a validation error (invalid index / nothing to edit) and aborts.
+    * 1a2. Tutor corrects input. \
+      Use case resumes at step 1.
+
+* 3a. Edited student would duplicate an existing student (same name and phone)
+    * 3a1. System shows a duplicate student error and aborts. \
+      Use case ends.
+
+* 4a. Edited name or phone collides with existing students (name-only or phone-only)
+    * 4a1. System performs the edit, persists it, and shows a success message that includes a warning that a student with name/phone already exists.
+
+* 5a. Storage write fails after updating model
+    * 5a1. System rolls back changes where possible, shows a failure message and aborts. \
+      Use case ends.
+
 
 **Use case: Add Class to Student**
 
@@ -662,8 +705,90 @@ Use case ends.
     Use case ends.
 
 * 3a. Storage write fails
-  * 3a1. System adds back assignment to the student and shows a failure message. \
+  * 3a1. System rolls back changes where possible and shows a failure message. \
     Use case ends.
+
+
+**Use Case: Assign Assignment to All Students in Class**
+**Primary Actor:** Secondary School Tutor \
+**Goal:** Assign an assignment to every student in a specified class group.
+
+**Preconditions**
+* At least one student exists in the specified class group.
+
+**Minimal Guarantees**
+* No data corruption; other classes and assignments remain unchanged.
+
+**Success Guarantees**
+* The assignment is added to all students in the class who did not already have it, and data is saved.
+
+**MSS**
+1. Tutor initiates `assignall` with `c/CLASS` and `a/ASSIGNMENT`.
+2. System locates all students who belong to the specified class group.
+3. System skips students who already have that assignment, for others it adds the assignment.
+4. System updates the model and persists changes.
+5. System reports the number of students assigned.
+
+Use case ends.
+
+**Extensions**
+* 1a. Missing or empty `c/CLASS` or `a/ASSIGNMENT`
+    * 1a1. System shows a specific error (class not provided / assignment not added) and aborts.
+    * 1a2. Tutor provides missing input. \
+      Use case resumes at step 1.
+
+* 2a. No students found in the specified class group
+    * 2a1. System shows a "class does not exist" error and aborts. \
+      Use case ends.
+
+* 2b. No students were assigned because all already had the assignment
+    * 2b1. System shows an "already assigned" error and aborts. \
+      Use case ends.
+
+* 4a. Storage write fails during updates
+    * 4a1. System rolls back changes where possible, shows a failure message and aborts. \
+      Use case ends.
+
+**Use Case: Mark Assignment for Student(s)**
+**Primary Actor:** Secondary School Tutor \
+**Goal:** Mark an assignment as completed for one or more students.
+
+**Preconditions**
+* The target students are displayed (filtered or full list).
+* Each target student exists and is enrolled in the specified class and has the specified assignment.
+
+**Minimal Guarantees**
+* No data corruption; other assignments and students remain unchanged.
+
+**Success Guarantees**
+* The specified assignment is marked as completed for the selected student(s) and data is saved.
+
+**MSS**
+1. Tutor initiates `mark` with one or more indices (or ranges), a `c/CLASS` and `a/ASSIGNMENT`.
+2. System validates indices and that each referenced student exists in the displayed list.
+3. System checks that each student has the specified assignment.
+4. System marks the assignment for students that are not already marked, updates model and persists changes.
+5. System shows a success message listing students whose assignment was marked.
+
+Use case ends.
+
+**Extensions**
+* 1a. Malformed indices or preamble missing
+    * 1a1. System shows an error message.
+    * 1a2. Tutor corrects input. \
+      Use case resumes at step 1.
+
+* 3a. One or more students do not have the requested assignment
+    * 3a1. System shows an error naming those students and aborts without marking. \
+      Use case ends.
+
+* 3b. All targeted students already have the assignment marked
+    * 3b1. System shows an "already marked" error and aborts. \
+      Use case ends.
+
+* 4a. Storage write fails while persisting changes
+    * 4a1. System rolls back changes where possible, shows a failure message and aborts. \
+      Use case ends.
 
 **Use Case: View All Active Students**
 
@@ -688,8 +813,7 @@ Use case ends.
 **Extensions**
 * 2a. No students exist
   * 2a1. System shows “Listed all students” message.
-
-    Use case ends.
+  Use case ends.
 
     
 ### Non-Functional Requirements
@@ -708,9 +832,6 @@ Use case ends.
 12. On invalid inputs or corrupted files, the program is expected to **fail gracefully** with clear, informative error messages (e.g., “Invalid command format! add: n/NAME p/PHONE l/LEVEL \[c/CLASS]...”), without crashing. 
 13. The user interface must remain usable on screens with at least **1024×768 resolution**, without scrolling needed for core features. 
 14. Deliverables should exclude unnecessary third-party libraries or oversized media assets, ensuring files are not bloated.
-
-
-*{More to be added}*
 
 ### Glossary
 
@@ -759,8 +880,6 @@ testers are expected to do more *exploratory* testing.
 
    1. Re-launch the app by double-clicking the jar file.<br>
      Expected: The most recent window size and location is retained.
-
-1. _{ more test cases …​ }_
 
 
 ### Adding a student
