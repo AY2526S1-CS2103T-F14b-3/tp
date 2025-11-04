@@ -43,7 +43,7 @@ If you plan to use Intellij IDEA (highly recommended):
    If using IDEA, follow the guide [_[se-edu/guides] IDEA: Configuring the code style_](https://se-education.org/guides/tutorials/intellijCodeStyle.html) to set up IDEA's coding style to match ours.
 
    <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span> <strong>Tip:</strong>
-   
+
    Optionally, you can follow the guide [_[se-edu/guides] Using Checkstyle_](https://se-education.org/guides/tutorials/checkstyle.html) to find how to use the CheckStyle within IDEA e.g., to report problems _as_ you write code.
    </div>
 
@@ -93,6 +93,9 @@ The bulk of the app's work is done by the following four components:
 * [**`Storage`**](#storage-component): Reads data from, and writes data to, the hard disk.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+
+> NOTE: Certain package names used in these components are preserved from AB3 (as a brownfield project). For example: `AddressBookParser`, `Person`, `UniquePersonList`, `AddressBookStorage`.
+
 
 **How the architecture components interact with each other**
 
@@ -388,8 +391,8 @@ Certain properties of the application can be controlled (e.g user preferences fi
 **Target user profile**:
 
 * secondary school tutors
-* teaching a wide range of subjects and student levels
-* manage students with volatile environment (may sign up or quit midway)
+* teaching a wide range of subjects in the secondary school curriculum **(Secondary 1 to 5)**
+* manage students with a volatile environment (may sign up or quit midway)
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
@@ -405,47 +408,28 @@ Certain properties of the application can be controlled (e.g user preferences fi
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                           | I want to …​                                                 | So that I can…​                                                                                   |
-|----------|-----------------------------------|--------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| `* * *`  | private tutor                     | add a student to my list                                     | I can keep track of who I am teaching.                                                            |
-| `* * *`  | private tutor                     | delete a student from my current list                        | I don’t have clutter from students I no longer teach.                                             |
-| `* * *`  | private tutor                     | add a class to a student                                     | I can keep track of which class a student belongs to. Class info includes subject and class time. |
-| `* * *`  | private tutor                     | delete a class to a student                                  | I can remove a class from a student if they quit/graduate.                                        |
-| `* * *`  | private tutor                     | see a list of all active students                            | I can review all my students at a glance.                                                         |
-| `* * *`  | private tutor                     | add an assignment to each student in a class                 | I can assign each student in a class an assignment                                                |
-| `* * *`  | private tutor                     | delete an assignment from each student in a class            | I can remove the homework or practice tasks a student has completed                               |
-| `* * *`  | private tutor                     | exit the app safely with data saved                          | I can resume work later without losing progress.                                                  |
-| `* * *`  | private tutor                     | find students by name                                        | I can get a student's information easily                                                          |
-| `* * * ` | organised private tutor           | filter students by class                                     | I can check students enrolled in a class                                                          |
+| Priority | As a …​                           | I want to …​                                                | So that I can…​                                                                                   |
+|----------|-----------------------------------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| `* * *`  | private tutor                     | add a student to my list                                    | I can keep track of who I am teaching.                                                            |
+| `* * *`  | private tutor                     | delete a student from my current list                       | I don’t have clutter from students I no longer teach.                                             |
+| `* * *`  | private tutor                     | add a class to a student                                    | I can keep track of which class a student belongs to. Class info includes subject and class time. |
+| `* * *`  | private tutor                     | delete a class to a student                                 | I can remove a class from a student if they quit/graduate.                                        |
+| `* * *`  | private tutor                     | see a list of all active students                           | I can review all my students at a glance.                                                         |
+| `* * *`  | private tutor                     | add an assignment to each student in a class                | I can assign each student in a class an assignment                                                |
+| `* * *`  | private tutor                     | delete an assignment from each student in a class           | I can remove the homework or practice tasks a student has completed                               |
+| `* * *`  | private tutor                     | exit the app safely with data saved                         | I can resume work later without losing progress.                                                  |
+| `* * *`  | private tutor                     | find students by name                                       | I can get a student's information easily                                                          |
+| `* * * ` | organised private tutor           | filter students by class                                    | I can check students enrolled in a class                                                          |
 | `* *`    | private tutor                     | record notes for a tutoring session for a particular student | I can review what topics were covered and where the student struggled.                            |
-| `* *`    | private tutor                     | edit a student's name/subject/contact                        | I can edit a mistake I did/update any changes in student information                              |
-| `* *`    | private tutor                     | add a grade to a completed assignment                        | I can track the student’s performance across assignments.                                         |
-| `* *`    | private tutor                     | search for a student by partial name or subject              | I can quickly retrieve details even if I do not remember exact spellings.                         |
-| `* *`    | private tutor                     | mark an assignment as completed                              | I can differentiate between pending and finished work.                                            |
-| `* *`    | private tutor                     | undo my last action                                          | I can recover from mistakes quickly                                                               |
-| `* *`    | private tutor                     | tag students with labels                                     | I can group and filter them by specific keywords                                                  |
-| `* *`    | private tutor                     | add recurring sessions for a student                         | I can avoid re-entering the same lesson schedule every week                                       |
-| `* *`    | private tutor                     | secure my account with a password                            | I can keep personal info of my students private                                                   |
-| `* *`    | busy private tutor                | filter students by day                                       | I can check which student has active classes on a particular day                                  |
-| `* *`    | busy private tutor                | receive a warning before deleting a student or assignment    | I can prevent accidental loss of important information                                            |
-| `* *`    | beginner user of the app          | see the app populated with sample data                       | I can play around with the data and familiarise myself with the app's features                    |
-| `* *`    | beginner user of the app          | be shown where my commands went wrong                        | I can understand which commands to use properly                                                   |
-| `* *`    | beginner user of the app          | see a list of commands to use on the app                     | I can try out every command and get myself familiarised with the app                              |
-| `* *`    | organised private tutor           | delete/archive students without active class                 | I can reduce clutter                                                                              |
-| `* *`    | organised private tutor           | add due dates to assignments                                 | I can ensure my students submit their assignments on time                                         |
-| `* *`    | organised private tutor           | see the latest edits to my list                              | I can keep track of where I last left off                                                         |
-| `* *`    | organised private tutor           | filter by students who haven't paid for the previous month   | I can save time on tracking finances                                                              |
-| `* *`    | organised private tutor           | link multiple subjects to one student                        | I can manage students I teach in more than one subject.                                           |
-| `* *`    | expert user of the app            | create shortcuts for usual commands                          | I can save time                                                                                   |
-| `* *`    | expert user of the app            | export my student details to a CSV file                      | I can back up or share the data in a standard format                                              |
-| `* *`    | user ready to start using the app | clear all current data on the app                            | I can start anew with my own personal data                                                        |
-| `* `     | busy private tutor                | delete/archive a class                                       | I can remove the tagged class from all students                                                   |
+| `* *`    | private tutor                     | edit a student's name/subject/phone                   | I can edit a mistake I did/update any changes in student information                              |
+| `* *`    | private tutor                     | add a grade to a completed assignment                       | I can track the student’s performance across assignments.                                         |
+| `* *`    | private tutor                     | mark an assignment as completed                             | I can differentiate between pending and finished work.                                            |
+| `* *`    | private tutor                     | undo my last action                                         | I can recover from mistakes quickly                                                               |
 
-*{More to be added}*
 
 ### Use cases
 
-**Use case: Add a person**
+**Use case: Add a student**
 
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Add a new student to track classes and assignments.
@@ -455,56 +439,63 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * The tutor has the student’s name, phone number, and level.
 
 **Minimal Guarantees**
-* No partial/unknown student is created.
+* No partial/unknown student is created; application state remains consistent.
 
 **Success Guarantees**
-* New student appears in the student list with saved details.
+* The new student is added to the model and persisted to storage
 
 **MSS**
-
-1.  Tutor initiates "add student" with information about:
+1. Tutor initiates `add` with the following student information:
    * Name
    * Phone Number
    * Level
    * Class (optional)
 2. System validates details and checks for duplicates.
-3. System creates the student and saves data.
-4. System shows a success message and highlights the new student.
+3. System adds the student and related records to storage.
+4. System shows a success message and updates the list.
 
 Use case ends.
 
 **Extensions**
 
-* 1a. Missing or malformed details
-  * 1a1. System shows specific validation errors and requests corrections.
-  * 1a2. Tutor corrects input.
+* 1a. Malformed or incomplete input (missing required prefixes, non-empty preamble, duplicate prefixes, or invalid prefixes)
+  * 1a1. Tutor provides input that does not match the `add` format.
+  * 1a2. System rejects the input and shows an error message. \
+  Use case ends.
 
-    Use case resumes at step 2.
+* 2a. Duplicate student (same name and phone as an existing student)
+  * 2a1. System shows an error message indicating that a duplicate student already exists.\
+  Use case ends.
 
-* 2a. Duplicate (same name and phone)
-  * 2a1. System shows an error and keeps the list unchanged. \
-    Use case ends.
+* 3a. Storage write fails after model change
+  * 3a1. System restores prior consistent state and shows a storage failure message. \
+  Use case ends.
 
-* 3a. Storage write fails
-  * 3a1. System rolls back creation and shows a failure message. \
-    Use case ends.
+* 4a. Duplicate name only (same name, different phone)
+  * 4a1. System shows a warning that a student with the same name already exists.\
+  Use case ends.
 
-**Use case: Delete a person**
+* 4b. Duplicate phone only (same phone, different name)
+  * 4b1. System shows a warning that a student with the same phone already exists. \
+  Use case ends.
+
+**Use case: Delete a student**
 
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Remove a student who is no longer being taught.
 
 **Preconditions**
-* At least one student is displayed (full or filtered list).
+* TutorTrack is running.
+* A filtered or full student list is displayed with stable indexes.
 
 **Minimal Guarantees**
-* No data corruption; list remains consistent.
+* No data corruption; application state remains consistent.
 
 **Success Guarantees**
 * The target student is removed from the storage and the list.
 
 **MSS**
-1. Tutor deletes a student from the list based on the index.
+1. Tutor initiates `delete` to a student in the list.
 2. System validates the selected entry.
 3. System removes the student and related records from storage.
 4. System shows a success message and updates the list.
@@ -513,13 +504,67 @@ Use case ends.
 
 **Extensions**
 
-* 1a. Invalid selection (invalid index or no item)
-  * 1a1. System shows an error and keeps list unchanged. \
+* 1a. Malformed index (missing, non-integer, or wrong format)
+    * 1a1. Tutor provides a malformed or missing index.
+    * 1a2. System rejects the input and shows an error message.
+      Use case ends.
+
+* 1b. No students displayed (empty filtered list)
+    * 1b1. Tutor issues deletes a student while the filtered list is empty.
+    * 1b2. System rejects the input and shows an error message.
+      Use case ends.
+
+* 2a. Index out of range (no student at that index in the current filtered list)
+    * 2a1. Tutor provides an index greater than the displayed list size.
+    * 2a2. System rejects the input and shows an error message.
+      Use case ends.
+
+* 3a. Storage write fails
+  * 3a1. System restores prior consistent state and shows a storage failure message. \
     Use case ends.
 
-* 2a. Storage write fails
-  * 2a1. System restores the student and shows a failure message. \
-    Use case ends.
+
+
+**Use Case: Edit Student**
+
+**Primary Actor:** Secondary School Tutor \
+**Goal:** Edit an existing student's details (name, phone, level).
+
+**Preconditions**
+* The target student is displayed and the provided index identifies a valid student.
+
+**Minimal Guarantees**
+* No partial edits; application state remains consistent.
+
+**Success Guarantees**
+* The student's details are updated in the model and persisted to storage.
+
+**MSS**
+1. Tutor initiates `edit` with an index and one or more editable fields (e.g., `n/`, `p/`, `l/`).
+2. System validates the index and parses supplied fields.
+3. System creates the edited student and checks for exact duplicate students in the address book.
+4. System checks for duplicate name-only or phone-only and proceeds with edit.
+5. System updates the model, persists changes, and shows a success message.
+
+Use case ends.
+
+**Extensions**
+* 1a. Missing or invalid index / no editable fields provided
+    * 1a1. System shows a validation error (invalid index / nothing to edit) and aborts.
+    * 1a2. Tutor corrects input. \
+      Use case resumes at step 1.
+
+* 3a. Edited student would duplicate an existing student (same name and phone)
+    * 3a1. System shows a duplicate student error and aborts. \
+      Use case ends.
+
+* 4a. Edited name or phone collides with existing students (name-only or phone-only)
+    * 4a1. System performs the edit, persists it, and shows a success message that includes a warning that a student with name/phone already exists.
+
+* 5a. Storage write fails after updating model
+    * 5a1. System rolls back changes where possible, shows a failure message and aborts. \
+      Use case ends.
+
 
 **Use case: Add Class to Student**
 
@@ -536,7 +581,7 @@ Use case ends.
 * Student shows the new class in their class list; data is saved to storage.
 
 **MSS:**
-1. Tutor initiates “addclass” to student.
+1. Tutor initiates `addclass` to a student in a class.
 2. System validates details and checks for duplicate classes.
 3. System adds the class to the student and saves data.
 4. System shows success and updates the student’s details.
@@ -544,13 +589,6 @@ Use case ends.
 Use case ends.
 
 **Extensions:**
-
-* 1a. Missing/invalid class details
-  * 1a1. System shows specific validation errors and requests corrections.
-  * 1a2. Tutor corrects input.
-
-    Use case resumes at step 2.
-
 * 2a. Duplicate class (same class name)
   * 2a1. System shows an error and keeps the list unchanged. \
     Use case ends.
@@ -574,7 +612,7 @@ Use case ends.
 * The specific class is removed and the change is saved.
 
 **MSS:**
-1. Tutor initiates “deleteclass” from student.
+1. Tutor initiates `deleteclass` for a student.
 2. System validates the selected entry and checks whether the student has the specified class to delete.
 3. System removes the class and saves data.
 4. System shows success and updates the student’s details.
@@ -605,13 +643,13 @@ Use case ends.
 * The student exists and is enrolled in the specified class.
 
 **Minimal Guarantees**
-* Assignment is added to the student.
+* No data corruption; other assignments remain.
 
 **Success Guarantees**
 * Assignment appears in the student’s assignment list and data is saved.
 
 **MSS**
-1. Tutor initiates “assign” to student in class.
+1. Tutor initiates `assign` to a student in a class.
 2. System validates details and checks for duplicate assignments.
 3. System adds the assignment to the student and saves data.
 4. System shows success and updates the student’s details.
@@ -648,7 +686,7 @@ Use case ends.
 * The specific assignment is removed and the change is saved.
 
 **MSS**
-1. Tutor initiates “unassign” from student.
+1. Tutor initiates `unssign` for a student in a class.
 2. System validates the selected entry and checks whether the student has the specified assignment to delete.
 3. System removes the assignment and saves data.
 4. System shows success and updates the student’s details.
@@ -667,8 +705,90 @@ Use case ends.
     Use case ends.
 
 * 3a. Storage write fails
-  * 3a1. System adds back assignment to the student and shows a failure message. \
+  * 3a1. System rolls back changes where possible and shows a failure message. \
     Use case ends.
+
+
+**Use Case: Assign Assignment to All Students in Class**
+**Primary Actor:** Secondary School Tutor \
+**Goal:** Assign an assignment to every student in a specified class group.
+
+**Preconditions**
+* At least one student exists in the specified class group.
+
+**Minimal Guarantees**
+* No data corruption; other classes and assignments remain unchanged.
+
+**Success Guarantees**
+* The assignment is added to all students in the class who did not already have it, and data is saved.
+
+**MSS**
+1. Tutor initiates `assignall` with `c/CLASS` and `a/ASSIGNMENT`.
+2. System locates all students who belong to the specified class group.
+3. System skips students who already have that assignment, for others it adds the assignment.
+4. System updates the model and persists changes.
+5. System reports the number of students assigned.
+
+Use case ends.
+
+**Extensions**
+* 1a. Missing or empty `c/CLASS` or `a/ASSIGNMENT`
+    * 1a1. System shows a specific error (class not provided / assignment not added) and aborts.
+    * 1a2. Tutor provides missing input. \
+      Use case resumes at step 1.
+
+* 2a. No students found in the specified class group
+    * 2a1. System shows a "class does not exist" error and aborts. \
+      Use case ends.
+
+* 2b. No students were assigned because all already had the assignment
+    * 2b1. System shows an "already assigned" error and aborts. \
+      Use case ends.
+
+* 4a. Storage write fails during updates
+    * 4a1. System rolls back changes where possible, shows a failure message and aborts. \
+      Use case ends.
+
+**Use Case: Mark Assignment for Student(s)**
+**Primary Actor:** Secondary School Tutor \
+**Goal:** Mark an assignment as completed for one or more students.
+
+**Preconditions**
+* The target students are displayed (filtered or full list).
+* Each target student exists and is enrolled in the specified class and has the specified assignment.
+
+**Minimal Guarantees**
+* No data corruption; other assignments and students remain unchanged.
+
+**Success Guarantees**
+* The specified assignment is marked as completed for the selected student(s) and data is saved.
+
+**MSS**
+1. Tutor initiates `mark` with one or more indices (or ranges), a `c/CLASS` and `a/ASSIGNMENT`.
+2. System validates indices and that each referenced student exists in the displayed list.
+3. System checks that each student has the specified assignment.
+4. System marks the assignment for students that are not already marked, updates model and persists changes.
+5. System shows a success message listing students whose assignment was marked.
+
+Use case ends.
+
+**Extensions**
+* 1a. Malformed indices or preamble missing
+    * 1a1. System shows an error message.
+    * 1a2. Tutor corrects input. \
+      Use case resumes at step 1.
+
+* 3a. One or more students do not have the requested assignment
+    * 3a1. System shows an error naming those students and aborts without marking. \
+      Use case ends.
+
+* 3b. All targeted students already have the assignment marked
+    * 3b1. System shows an "already marked" error and aborts. \
+      Use case ends.
+
+* 4a. Storage write fails while persisting changes
+    * 4a1. System rolls back changes where possible, shows a failure message and aborts. \
+      Use case ends.
 
 **Use Case: View All Active Students**
 
@@ -685,48 +805,40 @@ Use case ends.
 * All active students are displayed.
 
 **MSS**
-1. Tutor initiates “list students”.
+1. Tutor initiates `list` to view all students in TutorTrack.
 2. System retrieves and displays all students.
 
    Use case ends.
 
 **Extensions**
 * 2a. No students exist
-  * 2a1. System shows “no records” message.
+  * 2a1. System shows “Listed all students” message.
+  Use case ends.
 
-    Use case ends.
-
-
-*{More to be added}*
 
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4. The product supports only **one user per local data file**; concurrent multi-user access is not expected.
-5. All data is stored locally in a **human-readable text file** (e.g., JSON), allowing advanced users to edit it manually.
-6. No installer is required — the program can be run directly from a single **JAR file**.
-7. The system operates fully offline and has **no dependency on internet connectivity** or remote servers.
-8. Platform independence is required; the software must avoid OS-specific libraries so it runs consistently across Windows, macOS, and Linux.
-9. Deliverables must be lightweight: the JAR file ≤ **100 MB** and each PDF document ≤ **15 MB** to ensure easy portability and exam usability.
-10. Startup time should not exceed **2 seconds** on a modern laptop (e.g., Intel i5/Apple M1 with 8 GB RAM).
-11. User commands must execute within **1 second** under typical usage conditions (≤ 1000 students).
-12. In the event of a failed storage write, the application must **roll back changes** to prevent data corruption.
-13. Data integrity must be preserved across restarts; students and assignments saved before exit should remain consistent on relaunch.
-14. On invalid inputs or corrupted files, the program is expected to **fail gracefully** with clear, informative error messages (e.g., “Invalid command format! add: n/NAME p/PHONE l/LEVEL \[c/CLASS]...”), without crashing.
-15. The user interface must remain usable on screens with at least **1024×768 resolution**, without scrolling needed for core features.
-16. Deliverables should exclude unnecessary third-party libraries or oversized media assets, ensuring files are not bloated.
-
-
-*{More to be added}*
+2. The product supports only **one user per local data file**; concurrent multi-user access is not expected.
+3. All data is stored locally in a **human-readable text file** (e.g., JSON), allowing advanced users to edit it manually.
+4. No installer is required — the program can be run directly from a single **JAR file**.
+5. The system operates fully offline and has **no dependency on internet connectivity** or remote servers.
+6. Platform independence is required; the software must avoid OS-specific libraries so it runs consistently across Windows, macOS, and Linux.
+7. Deliverables must be lightweight: the JAR file ≤ **100 MB** and each PDF document ≤ **15 MB** to ensure easy portability and exam usability.
+8. Startup time should not exceed **2 seconds** on a modern laptop (e.g., Intel i5/Apple M1 with 8 GB RAM).
+9. User commands must execute within **1 second** under typical usage conditions (≤ 1000 students).
+10. In the event of a failed storage write, the application must **roll back changes** to prevent data corruption.
+11. Data integrity must be preserved across restarts; students and assignments saved before exit should remain consistent on relaunch.
+12. On invalid inputs or corrupted files, the program is expected to **fail gracefully** with clear, informative error messages (e.g., “Invalid command format! add: n/NAME p/PHONE l/LEVEL \[c/CLASS]...”), without crashing.
+13. The user interface must remain usable on screens with at least **1024×768 resolution**, without scrolling needed for core features.
+14. Deliverables should exclude unnecessary third-party libraries or oversized media assets, ensuring files are not bloated.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Student**: A core entity in TutorTrack representing an **individual learner**, with a name, academic level, phone number, classes, and assignments.
 * **Assignment**: A **task linked to a student**, containing a name and completion status.
-* **Class**: A **scheduled lesson** that groups students and assignments.
+* **Class Group**: A **scheduled lesson** that groups students and assignments.
 * **Level**: The **academic year** of a student, limited to **Secondary 1 – 5**.
 * **Phone Number** : The student’s **contact number**, restricted to **at least 3 digits**.
 * **Duplicate student**: A student with the **same name and phone number** as an existing student.
@@ -735,6 +847,10 @@ Use case ends.
 * **Status message**: A **text message** displayed in the app’s status bar to inform the user about the result of their last action.
 * **Command format**: The **syntax** a user must follow when entering commands (e.g., `add n/NAME p/PHONE l/LEVEL`).
 * **Valid command format error**: An **error message** displayed when the command syntax does not follow the required format (e.g., missing parameters).
+* **Model**: holds the app data and exposes the API the rest of the app uses (e.g., filtered lists, commit/undo). Explains state ownership and responsibilities.
+* **Logic**: parses user input and executes commands; mediates between UI and Model. Clarifies command flow and error handling.
+* **UI**: presentation layer and user interaction (views, fxml, command box, result display). Useful to explain observable lists and bindings.
+* **Storage**: persistence layer (read/write JSON, file paths, rollback on failure). Helps set expectations about durability and failure modes.
 * **Storage file**: The file **`data/tutortrack.json`**, where TutorTrack **saves and loads all data**.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -756,7 +872,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample students. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -765,20 +881,18 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
      Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
-
 
 ### Adding a student
 
-1. Adding a student while all persons are being shown
+1. Adding a student while all students are being shown
 
     1. Test case: `add n/John Doe p/12345678 l/3`<br>
-       Expected: Student with specified name, phone number and level is added to the list. Details of the added contact shown in the status message. 
+       Expected: Student with specified name, phone number and level is added to the list. Details of the added student shown in the status message.
 
     1. Test case: `add n/John Doe p/12345678`<br>
        Expected: No student is added. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect delete commands to try: `add`, `add x`, `...` (where x is not a class, level or phone number)<br>
+    1. Other incorrect add commands to try: `add`, `add x`, `...` (where x is not a class, level or phone number)<br>
        Expected: Similar to previous.
 
 ### Deleting a student
@@ -788,7 +902,7 @@ testers are expected to do more *exploratory* testing.
    1. Prerequisites: List all students using the `list` command. Multiple students in the list.
 
    1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
+      Expected: First student is deleted from the list. Details of the deleted student shown in the status message.
 
    1. Test case: `delete 0`<br>
       Expected: No student is deleted. Error details shown in the status message. Status bar remains the same.
@@ -800,10 +914,10 @@ testers are expected to do more *exploratory* testing.
 
 1. Editing a student with all students being shown
 
-    1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list. First student's name is not **"John Doe"**.
 
-    1. Test case: `find 1 n/NEW_NAME`<br>
-       Expected: First student's name is updated. Details of the edited contact shown in the status message.
+    1. Test case: `edit 1 n/John Doe`<br>
+       Expected: First student's name is updated to **"John Doe"**. Details of the edited student shown in the status message.
 
     1. Test case: `edit 0`<br>
        Expected: No student is edited. Error details shown in the status message. Status bar remains the same.
@@ -815,99 +929,91 @@ testers are expected to do more *exploratory* testing.
 
 1. Adding a class to a student
 
-    1. Prerequisites: List all students using the `list` command. Target student does not have the specified class.
+    1. Prerequisites: List all students using the `list` command. First student does not have the class **"Physics-1800"**.
 
-    1. Test case: `addclass 1 c/CLASS_NAME`<br>
-       Expected: Class `CLASS_NAME` is added to the first contact in the list. Details of the first contact shown in the status message.
+    1. Test case: `addclass 1 c/Physics-1800`<br>
+       Expected: Class **"Physics-1800"** is added to the first student in the list. Details of the first student shown in the status message.
 
     1. Test case: `addclass 1`<br>
        Expected: No class is added. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `addclass`, `addclass x`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect addclass commands to try: `addclass`, `addclass x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
 ### Deleting a class
 
 1. Deleting a class from a student
 
-    1. Prerequisites: List all students using the `list` command. Target student has the specified class.
+    1. Prerequisites: List all students using the `list` command. First student has the class **"Physics-1800"**.
 
-    1. Test case: `deleteclass 1 c/CLASS_NAME`<br>
-       Expected: Class `CLASS_NAME` is deleted from the first contact in the list. Details of the first contact shown in the status message.
+    1. Test case: `deleteclass 1 c/Physics-1800`<br>
+       Expected: Class **"Physics-1800"** is deleted from the first student in the list. Details of the first student shown in the status message.
 
     1. Test case: `deleteclass 1`<br>
-       Expected: No class is added. Error details shown in the status message. Status bar remains the same.
+       Expected: No class is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `deleteclass`, `deleteclass x`, `...` (where x is larger than the list size)<br>
+    1. Other incorrect deleteclass commands to try: `deleteclass`, `deleteclass x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
 ### Adding an assignment from a student
 
 1. Adding an assignment to a student
 
-    1. Prerequisites: List all students using the `list` command. Target student has the specified class and does not have the specified assignment in that class.
+    1. Prerequisites: List all students using the `list` command. First student has the class **"Physics-1800"** and does not have the assignment **"ScienceTopic2"** in that class.
 
-    1. Test case: `assign 1 c/CLASS a/ASSIGNMENT`<br>
-       Expected: Assignment `ASSIGNMENT` is added to the first contact in the list. Details of the first contact shown in the status message.
+    1. Test case: `assign 1 c/Physics-1800 a/ScienceTopic2`<br>
+       Expected: Assignment **"ScienceTopic2"** is added to the first student in the list. Details of the first student shown in the status message.
 
     1. Test case: `assign 1`<br>
        Expected: No assignment is added. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `assign`, `assign 1 c/x a/y`, `...` (where x is a class that the first contact does not have)<br>
+    1. Other incorrect assign commands to try: `assign`, `assign 1 c/x a/y`, `...` (where x is a class that the first student does not have)<br>
        Expected: Similar to previous.
 
 ### Deleting an assignment from a student
 
 1. Deleting an assignment from a student
 
-    1. Prerequisites: List all students using the `list` command. Target student has the specified class and specified assignment(s) in that class.
+    1. Prerequisites: List all students using the `list` command. First student has the class **"Physics-1800"** and has the assignment **"ScienceTopic2"** in that class.
 
-    1. Test case: `unassign 1 c/CLASS a/ASSIGNMENT2`<br>
-       Expected: Assignment `ASSIGNMENT` is deleted from the first contact in the list. Details of the first contact shown in the status message.
+    1. Test case: `unassign 1 c/Physics-1800 a/ScienceTopic2`<br>
+       Expected: Assignment **"ScienceTopic2"** is deleted from the first student in the list. Details of the first student shown in the status message.
 
     1. Test case: `unassign 1`<br>
        Expected: No assignment is deleted. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `unassign`, `unassign 1 c/x a/y`, `...` (where x is a class that the first contact does not have)<br>
+    1. Other incorrect unassign commands to try: `unassign`, `unassign 1 c/x a/y`, `...` (where x is a class that the first student does not have)<br>
        Expected: Similar to previous.
 
 ### Adding an assignment to an entire class
 
 1. Adding an assignment to all students in a class
 
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list have the specified class and does not have the specified assignment in that class.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list have the class **"Physics-1800"** and do not have the assignment **"ScienceTopic3"** in that class.
 
-    1. Test case: `assignall c/CLASS a/ASSIGNMENT`<br>
-       Expected: Assignment `ASSIGNMENT` is added to all contacts in the list who have class `CLASS`. Success message shown with the number of students the assignment was added to.
+    1. Test case: `assignall c/Physics-1800 a/ScienceTopic2`<br>
+       Expected: Assignment **"ScienceTopic3"** is added to all students in the list who have class **"Physics-1800"**. Success message shown with the number of students the assignment was added to.
 
     1. Test case: `assignall `<br>
-       Expected: No assignment is added. Error details shown in the status message. Status bar remains the same.
+       Expected: No assignment is added to any student. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `assignall c/`, `assignall c/x a/y`, `...` (where all students in class x already have assignment y)<br>
+    1. Other incorrect assignall commands to try: `assignall c/`, `assignall c/x a/y`, `...` (where all students in class x already have assignment y)<br>
        Expected: Similar to previous.
 
 ### Deleting an assignment from an entire class
 
 1. Deleting an assignment from all students in a class
 
-    1. Prerequisites: List all students using the `list` command. Multiple students in the list have the specified class and specified assignment in that class.
+    1. Prerequisites: List all students using the `list` command. Multiple students in the list have the class **"Physics-1800"** and have the assignment **"ScienceTopic3"** in that class.
 
-    1. Test case: `unassignall c/CLASS a/ASSIGNMENT`<br>
-       Expected: Assignment `ASSIGNMENT` is deleted from all contacts in the list who have class `CLASS`. Success message shown with the number of students the assignment was deleted from.
+    1. Test case: `unassignall c/Physics-1800 a/ScienceTopic2`<br>
+       Expected: Assignment **"ScienceTopic3"** is deleted from all students in the list who have class **"Physics-1800"**. Success message shown with the number of students the assignment was deleted from.
 
     1. Test case: `unassignall `<br>
-       Expected: No assignment is deleted. Error details shown in the status message. Status bar remains the same.
+       Expected: No assignment is deleted from any student. Error details shown in the status message. Status bar remains the same.
 
-    1. Other incorrect edit commands to try: `unassignall c/`, `unassignall c/x a/y`, `...` (where all students in class x do not have assignment y)<br>
+    1. Other incorrect unassignall commands to try: `unassignall c/`, `unassignall c/x a/y`, `...` (where all students in class x do not have assignment y)<br>
        Expected: Similar to previous.
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -956,22 +1062,24 @@ Overall, the decision to associate `Assignment` with `ClassGroup` and to add the
 
 Team size: 5
 
-1. **Make accepted phone number formats more flexible and accurate:**
-Currently, we accept phone numbers that contain only numbers
-and are at least 3 digits long.
-We plan to make phone numbers be at least 8 digits long and accept formats with
+1. **Make accepted `PHONE` formats more flexible and accurate:**
+Currently, we accept phone numbers that contain only numbers and are at least 3 digits long.
+We plan to make phone numbers at least 8 digits long and accept formats with
 spaces, dashes, plus signs or brackets (e.g., "9123 4567", "912-34567", "+65 91234567", "(1800)9100-0019").
-2. **Make error messages for assign & unassign more cohesive:**
-Currently, if we try to assign to a student an assignment belonging to a class
-they are not in, we get error message
-`Student does not belong to the class group: {class}` but if we do the same for unassign,
-we get `Cannot delete non-existent assignment(s): [{assignment} ({class})]`.
-We plan to make both error messages follow a similar format, where we check if
-the student at INDEX has that class first and show
-`Student does not belong to the class group: {class}` straightaway if they do not.
-3. **Improve name input validation to detect invalid prefix:**
-Currently, we only throw error when user inputs invalid prefixes behind `n/`
+2. **Improve `NAME` input validation to detect invalid prefix:**
+Currently, we only throw an error message when the user inputs invalid prefixes behind `n/`
 prefix with a space between them, e.g., `add n/John Doe a/hw1`, but allow invalid
 prefixes when there is no space, e.g., `add n/John Doea/hw1`.
-We plan to allow such cases but with an additional warning message to inform
-the user of possible invalid prefix if this was unintentional to avoid confusion.
+We plan to allow such cases, but display an additional warning message to inform the user of a possible invalid prefix, if this was unintentional, to avoid confusion.
+3. **Extend `filter` to support additional fields and substring matching:**
+Currently, the `filter` command only supports filtering by class.
+We plan to extend `filter` so it accepts additional prefixes (`l/LEVEL`, `n/NAME`, `a/ASSIGNMENT`), performed by case-insensitive substring matching (e.g., `filter c/Math-100` matches `Math-1000`).
+4. **Improve `mark` / `unmark` error and partial-failure reporting to list affected students:**
+Currently, `mark` / `unmark` returns a generic error when an assignment is not found for some targets (e.g., `Assignment 'hw1' of specified class not found for specified student(s)`) without displaying which students failed and why.
+We plan to change the success message to list per-student outcomes (success or explicit reason for skip/failure) in a format consistent with existing success messages.
+5. **Account for whitespace for duplicate checking of `Name`, `Assignment`, `ClassGroup`**:
+Currently, users can input similar names that include whitespaces (e.g., `addclass 1 c/Math2000` and `addclass 1 c/Math 2000`) for these fields.
+We plan to account for whitespace by still allowing these inputs, but giving a warning message:  `"Warning: A similar class c/Math 2000 already exists."`
+6. **Allow edits of `ClassGroup` and `Assignment` in `edit` command**:
+Currently, editing a student’s `ClassGroup`s or `Assignment`s requires per-student `deleteclass` / `addclass`, or `unassign` / `assign` commands, respectively.
+We plan to enhance the existing `edit` command to allow renaming of `ClassGroup` or an `Assignment` (within a specific `ClassGroup`) across all students who have that class or assignment.
