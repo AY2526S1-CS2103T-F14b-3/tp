@@ -1203,10 +1203,10 @@ prefix with a space between them, e.g., `add n/John Doe a/hw1`, but allow invali
 prefixes when there is no space, e.g., `add n/John Doea/hw1`.
 We plan to allow such cases, but display an additional warning message to inform the user of a possible invalid prefix, if this was unintentional, to avoid confusion.
 3. **Extend `filter` to support additional fields:**
-Currently, the `filter` command only supports filtering by class.
+Currently, the `filter` command only supports filtering by class groups.
 We plan to extend `filter` so it accepts additional prefixes (`l/LEVEL`, `n/NAME`, `a/ASSIGNMENT`), which replaces the need for `find` command that we plan to remove.
-4. **Extend `filter` to support substring matching for classes:**
-Currently, the `filter` command only supports filtering by class via exact string matching.
+4. **Extend `filter` to support substring matching for class groups:**
+Currently, the `filter` command only supports filtering by class groups via exact string matching.
 We plan to extend `filter` so it filters class groups via by case-insensitive substring matching (e.g., `filter c/Math-100` matches `Math-1000`).
 5. **Account for whitespace for duplicate checking of `Name`, `Assignment`, `ClassGroup`**:
 Currently, users can input similar names that include whitespaces (e.g., `addclass 1 c/Math2000` and `addclass 1 c/Math 2000`) for these fields.
