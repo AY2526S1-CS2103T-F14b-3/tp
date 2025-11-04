@@ -172,7 +172,7 @@ How the parsing works:
 The `Model` component,
 
 * stores the current `AddressBook` data, i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores a `CommandHistory` object that records executed commands for command review functionality.
+* stores a `CommandHistory` object that records input commands for command review functionality.
 * stores an `AddressBookVersionManager` object that manages snapshots of past `AddressBook` states.
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be observed; for example, the UI can be bound to this list so that it automatically updates when the data in the list changes.
 
@@ -185,7 +185,7 @@ The `Model` component,
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
 * saves command history data (up to 50 commands) in text format, and can be used to initialise a CommandHistory Object in Model
-* inherits from both `AddressBookStorage` `CommandHistoryStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* inherits from `AddressBookStorage` `CommandHistoryStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -480,7 +480,7 @@ Use case ends.
 
 * 4b. Duplicate phone only (same phone, different name)
   * 4b1. System shows a warning that a student with the same phone already exists. \
-  Use case ends. 
+  Use case ends.
 </div>
 
 <br></br>
@@ -511,7 +511,7 @@ Use case ends.
 
 **Extensions**
 
-* 1a. Missing or invalid index 
+* 1a. Missing or invalid index
     * 1a1. System shows a validation error and aborts.
     * 1a2. Tutor corrects input. \
       Use case resumes at step 1.
@@ -980,13 +980,13 @@ testers are expected to do more *exploratory* testing.
 1. Finding students while all students are being shown
 
    1. Prerequisites: List all students using the list command. Multiple students in the list with varied names.
-   
+
    1. Test case: `find John` <br>
    Expected: Displays all students whose names contain John (case-insensitive), seperated by whitespace. Status message shows the number of students listed.
-   
+
    2. Test case: `find` <br>
    Expected: Error shown indicating invalid command format. No changes to model. Status bar remains the same.
-   
+
 
 ### Adding a class
 
@@ -1021,14 +1021,14 @@ testers are expected to do more *exploratory* testing.
 ### Filtering by class group
 
 1. Filtering students while all students are being shown
-   1. Prerequisites: List all students using the `list` command. Multiple students in the list with varied class groups, including **"Math-1000"**. 
-   
+   1. Prerequisites: List all students using the `list` command. Multiple students in the list with varied class groups, including **"Math-1000"**.
+
    2. Test case: `filter c/Math-1000` <br>
    Expected: Displays all students enrolled in "**Math-1000**" (case-insensitive). Status message shows the number of students listed.
-   
+
    3. Test case: `filter Math-1000` <br>
    Expected: No class is deleted due to missing `c/` preamble. Error details shown in the status message. Status bar remains the same.
-   
+
    4. Other incorrect filter commands to try: `filter `, `filter c/x` (where x is a class that no students are enrolled in)<br>
    Expected: Similar to previous.
 
@@ -1130,7 +1130,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: `undo` <br>
    Expected: The most recent change is reverted. UI list and storage reflect the previous state. Status message shows success.
-   
+
    2. Test case: Run `undo` repeatedly until there are no commits left, then run `undo` once more <br>
    Expected: Each undo reverts the next-previous change. When no previous commit exists, undo fails with an error in status message. No state change.
 
@@ -1202,15 +1202,18 @@ Currently, we only throw an error message when the user inputs invalid prefixes 
 prefix with a space between them, e.g., `add n/John Doe a/hw1`, but allow invalid
 prefixes when there is no space, e.g., `add n/John Doea/hw1`.
 We plan to allow such cases, but display an additional warning message to inform the user of a possible invalid prefix, if this was unintentional, to avoid confusion.
-3. **Extend `filter` to support additional fields and substring matching:**
-Currently, the `filter` command only supports filtering by class.
-We plan to extend `filter` so it accepts additional prefixes (`l/LEVEL`, `n/NAME`, `a/ASSIGNMENT`), performed by case-insensitive substring matching (e.g., `filter c/Math-100` matches `Math-1000`).
-4. **Improve `mark` / `unmark` error and partial-failure reporting to list affected students:**
-Currently, `mark` / `unmark` returns a generic error when an assignment is not found for some targets (e.g., `Assignment 'hw1' of specified class not found for specified student(s)`) without displaying which students failed and why.
-We plan to change the success message to list per-student outcomes (success or explicit reason for skip/failure) in a format consistent with existing success messages.
+3. **Extend `filter` to support additional fields:**
+Currently, the `filter` command only supports filtering by class groups.
+We plan to extend `filter` so it accepts additional prefixes (`l/LEVEL`, `n/NAME`, `a/ASSIGNMENT`), which replaces the need for `find` command that we plan to remove.
+4. **Extend `filter` to support substring matching for class groups:**
+Currently, the `filter` command only supports filtering by class groups via exact string matching.
+We plan to extend `filter` so it filters class groups via by case-insensitive substring matching (e.g., `filter c/Math-100` matches `Math-1000`).
 5. **Account for whitespace for duplicate checking of `Name`, `Assignment`, `ClassGroup`**:
 Currently, users can input similar names that include whitespaces (e.g., `addclass 1 c/Math2000` and `addclass 1 c/Math 2000`) for these fields.
 We plan to account for whitespace by still allowing these inputs, but giving a warning message:  `"Warning: A similar class c/Math 2000 already exists."`
 6. **Allow edits of `ClassGroup` and `Assignment` in `edit` command**:
 Currently, editing a student’s `ClassGroup`s or `Assignment`s requires per-student `deleteclass` / `addclass`, or `unassign` / `assign` commands, respectively.
 We plan to enhance the existing `edit` command to allow renaming of `ClassGroup` or an `Assignment` (within a specific `ClassGroup`) across all students who have that class or assignment.
+7. **Wrap unusually long text instead of truncation**:
+Currently, long values (e.g., `NAME`, `Assignment`, `ClassGroup`) are truncated in list and detail views which can hide important information.
+We plan to update the UI so text is wrapped where appropriate instead of being truncated.
