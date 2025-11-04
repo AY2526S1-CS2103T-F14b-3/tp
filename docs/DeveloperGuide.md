@@ -1205,7 +1205,7 @@ We plan to allow such cases, but display an additional warning message to inform
 3. **Extend `filter` to support additional fields:**
 Currently, the `filter` command only supports filtering by class.
 We plan to extend `filter` so it accepts additional prefixes (`l/LEVEL`, `n/NAME`, `a/ASSIGNMENT`), which replaces the need for `find` command that we plan to remove.
-4. **Extend `filter` to support additional fields:**
+4. **Extend `filter` to support substring matching for classes:**
 Currently, the `filter` command only supports filtering by class via exact string matching.
 We plan to extend `filter` so it filters class groups via by case-insensitive substring matching (e.g., `filter c/Math-100` matches `Math-1000`).
 5. **Account for whitespace for duplicate checking of `Name`, `Assignment`, `ClassGroup`**:
