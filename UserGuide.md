@@ -48,18 +48,23 @@ This user guide is intended for **Secondary School tutors** who wish to efficien
 ## Quick start
 
 1. Ensure you have Java `17` or above installed in your Computer.<br>
-   - To verify your Java version, open a terminal and execute the command `java -version`. If Java is not installed or the version is below 17, please download and install the latest JDK from [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) or use a package manager like Homebrew.
+   - Open a terminal and execute the command `java -version`.
 
-    <div markdown="block" class="alert alert-warning">
+    <div markdown="span" class="alert alert-primary"><span class="fas fa-lightbulb" aria-hidden="true"></span>
 
-   **For Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+    **What is a terminal?** <br>
+    It is a text-based user interface for interacting with computers. In Windows, you can press **Windows** + **R**, then type `cmd`, and press **Enter** to open a terminal. In Mac/Linux, you can search for "Terminal" in your applications menu (or press **Command** + **Space** and search `Terminal` on Mac, or **Ctrl** + **Alt** + **T** on Linux).
     </div>
+
+      - **Windows**: If Java is not installed or the version is below 17, please download and install the latest JDK from [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) or use a package manager like Homebrew.      - **Mac**: Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+
+      - **Linux**: If Java is not installed or the version is below 17, you can install it using your distribution's package manager (e.g., `sudo apt install openjdk-17-jdk` for Ubuntu/Debian, or `sudo dnf install java-17-openjdk` for Fedora).
 
 2. Download the latest `.jar` file from [here](https://github.com/AY2526S1-CS2103T-F14b-3/tp/releases). Find it by scrolling down to the **Assets** section of the latest release.<br>
 ![Where to download](images/quickStartJarFile.png)
 
 3. Copy the file to the folder you want to use as the _home folder_ for TutorTrack.
-
+    - The _home folder_ is where TutorTrack will store its data, configuration files and itself.
 4. Run the application by following these steps:<br>
    1. Open a command window:
       - **Windows**: Press **Windows** + **R**, type `cmd`, and press **Enter**.
