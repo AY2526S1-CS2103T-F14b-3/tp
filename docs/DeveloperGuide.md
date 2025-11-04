@@ -172,7 +172,7 @@ How the parsing works:
 The `Model` component,
 
 * stores the current `AddressBook` data, i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores a `CommandHistory` object that records executed commands for command review functionality.
+* stores a `CommandHistory` object that records input commands for command review functionality.
 * stores an `AddressBookVersionManager` object that manages snapshots of past `AddressBook` states.
 * stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be observed; for example, the UI can be bound to this list so that it automatically updates when the data in the list changes.
 
@@ -185,7 +185,7 @@ The `Model` component,
 The `Storage` component,
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
 * saves command history data (up to 50 commands) in text format, and can be used to initialise a CommandHistory Object in Model
-* inherits from both `AddressBookStorage` `CommandHistoryStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
+* inherits from `AddressBookStorage` `CommandHistoryStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
 
 ### Common classes
@@ -1202,12 +1202,18 @@ Currently, we only throw an error message when the user inputs invalid prefixes 
 prefix with a space between them, e.g., `add n/John Doe a/hw1`, but allow invalid
 prefixes when there is no space, e.g., `add n/John Doea/hw1`.
 We plan to allow such cases, but display an additional warning message to inform the user of a possible invalid prefix, if this was unintentional, to avoid confusion.
-3. **Extend `filter` to support additional fields and substring matching:**
+3. **Extend `filter` to support additional fields:**
 Currently, the `filter` command only supports filtering by class.
-We plan to extend `filter` so it accepts additional prefixes (`l/LEVEL`, `n/NAME`, `a/ASSIGNMENT`), performed by case-insensitive substring matching (e.g., `filter c/Math-100` matches `Math-1000`).
-4. **Account for whitespace for duplicate checking of `Name`, `Assignment`, `ClassGroup`**:
+We plan to extend `filter` so it accepts additional prefixes (`l/LEVEL`, `n/NAME`, `a/ASSIGNMENT`), which replaces the need for `find` command that we plan to remove.
+4. **Extend `filter` to support additional fields:**
+Currently, the `filter` command only supports filtering by class via exact string matching.
+We plan to extend `filter` so it filters class groups via by case-insensitive substring matching (e.g., `filter c/Math-100` matches `Math-1000`).
+5. **Account for whitespace for duplicate checking of `Name`, `Assignment`, `ClassGroup`**:
 Currently, users can input similar names that include whitespaces (e.g., `addclass 1 c/Math2000` and `addclass 1 c/Math 2000`) for these fields.
 We plan to account for whitespace by still allowing these inputs, but giving a warning message:  `"Warning: A similar class c/Math 2000 already exists."`
-5. **Allow edits of `ClassGroup` and `Assignment` in `edit` command**:
+6. **Allow edits of `ClassGroup` and `Assignment` in `edit` command**:
 Currently, editing a student’s `ClassGroup`s or `Assignment`s requires per-student `deleteclass` / `addclass`, or `unassign` / `assign` commands, respectively.
 We plan to enhance the existing `edit` command to allow renaming of `ClassGroup` or an `Assignment` (within a specific `ClassGroup`) across all students who have that class or assignment.
+7. **Wrap unusually long text instead of truncation**:
+Currently, long values (e.g., `NAME`, `Assignment`, `ClassGroup`) are truncated in list and detail views which can hide important information. 
+We plan to update the UI so text is wrapped where appropriate instead of being truncated.
