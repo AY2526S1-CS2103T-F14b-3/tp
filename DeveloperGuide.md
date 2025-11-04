@@ -683,7 +683,7 @@ Use case ends.
 **Extensions**
 * 1a. Missing/invalid assignment details
   * 1a1. System shows specific validation errors and requests corrections.
-  * 1a2. Tutor corrects input.
+  * 1a2. Tutor corrects input.\
     Use case resumes at step 2.
 
 * 2a. Duplicate assignment (same assignment belonging to same class)
@@ -724,7 +724,7 @@ Use case ends.
 **Extensions**
 * 1a. Missing/invalid assignment details
   * 1a1. System shows specific validation errors and requests corrections.
-  * 1a2. Tutor corrects input.
+  * 1a2. Tutor corrects input. \
     Use case resumes at step 2.
 
 * 2a. Student does not have the specified assignment
@@ -853,7 +853,7 @@ Use case ends.
 
 **Extensions**
 * 2a. No students exist
-  * 2a1. System shows “Listed all students” message.
+  * 2a1. System shows “Listed all students” message. \
   Use case ends.
 </div>
 
@@ -922,6 +922,15 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
      Expected: The most recent window size and location is retained.
 
+### List all students
+
+1. Listing all students in TutorTrack
+
+    1. Test case: `list`<br>
+       Expected: All student displays. Status message shows "**Listed all students**".
+
+    1. Test case: `list` while a filtered list is shown (after `find` or `filter`)
+       Expected: Filter is cleared, full student list is shown. Status message shows "**Listed all students**".
 
 ### Adding a student
 
@@ -966,6 +975,19 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect edit commands to try: `edit`, `edit x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
 
+### Finding a student
+
+1. Finding students while all students are being shown
+
+   1. Prerequisites: List all students using the list command. Multiple students in the list with varied names.
+   
+   1. Test case: `find John` <br>
+   Expected: Displays all students whose names contain John (case-insensitive), seperated by whitespace. Status message shows the number of students listed.
+   
+   2. Test case: `find` <br>
+   Expected: Error shown indicating invalid command format. No changes to model. Status bar remains the same.
+   
+
 ### Adding a class
 
 1. Adding a class to a student
@@ -995,6 +1017,20 @@ testers are expected to do more *exploratory* testing.
 
     1. Other incorrect deleteclass commands to try: `deleteclass`, `deleteclass x`, `...` (where x is larger than the list size)<br>
        Expected: Similar to previous.
+
+### Filtering by class group
+
+1. Filtering students while all students are being shown
+   1. Prerequisites: List all students using the `list` command. Multiple students in the list with varied class groups, including **"Math-1000"**. 
+   
+   2. Test case: `filter c/Math-1000` <br>
+   Expected: Displays all students enrolled in "**Math-1000**" (case-insensitive). Status message shows the number of students listed.
+   
+   3. Test case: `filter Math-1000` <br>
+   Expected: No class is deleted due to missing `c/` preamble. Error details shown in the status message. Status bar remains the same.
+   
+   4. Other incorrect filter commands to try: `filter `, `filter c/x` (where x is a class that no students are enrolled in)<br>
+   Expected: Similar to previous.
 
 ### Adding an assignment from a student
 
@@ -1026,6 +1062,36 @@ testers are expected to do more *exploratory* testing.
     1. Other incorrect unassign commands to try: `unassign`, `unassign 1 c/x a/y`, `...` (where x is a class that the first student does not have)<br>
        Expected: Similar to previous.
 
+## Marking an assignment
+
+1. Marking assignments while all students are being shown
+
+    1. Prerequisites:  List all students using the `list` command. Multiple students in the list; include at least one student enrolled in **"Math-2000"** who has an unmarked **"Homework1"**, at least one student already marked for **"Homework1"**, and at least one student who does not have **"Homework1"**.
+
+    1. Test case: `mark 1 c/Math-2000 a/Homework1`<br>
+       Expected: Student at index 1 has "**Homework1**" marked. Status message shows the names of students marked.
+
+    1. Test case: `mark 1`<br>
+       Expected: No assignment is marked. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect mark commands to try: `mark`, `mark 1 c/x a/y`, `...` (where x is a class that the first student does not have)<br>
+       Expected: Similar to previous.
+
+## Unmarking an assignment
+
+1. Umarking assignments while all students are being shown
+
+    1. Prerequisites:  List all students using the `list` command. Multiple students in the list; include at least one student enrolled in **"Math-2000"** who has a marked **"Homework1"**, at least one student already unmarked for **"Homework1"**, and at least one student who does not have **"Homework1"**.
+
+    1. Test case: `unmark 1 c/Math-2000 a/Homework1`<br>
+       Expected: Student at index 1 has "**Homework1**" unmarked. Status message shows the names of students unmarked.
+
+    1. Test case: `unmark 1`<br>
+       Expected: No assignment is unmarked. Error details shown in the status message. Status bar remains the same.
+
+    1. Other incorrect unmark commands to try: `unmark`, `unmark 1 c/x a/y`, `...` (where x is a class that the first student does not have)<br>
+       Expected: Similar to previous.
+
 ### Adding an assignment to an entire class
 
 1. Adding an assignment to all students in a class
@@ -1055,6 +1121,30 @@ testers are expected to do more *exploratory* testing.
 
     1. Other incorrect unassignall commands to try: `unassignall c/`, `unassignall c/x a/y`, `...` (where all students in class x do not have assignment y)<br>
        Expected: Similar to previous.
+
+### Undoing a change
+
+1. Undoing the last change
+
+   1. Prerequisites: List all students using the `list` command. Make one or more modifying commands (e.g., `add`, `edit`, `delete`, `assign`, `mark`) so that there are commits in the version history.
+
+   1. Test case: `undo` <br>
+   Expected: The most recent change is reverted. UI list and storage reflect the previous state. Status message shows success.
+   
+   2. Test case: Run `undo` repeatedly until there are no commits left, then run `undo` once more <br>
+   Expected: Each undo reverts the next-previous change. When no previous commit exists, undo fails with an error in status message. No state change.
+
+### Redoing a change
+
+1. Redoing the last change undone
+
+    1. Prerequisites: List all students using the `list` command. Make one or more modifying commands (e.g., `add`, `edit`, `delete`, `assign`, `mark`), then run `undo` once.
+
+    1. Test case: `redo` <br>
+       Expected: The most recent `undone` change is reverted. UI list and storage reflect the previous state. Status message shows success.
+
+    2. Test case: Perform `undo`, then execute a new modifying command, then run `redo` <br>
+       Expected:  Redo history was cleared by the new commit, so redo fails with an error in status message. No changes applied.
 
 --------------------------------------------------------------------------------------------------------------------
 
