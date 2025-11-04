@@ -56,7 +56,9 @@ This user guide is intended for **Secondary School tutors** who wish to efficien
     It is a text-based user interface for interacting with computers. In Windows, you can press **Windows** + **R**, then type `cmd`, and press **Enter** to open a terminal. In Mac/Linux, you can search for "Terminal" in your applications menu (or press **Command** + **Space** and search `Terminal` on Mac, or **Ctrl** + **Alt** + **T** on Linux).
     </div>
 
-      - **Windows**: If Java is not installed or the version is below 17, please download and install the latest JDK from [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) or use a package manager like Homebrew.      - **Mac**: Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
+      - **Windows**: If Java is not installed or the version is below 17, please download and install the latest JDK from [here](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) or use a package manager like Homebrew.
+
+      - **Mac**: Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
       - **Linux**: If Java is not installed or the version is below 17, you can install it using your distribution's package manager (e.g., `sudo apt install openjdk-17-jdk` for Ubuntu/Debian, or `sudo dnf install java-17-openjdk` for Fedora).
 
