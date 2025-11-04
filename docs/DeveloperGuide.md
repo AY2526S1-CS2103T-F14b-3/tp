@@ -480,7 +480,7 @@ Use case ends.
 
 * 4b. Duplicate phone only (same phone, different name)
   * 4b1. System shows a warning that a student with the same phone already exists. \
-  Use case ends. 
+  Use case ends.
 </div>
 
 <br></br>
@@ -511,7 +511,7 @@ Use case ends.
 
 **Extensions**
 
-* 1a. Missing or invalid index 
+* 1a. Missing or invalid index
     * 1a1. System shows a validation error and aborts.
     * 1a2. Tutor corrects input. \
       Use case resumes at step 1.
@@ -980,13 +980,13 @@ testers are expected to do more *exploratory* testing.
 1. Finding students while all students are being shown
 
    1. Prerequisites: List all students using the list command. Multiple students in the list with varied names.
-   
+
    1. Test case: `find John` <br>
    Expected: Displays all students whose names contain John (case-insensitive), seperated by whitespace. Status message shows the number of students listed.
-   
+
    2. Test case: `find` <br>
    Expected: Error shown indicating invalid command format. No changes to model. Status bar remains the same.
-   
+
 
 ### Adding a class
 
@@ -1021,14 +1021,14 @@ testers are expected to do more *exploratory* testing.
 ### Filtering by class group
 
 1. Filtering students while all students are being shown
-   1. Prerequisites: List all students using the `list` command. Multiple students in the list with varied class groups, including **"Math-1000"**. 
-   
+   1. Prerequisites: List all students using the `list` command. Multiple students in the list with varied class groups, including **"Math-1000"**.
+
    2. Test case: `filter c/Math-1000` <br>
    Expected: Displays all students enrolled in "**Math-1000**" (case-insensitive). Status message shows the number of students listed.
-   
+
    3. Test case: `filter Math-1000` <br>
    Expected: No class is deleted due to missing `c/` preamble. Error details shown in the status message. Status bar remains the same.
-   
+
    4. Other incorrect filter commands to try: `filter `, `filter c/x` (where x is a class that no students are enrolled in)<br>
    Expected: Similar to previous.
 
@@ -1130,7 +1130,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: `undo` <br>
    Expected: The most recent change is reverted. UI list and storage reflect the previous state. Status message shows success.
-   
+
    2. Test case: Run `undo` repeatedly until there are no commits left, then run `undo` once more <br>
    Expected: Each undo reverts the next-previous change. When no previous commit exists, undo fails with an error in status message. No state change.
 
@@ -1215,5 +1215,5 @@ We plan to account for whitespace by still allowing these inputs, but giving a w
 Currently, editing a student’s `ClassGroup`s or `Assignment`s requires per-student `deleteclass` / `addclass`, or `unassign` / `assign` commands, respectively.
 We plan to enhance the existing `edit` command to allow renaming of `ClassGroup` or an `Assignment` (within a specific `ClassGroup`) across all students who have that class or assignment.
 7. **Wrap unusually long text instead of truncation**:
-Currently, long values (e.g., `NAME`, `Assignment`, `ClassGroup`) are truncated in list and detail views which can hide important information. 
+Currently, long values (e.g., `NAME`, `Assignment`, `ClassGroup`) are truncated in list and detail views which can hide important information.
 We plan to update the UI so text is wrapped where appropriate instead of being truncated.
