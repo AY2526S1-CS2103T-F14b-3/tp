@@ -47,15 +47,15 @@ If you plan to use Intellij IDEA (highly recommended):
    Optionally, you can follow the guide [_[se-edu/guides] Using Checkstyle_](https://se-education.org/guides/tutorials/checkstyle.html) to find how to use the CheckStyle within IDEA e.g., to report problems _as_ you write code.
    </div>
 
-1. **Set up CI**
+2. **Set up CI**
 
    This project comes with a GitHub Actions config files (in `.github/workflows` folder). When GitHub detects those files, it will run the CI for your project automatically at each push to the `master` branch or to any PR. No set up required.
 
-1. **Learn the design**
+3. **Learn the design**
 
    When you are ready to start coding, we recommend that you get some sense of the overall design by reading about [TutorTrack's architecture](DeveloperGuide.md#architecture).
 
-1. **Do the tutorials**
+4. **Do the tutorials**
    These tutorials will help you get acquainted with the codebase.
 
    * [Tracing code](https://se-education.org/guides/tutorials/ab3TracingCode.html)
@@ -408,28 +408,31 @@ Certain properties of the application can be controlled (e.g user preferences fi
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                           | I want to …​                                                | So that I can…​                                                                                   |
-|----------|-----------------------------------|-------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
-| `* * *`  | private tutor                     | add a student to my list                                    | I can keep track of who I am teaching.                                                            |
-| `* * *`  | private tutor                     | delete a student from my current list                       | I don’t have clutter from students I no longer teach.                                             |
-| `* * *`  | private tutor                     | add a class to a student                                    | I can keep track of which class a student belongs to. Class info includes subject and class time. |
-| `* * *`  | private tutor                     | delete a class to a student                                 | I can remove a class from a student if they quit/graduate.                                        |
-| `* * *`  | private tutor                     | see a list of all active students                           | I can review all my students at a glance.                                                         |
-| `* * *`  | private tutor                     | add an assignment to each student in a class                | I can assign each student in a class an assignment                                                |
-| `* * *`  | private tutor                     | delete an assignment from each student in a class           | I can remove the homework or practice tasks a student has completed                               |
-| `* * *`  | private tutor                     | exit the app safely with data saved                         | I can resume work later without losing progress.                                                  |
-| `* * *`  | private tutor                     | find students by name                                       | I can get a student's information easily                                                          |
-| `* * * ` | organised private tutor           | filter students by class                                    | I can check students enrolled in a class                                                          |
-| `* *`    | private tutor                     | record notes for a tutoring session for a particular student | I can review what topics were covered and where the student struggled.                            |
-| `* *`    | private tutor                     | edit a student's name/subject/phone                   | I can edit a mistake I did/update any changes in student information                              |
-| `* *`    | private tutor                     | add a grade to a completed assignment                       | I can track the student’s performance across assignments.                                         |
-| `* *`    | private tutor                     | mark an assignment as completed                             | I can differentiate between pending and finished work.                                            |
-| `* *`    | private tutor                     | undo my last action                                         | I can recover from mistakes quickly                                                               |
+| Priority | As a …​                           | I want to …​                                      | So that I can…​                                                                             |
+|---------|-----------------------------------|---------------------------------------------------|---------------------------------------------------------------------------------------------|
+| `* * *` | private tutor                     | add a student to my list                          | I can keep track of who I am teaching.                                                      |
+| `* * *` | private tutor                     | delete a student from my current list             | I don’t have clutter from students I no longer teach.                                       |
+| `* * *` | private tutor                     | add a class to a student                          | I can keep track of which class a student belongs to.                                       |
+| `* * *` | private tutor                     | delete a class to a student                       | I can remove a class from a student if they quit/graduate.                                  |
+| `* * *` | private tutor                     | see a list of all active students                 | I can review all my students at a glance.                                                   |
+| `* * *` | private tutor                     | add an assignment to each student in a class      | I can assign each student in a class an assignment.                                         |
+| `* * *` | private tutor                     | delete an assignment from each student in a class | I can remove the homework or practice tasks a student has completed.                        |
+| `* * *` | private tutor                     | exit the app safely with data saved               | I can resume work later without losing progress.                                            |
+| `* * *` | private tutor                     | find students by name                             | I can get a student's information easily.                                                   |
+| `* * * ` | organised private tutor           | filter students by class                          | I can check students enrolled in a class.                                                   |
+| `* * `  | private tutor                     | add an assignment to all students in a class      | I can quickly assign assignments to every student in a class with minimal actions required. |
+| `* * `  | private tutor                     | delete an assignment to all students in a class   | I can quickly delete assignments to every student in a class with minimal actions required. |
+| `* *`   | private tutor                     | edit a student's name/subject/phone               | I can update any changes in student information.                                            |
+| `* *`   | private tutor                     | mark/unmark an assignment as completed            | I can differentiate between pending and finished work.                                      |
+| `* *`   | private tutor                     | undo/redo my last action                          | I can recover from mistakes quickly.                                                        |
+| `* `    | private tutor                     | increase the level for all students in a class    | I promote all students in the same class quickly for the next academic year.                |
 
 
 ### Use cases
 
-**Use case: Add a student**
+<div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-top: 4px solid #D8B4FF; margin: 10px 0;">
+
+**Use case: UC01 - Add a student**
 
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Add a new student to track classes and assignments.
@@ -458,10 +461,10 @@ Use case ends.
 
 **Extensions**
 
-* 1a. Malformed or incomplete input (missing required prefixes, non-empty preamble, duplicate prefixes, or invalid prefixes)
-  * 1a1. Tutor provides input that does not match the `add` format.
-  * 1a2. System rejects the input and shows an error message. \
-  Use case ends.
+* 1a. Missing or invalid index / no editable fields provided
+    * 1a1. System shows a validation error (invalid index / nothing to edit) and aborts.
+    * 1a2. Tutor corrects input. \
+      Use case resumes at step 1.
 
 * 2a. Duplicate student (same name and phone as an existing student)
   * 2a1. System shows an error message indicating that a duplicate student already exists.\
@@ -477,9 +480,13 @@ Use case ends.
 
 * 4b. Duplicate phone only (same phone, different name)
   * 4b1. System shows a warning that a student with the same phone already exists. \
-  Use case ends.
+  Use case ends. 
+</div>
 
-**Use case: Delete a student**
+<br></br>
+<div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-top: 4px solid #D8B4FF; margin: 10px 0;">
+
+**Use case: UC02 -Delete a student**
 
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Remove a student who is no longer being taught.
@@ -504,10 +511,10 @@ Use case ends.
 
 **Extensions**
 
-* 1a. Malformed index (missing, non-integer, or wrong format)
-    * 1a1. Tutor provides a malformed or missing index.
-    * 1a2. System rejects the input and shows an error message.
-      Use case ends.
+* 1a. Missing or invalid index 
+    * 1a1. System shows a validation error and aborts.
+    * 1a2. Tutor corrects input. \
+      Use case resumes at step 1.
 
 * 1b. No students displayed (empty filtered list)
     * 1b1. Tutor issues deletes a student while the filtered list is empty.
@@ -522,10 +529,13 @@ Use case ends.
 * 3a. Storage write fails
   * 3a1. System restores prior consistent state and shows a storage failure message. \
     Use case ends.
+</div>
 
+<br></br>
 
+<div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-top: 4px solid #D8B4FF; margin: 10px 0;">
 
-**Use Case: Edit Student**
+**Use Case: UC03 -Edit Student**
 
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Edit an existing student's details (name, phone, level).
@@ -552,21 +562,26 @@ Use case ends.
 * 1a. Missing or invalid index / no editable fields provided
     * 1a1. System shows a validation error (invalid index / nothing to edit) and aborts.
     * 1a2. Tutor corrects input. \
-      Use case resumes at step 1.
+    Use case resumes at step 1.
 
 * 3a. Edited student would duplicate an existing student (same name and phone)
     * 3a1. System shows a duplicate student error and aborts. \
-      Use case ends.
+    Use case ends.
 
 * 4a. Edited name or phone collides with existing students (name-only or phone-only)
-    * 4a1. System performs the edit, persists it, and shows a success message that includes a warning that a student with name/phone already exists.
+    * 4a1. System performs the edit, persists it, and shows a success message that includes a warning that a student with name/phone already exists. \
+    Use case ends.
 
 * 5a. Storage write fails after updating model
     * 5a1. System rolls back changes where possible, shows a failure message and aborts. \
       Use case ends.
+</div>
 
+<br></br>
 
-**Use case: Add Class to Student**
+<div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-top: 4px solid #D8B4FF; margin: 10px 0;">
+
+**Use case: UC04 -Add Class to Student**
 
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Add a class for a specific student.
@@ -596,8 +611,13 @@ Use case ends.
 * 3a. Storage write fails:
   * 3a1. System removes class from the student and shows a failure message. \
     Use case ends.
+</div>
 
-**Use Case: Delete Class from Student**
+<br></br>
+
+<div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-top: 4px solid #D8B4FF; margin: 10px 0;">
+
+**Use Case: UC05 -Delete Class from Student**
 
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Remove a class from a student.
@@ -623,7 +643,6 @@ Use case ends.
 * 1a. Missing/invalid class details
     * 1a1. System shows specific validation errors and requests corrections.
     * 1a2. Tutor corrects input.
-
       Use case resumes at step 2.
 
 * 2a. Student not enrolled in the specified class
@@ -633,8 +652,13 @@ Use case ends.
 * 3a. Storage write fails
   * 3a1. System adds back class from the student and shows a failure message. \
     Use case ends.
+</div>
 
-**Use Case: Assign Assignment to Student**
+<br></br>
+
+<div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-top: 4px solid #D8B4FF; margin: 10px 0;">
+
+**Use Case: UC06 - Add Assignment to Student**
 
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Assign an assignment to a student in a class.
@@ -660,7 +684,6 @@ Use case ends.
 * 1a. Missing/invalid assignment details
   * 1a1. System shows specific validation errors and requests corrections.
   * 1a2. Tutor corrects input.
-
     Use case resumes at step 2.
 
 * 2a. Duplicate assignment (same assignment belonging to same class)
@@ -670,8 +693,13 @@ Use case ends.
 * 3a. Storage write fails
   * 3a1. System removes assignment from the student and shows a failure message. \
     Use case ends.
+</div>
 
-**Use Case: Delete Assignment from Student**
+<br></br>
+
+<div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-top: 4px solid #D8B4FF; margin: 10px 0;">
+
+**Use Case: UC07 - Delete Assignment from Student**
 
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Remove an assignment from a student.
@@ -697,7 +725,6 @@ Use case ends.
 * 1a. Missing/invalid assignment details
   * 1a1. System shows specific validation errors and requests corrections.
   * 1a2. Tutor corrects input.
-
     Use case resumes at step 2.
 
 * 2a. Student does not have the specified assignment
@@ -707,9 +734,13 @@ Use case ends.
 * 3a. Storage write fails
   * 3a1. System rolls back changes where possible and shows a failure message. \
     Use case ends.
+</div>
 
+<br></br>
 
-**Use Case: Assign Assignment to All Students in Class**
+<div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-top: 4px solid #D8B4FF; margin: 10px 0;">
+
+**Use Case: UC08 - Add Assignment to All Students in Class**
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Assign an assignment to every student in a specified class group.
 
@@ -748,8 +779,13 @@ Use case ends.
 * 4a. Storage write fails during updates
     * 4a1. System rolls back changes where possible, shows a failure message and aborts. \
       Use case ends.
+</div>
 
-**Use Case: Mark Assignment for Student(s)**
+<br></br>
+
+<div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-top: 4px solid #D8B4FF; margin: 10px 0;">
+
+**Use Case: UC09 - Mark Assignment for Student(s)**
 **Primary Actor:** Secondary School Tutor \
 **Goal:** Mark an assignment as completed for one or more students.
 
@@ -789,8 +825,13 @@ Use case ends.
 * 4a. Storage write fails while persisting changes
     * 4a1. System rolls back changes where possible, shows a failure message and aborts. \
       Use case ends.
+</div>
 
-**Use Case: View All Active Students**
+<br></br>
+
+<div style="background: #f5f5f5; padding: 15px; border-radius: 5px; border-top: 4px solid #D8B4FF; margin: 10px 0;">
+
+**Use Case: UC10 - View All Active Students**
 
 **Primary Actor:** Secondary School Tutor \
 **Goal:** See the complete list of currently stored students.
@@ -814,7 +855,7 @@ Use case ends.
 * 2a. No students exist
   * 2a1. System shows “Listed all students” message.
   Use case ends.
-
+</div>
 
 ### Non-Functional Requirements
 
