@@ -1205,12 +1205,9 @@ We plan to allow such cases, but display an additional warning message to inform
 3. **Extend `filter` to support additional fields and substring matching:**
 Currently, the `filter` command only supports filtering by class.
 We plan to extend `filter` so it accepts additional prefixes (`l/LEVEL`, `n/NAME`, `a/ASSIGNMENT`), performed by case-insensitive substring matching (e.g., `filter c/Math-100` matches `Math-1000`).
-4. **Improve `mark` / `unmark` error and partial-failure reporting to list affected students:**
-Currently, `mark` / `unmark` returns a generic error when an assignment is not found for some targets (e.g., `Assignment 'hw1' of specified class not found for specified student(s)`) without displaying which students failed and why.
-We plan to change the success message to list per-student outcomes (success or explicit reason for skip/failure) in a format consistent with existing success messages.
-5. **Account for whitespace for duplicate checking of `Name`, `Assignment`, `ClassGroup`**:
+4. **Account for whitespace for duplicate checking of `Name`, `Assignment`, `ClassGroup`**:
 Currently, users can input similar names that include whitespaces (e.g., `addclass 1 c/Math2000` and `addclass 1 c/Math 2000`) for these fields.
 We plan to account for whitespace by still allowing these inputs, but giving a warning message:  `"Warning: A similar class c/Math 2000 already exists."`
-6. **Allow edits of `ClassGroup` and `Assignment` in `edit` command**:
+5. **Allow edits of `ClassGroup` and `Assignment` in `edit` command**:
 Currently, editing a student’s `ClassGroup`s or `Assignment`s requires per-student `deleteclass` / `addclass`, or `unassign` / `assign` commands, respectively.
 We plan to enhance the existing `edit` command to allow renaming of `ClassGroup` or an `Assignment` (within a specific `ClassGroup`) across all students who have that class or assignment.
