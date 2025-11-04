@@ -2,7 +2,7 @@
 
 =======
 # TutorTrack
-![Ui](docs/images/UiUpdated.png)
+![Ui](docs/images/Ui.png)
 
 **TutorTrack** is a desktop application designed to help secondary school tutors
 manage and track their students, classes, and assignments efficiently.
